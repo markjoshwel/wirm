@@ -1,6 +1,8 @@
 name: "sync from forge.joshwel.co"
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"  # every hour
 permissions:
   contents: write
 
