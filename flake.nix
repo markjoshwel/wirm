@@ -19,7 +19,6 @@
             git-filter-repo
             (python312.withPackages (python-pkgs: [
               python-pkgs.tqdm
-              python-pkgs.gitignore-parser
             ]))
           ];
         };
