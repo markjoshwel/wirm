@@ -57,8 +57,8 @@ Material:
     - _Normal_Strength: 0.606
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Smoothness: 0.628
-    - _Strength: 0.543
+    - _Smoothness: 0.79
+    - _Strength: 0.36
     m_Colors:
     - _Deep_Colour: {r: 0.20392153, g: 0.5882353, b: 0.7294118, a: 1}
     - _Shallow_Colour: {r: 0.60784316, g: 0.8352941, b: 0.91764706, a: 1}
