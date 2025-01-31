@@ -1,9 +1,9 @@
-/* 
+/*
  * modified from the typscript QR Code generator input demo
- * 
+ *
  * Copyright (c) Project Nayuki. (MIT License)
  * https://www.nayuki.io/page/qr-code-generator-library
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
@@ -30,17 +30,21 @@ function toSvgString(qr, border, lightColor, darkColor) {
         parts.push(`M${x + border},${y + border}h1v1h-1z`);
     }
   }
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 ${
+  return `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 ${
     qr.size + border * 2
-  } ${qr.size + border * 2}" stroke="none">
-	<rect width="100%" height="100%" fill="${lightColor}"/>
-	<path d="${parts.join(" ")}" fill="${darkColor}"/>
-</svg>
+  } ${
+    qr.size + border * 2
+  }" stroke="none" style="width: 100%;" class="object-fit"><rect width="100%" height="100%" fill="${lightColor}"/><path d="${parts.join(
+    " "
+  )}" fill="${darkColor}"/></svg>
 `;
 }
 
 function generateQrCode(text) {
-    return toSvgString(qrcodegen.QrCode.encodeText(text, qrcodegen.QrCode.Ecc.MEDIUM), 4);
+  return toSvgString(
+    qrcodegen.QrCode.encodeText(text, qrcodegen.QrCode.Ecc.MEDIUM),
+    3,
+    "#ffffff", // light
+    "#000000" // dark
+  );
 }

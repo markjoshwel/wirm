@@ -37,7 +37,7 @@
     <!-- https://unpkg.com/franken-ui@internal/dist/css/utilities.min.css -->
     <link rel="stylesheet" href="/css/franken-core.css" />
     <link rel="stylesheet" href="/css/franken-utilities.css" />
-    <link rel="stylesheet" href="/css/styles.css"/>
+    <link rel="stylesheet" href="/css/styles.css" />
 
     <script>
       const htmlElement = document.documentElement;
@@ -72,167 +72,199 @@
     ></script>
   </head>
   <body class="bg-background text-foreground">
-    <!-- navbar -->
-    <header
-      class="uk-position-z-index p-4 flex justify-between !bg-[hsl(var(--muted))]/75 !backdrop-blur-md text-muted-foreground"
-      data-uk-sticky
-    >
-      <div class="flex flex-row gap-2">
-        <img src="/png/logo-icon.png" alt="wirm logo" class="!h-[2.5rem]" />
-        <img
-          src="/png/logo-wordmark-blue.png"
-          alt="wirm wordmark"
-          class="!h-[2.5rem]"
-        />
-      </div>
-
-      <nav class="flex">
-        <ul class="uk-subnav uk-subnav-primary">
-          <li class="uk-active"><a href="/">About</a></li>
-          <li>
-            <a href>
-              <span class="mr-2">Account</span>
-              <uk-icon icon="chevron-down"></uk-icon>
-            </a>
-            <div data-uk-dropdown="mode: click">
-              <ul class="uk-dropdown-nav uk-nav">
-                <li id="button-auth-logIn"><a href="/login">Log In</a></li>
-                <li id="button-auth-signUp"><a href="/signup">Sign Up</a></li>
-                <li id="button-auth-logOut">
-                  <a href="/profile?logOut=true">Log Out</a>
-                </li>
-                <li id="button-auth-profile">
-                  <a href="/profile">Profile</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li><a href="/booth">Booth Management</a></li>
-        </ul>
-      </nav>
-    </header>
-
-    <!-- content -->
     <main>
-      <section id="landing-hero">
-        <div class="uk-cover-container h-[80vh] h-[80svh]">
-          <img src="https://files.catbox.moe/o25s1k.JPG" alt="" data-uk-cover />
-          <video
-            src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-            loop
-            muted
-            playsinline
-            data-uk-cover
-          ></video>
-        </div>
-        <div class="uk-inline">
-          <div class="uk-position-bottom-left uk-position-md">
-            <h1 class="uk-h1 !text-6xl text-background">Echoes Behind Closed Doors</h1>
+      <section
+        id="landing-hero"
+        class="uk-inline h-[90vh] h-[90svh] overflow-hidden"
+      >
+        <!-- hero image -->
+        <img
+          class="!h-[90vh] !h-[90svh] w-screen object-cover"
+          src="https://files.catbox.moe/o25s1k.JPG"
+          alt=""
+        />
+        <!-- <video
+          class="!h-[90vh] !h-[90svh] w-screen object-cover"
+          src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+          loop
+          muted
+          playsinline
+        ></video> -->
+
+        <!-- navbar -->
+        <header
+          class="uk-position-top !uk-position-z-index p-4 flex justify-between !bg-[hsl(var(--muted))]/75 !backdrop-blur-md text-muted-foreground"
+          data-uk-sticky="position:top"
+        >
+          <div class="flex flex-row gap-2">
+            <img src="/png/logo-icon.png" alt="wirm logo" class="!h-[2.5rem]" />
+            <img
+              src="/png/logo-wordmark-blue.png"
+              alt="wirm wordmark"
+              class="!h-[2.5rem]"
+            />
           </div>
+
+          <nav class="flex">
+            <ul class="uk-subnav uk-subnav-primary">
+              <li class="uk-active"><a href="/">About</a></li>
+              <li>
+                <a href>
+                  <span class="mr-2">Account</span>
+                  <uk-icon icon="chevron-down"></uk-icon>
+                </a>
+                <div data-uk-dropdown="mode: click">
+                  <ul class="uk-dropdown-nav uk-nav">
+                    <li id="nav-auth-logIn">
+                      <a href="/login">Log In</a>
+                    </li>
+                    <li id="nav-auth-signUp">
+                      <a href="/signup">Sign Up</a>
+                    </li>
+                    <li id="nav-auth-logOut">
+                      <a href="/profile?logOut=true">Log Out</a>
+                    </li>
+                    <li id="nav-auth-profile">
+                      <a href="/profile">Profile</a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li><a href="/booth">Manage Booth</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <!-- hero left text: game name -->
+        <div
+          class="uk-position-bottom-left uk-position-md md:uk-position-lg md:w-[30vw] text-[hsl(var(--background))] dark:text-[hsl(var(--foreground))]"
+        >
+          <h1 class="uk-h1 !text-6xl">Echoes Behind Closed Doors</h1>
+          <p class="uk-text-lead mt-4">Potential Subtitle (TODO)</p>
         </div>
+
+        <!-- hero right text: registration qr code -->
+        <figure
+          class="uk-position-bottom-right uk-position-md md:uk-position-lg max-md:hidden w-[25vw] w-[25svw] h-[31vw] h-[31svw] rounded-2xl bg-[hsl(var(--foreground))]/70 text-[hsl(var(--background))] dark:bg-[hsl(var(--background))]/60 dark:text-[hsl(var(--foreground))] !backdrop-blur-lg flex flex-col justify-center items-center text-center p-4"
+        >
+          <div
+            id="hero-svg"
+            class="uk-placeholder min-w-fit h-auto aspect-square !rounded-md overflow-hidden"
+          >
+            <div class="uk-position-center" data-uk-spinner></div>
+          </div>
+
+          <figcaption class="uk-paragraph fit-content">
+            <span class="font-bold text-xl">Scan to Register</span>
+            <br />
+            or, scroll down for more info
+          </figcaption>
+        </figure>
       </section>
 
-      <section class="uk-container">
-        <h1 class="uk-h1">The Joke Tax Chronicles</h1>
+      <section class="uk-container my-20">
+        <h2 class="uk-h2">Title</h2>
 
-        <p class="uk-text-lead mt-4">
-          Once upon a time, in a far-off land, there was a very lazy king who
-          spent all day lounging on his throne. One day, his advisors came to
-          him with a problem: the kingdom was running out of money.
-        </p>
-
-        <h2 class="uk-h2 mt-4">The King's Plan</h2>
+        <p class="uk-text-lead mt-4">Subtitle</p>
 
         <p class="uk-paragraph">
-          The king thought long and hard, and finally came up with a
-          <a class="uk-link" href="#">brilliant plan</a>: he would tax the jokes
-          in the kingdom.
+          Blowy red vixens fight for
+          <a class="uk-link" href="#">a quick jump.</a>
         </p>
 
         <blockquote class="uk-blockquote">
-          "After all," he said, "everyone enjoys a good joke, so it's only fair
-          that they should pay for the privilege."
+          "Sphinx of black quartz, judge my vow!"
         </blockquote>
 
-        <h3 class="uk-h3 mt-4">The Joke Tax</h3>
-
         <p class="uk-paragraph">
-          The king's subjects were not amused. They grumbled and complained, but
-          the king was firm:
-        </p>
-
-        <ul class="uk-list uk-list-disc mt-4">
-          <li>1st level of puns: 5 gold coins</li>
-          <li>2nd level of jokes: 10 gold coins</li>
-          <li>3rd level of one-liners : 20 gold coins</li>
-        </ul>
-
-        <p class="uk-paragraph">
-          As a result, people stopped telling jokes, and the kingdom fell into a
-          gloom. But there was one person who refused to let the king's
-          foolishness get him down: a court jester named Jokester.
-        </p>
-
-        <h3 class="uk-h3 mt-4">Jokester's Revolt</h3>
-
-        <p class="uk-paragraph">
-          Jokester began sneaking into the castle in the middle of the night and
-          leaving jokes all over the place: under the king's pillow, in his
-          soup, even in the royal toilet. The king was furious, but he couldn't
-          seem to stop Jokester.
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
         </p>
 
         <p class="uk-paragraph">
-          And then, one day, the people of the kingdom discovered that the jokes
-          left by Jokester were so funny that they couldn't help but laugh. And
-          once they started laughing, they couldn't stop.
-        </p>
-
-        <h3 class="uk-h3 mt-4">The People's Rebellion</h3>
-
-        <p class="uk-paragraph">
-          The people of the kingdom, feeling uplifted by the laughter, started
-          to tell jokes and puns again, and soon the entire kingdom was in on
-          the joke.
-        </p>
-
-        <table class="uk-table uk-table-divider uk-table-striped mt-4">
-          <thead>
-            <tr>
-              <th>King's Treasury</th>
-              <th>People's happiness</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Empty</td>
-              <td>Overflowing</td>
-            </tr>
-            <tr>
-              <td>Modest</td>
-              <td>Satisfied</td>
-            </tr>
-            <tr>
-              <td>Full</td>
-              <td>Ecstatic</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <p class="uk-paragraph">
-          The king, seeing how much happier his subjects were, realized the
-          error of his ways and repealed the joke tax. Jokester was declared a
-          hero, and the kingdom lived happily ever after.
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
         </p>
 
         <p class="uk-paragraph">
-          The moral of the story is: never underestimate the power of a good
-          laugh and always be careful of bad ideas.
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
+        </p>
+
+        <p class="uk-paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
+        </p>
+
+        <p class="uk-paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
+        </p>
+
+        <p class="uk-paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
+        </p>
+
+        <p class="uk-paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
+        </p>
+
+        <p class="uk-paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
+        </p>
+
+        <p class="uk-paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
+        </p>
+
+        <p class="uk-paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
+        </p>
+
+        <p class="uk-paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
         </p>
       </section>
     </main>
 
-    <!-- footer -->
-    <footer></footer>
+    <script
+      type="application/javascript"
+      src="/js/nayuki-qrcodegen-v1.8.0.js"
+    ></script>
+    <script type="application/javascript" src="/js/qrcode.js"></script>
+    <script>
+      const style = window.getComputedStyle(document.body);
+      const svg = generateQrCode(window.location.origin + "/signup.html");
+      document.getElementById("hero-svg").innerHTML = svg;
+      document.getElementById("hero-svg").classList.remove("uk-placeholder");
+    </script>
   </body>
 </html>
