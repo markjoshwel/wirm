@@ -73,3 +73,9 @@ user
     sign up, a JWT token from supabase is used to authenticate with Firebase
 - Supabase Storage: for storing the recorded messages
 - Firebase Hosting: for hosting the website
+
+## Development Setup
+
+bun is used as the package manager for this project, but npm can be used as well
+
+all you really need is to be able to run `@tailwindcss/cli` and `firebase-tools`
