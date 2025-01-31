@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1655799441469573623}
   m_Layer: 10
-  m_Name: Mark's Drawer Interactible (Static Component)
+  m_Name: Mark's Drawer Interactable (Dynamic Component)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
