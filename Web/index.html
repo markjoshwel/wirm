@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Echoes Behind Closed Doors</title>
+
+    <!-- favicons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/png/apple-touch-icon.png"
+    />
+    <link rel="icon" type="image/x-icon" href="/ico/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/png/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/png/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- TODO: social share -->
+
+    <!-- franken-ui -->
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script
+      type="module"
+      src="/js/franken-ui.js"
+    >
+  </head>
+  <body class="bg-background text-foreground">
+    <main>
+      <section
+        id="landing-hero"
+        class="uk-inline h-[90vh] h-[90svh] overflow-hidden"
+      >
+        <!-- hero image -->
+        <img
+          class="!h-[90vh] !h-[90svh] w-screen object-cover"
+          src="https://files.catbox.moe/o25s1k.JPG"
+          alt=""
+        />
+        <!-- <video
+          class="!h-[90vh] !h-[90svh] w-screen object-cover"
+          src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+          loop
+          muted
+          playsinline
+        ></video> -->
+
+        <!-- navbar -->
+        <header
+          class="uk-position-top !uk-position-z-index p-4 flex justify-between !bg-[hsl(var(--muted))]/75 !backdrop-blur-md text-muted-foreground"
+          data-uk-sticky="position:top"
+        >
+          <div class="flex flex-row gap-2">
+            <img src="/png/logo-icon.png" alt="wirm logo" class="!h-[2.5rem]" />
+            <img
+              src="/png/logo-wordmark-blue.png"
+              alt="wirm wordmark"
+              class="!h-[2.5rem]"
+            />
+          </div>
+
+          <nav class="flex">
+            <ul class="uk-subnav uk-subnav-primary">
+              <li class="uk-active"><a href="/">About</a></li>
+              <li>
+                <a href>
+                  <span class="mr-2">Account</span>
+                  <uk-icon icon="chevron-down"></uk-icon>
+                </a>
+                <div data-uk-dropdown="mode: click">
+                  <ul class="uk-dropdown-nav uk-nav">
+                    <li id="nav-auth-logIn">
+                      <a href="/login">Log In</a>
+                    </li>
+                    <li id="nav-auth-signUp">
+                      <a href="/signup">Sign Up</a>
+                    </li>
+                    <li id="nav-auth-logOut">
+                      <a href="/profile?logOut=true">Log Out</a>
+                    </li>
+                    <li id="nav-auth-profile">
+                      <a href="/profile">Profile</a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li><a href="/booth">Manage Booth</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <!-- hero left text: game name -->
+        <div
+          class="uk-position-bottom-left uk-position-md md:uk-position-lg md:w-[30vw] text-[hsl(var(--background))] dark:text-[hsl(var(--foreground))]"
+        >
+          <h1 class="uk-h1 !text-6xl">Echoes Behind Closed Doors</h1>
+          <p class="uk-text-lead mt-4">Potential Subtitle (TODO)</p>
+        </div>
+
+        <!-- hero right text: registration qr code -->
+        <figure
+          class="uk-position-bottom-right uk-position-md md:uk-position-lg max-md:hidden w-[25vw] w-[25svw] h-[31vw] h-[31svw] rounded-2xl bg-[hsl(var(--foreground))]/70 text-[hsl(var(--background))] dark:bg-[hsl(var(--background))]/60 dark:text-[hsl(var(--foreground))] !backdrop-blur-lg flex flex-col justify-center items-center text-center p-4"
+        >
+          <div
+            id="hero-svg"
+            class="uk-placeholder min-w-fit h-auto aspect-square !rounded-md overflow-hidden"
+          >
+            <div class="uk-position-center" data-uk-spinner></div>
+          </div>
+
+          <figcaption class="uk-paragraph fit-content">
+            <span class="font-bold text-xl">Scan to Register</span>
+            <br />
+            or, scroll down for more info
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="uk-container my-20">
+        <h2 class="uk-h2">Title</h2>
+
+        <p class="uk-text-lead mt-4">Subtitle</p>
+
+        <p class="uk-paragraph">
+          Blowy red vixens fight for
+          <a class="uk-link" href="#">a quick jump.</a>
+        </p>
+
+        <blockquote class="uk-blockquote">
+          "Sphinx of black quartz, judge my vow!"
+        </blockquote>
+
+        <p class="uk-paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
+        </p>
+
+        <p class="uk-paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
+        </p>
+
+        <p class="uk-paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
+        </p>
+
+        <p class="uk-paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
+        </p>
+
+        <p class="uk-paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
+        </p>
+
+        <p class="uk-paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
+        </p>
+
+        <p class="uk-paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
+        </p>
+
+        <p class="uk-paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
+        </p>
+
+        <p class="uk-paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
+        </p>
+
+        <p class="uk-paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
+        </p>
+
+        <p class="uk-paragraph">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam qui,
+          eligendi similique aspernatur est reiciendis iusto sunt laudantium
+          repudiandae quos blanditiis. Asperiores aspernatur, minus quae
+          inventore laborum voluptas fugit rem.
+        </p>
+      </section>
+    </main>
+
+    <script type="application/javascript" src="/js/landing-qrcode.js"></script>
+  </body>
+</html>
