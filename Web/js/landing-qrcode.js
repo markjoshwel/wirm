@@ -21,6 +21,8 @@
  *   Software.
  */
 
+import { qrcodegen } from "./nayuki-qrcodegen-v1.8.0.js";
+
 function toSvgString(qr, border, lightColor, darkColor) {
   if (border < 0) throw new RangeError("Border must be non-negative");
   let parts = [];
@@ -48,3 +50,7 @@ function generateQrCode(text) {
     "#000000" // dark
   );
 }
+
+const svg = generateQrCode(window.location.origin + "/signup.html");
+document.getElementById("hero-svg").innerHTML = svg;
+document.getElementById("hero-svg").classList.remove("uk-placeholder");
