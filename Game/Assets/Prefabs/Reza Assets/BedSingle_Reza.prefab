@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4779931877715929062}
   - component: {fileID: 4197941461455331864}
   - component: {fileID: 1333750557123102577}
-  - component: {fileID: 1876183315818895026}
+  - component: {fileID: 3513581879502441112}
   m_Layer: 0
   m_Name: Mattress
   m_TagString: Untagged
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2462
+  m_VersionIndex: 2471
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -331,8 +331,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 668089007336460359}
   m_Mesh: {fileID: 0}
---- !u!64 &1876183315818895026
-MeshCollider:
+--- !u!65 &3513581879502441112
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -349,10 +349,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.46713465, y: 2.2857664, z: 1.0055008}
+  m_Center: {x: -0.23356822, y: 1.1428221, z: 0.5027392}
 --- !u!1 &692782834740488924
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,7 +365,7 @@ GameObject:
   - component: {fileID: 5050219732724555342}
   - component: {fileID: 5182481785928937290}
   - component: {fileID: 1739876233554845715}
-  - component: {fileID: 5701956768269901417}
+  - component: {fileID: 7952883603994635224}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -601,7 +600,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1737
+  m_VersionIndex: 1746
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -654,7 +653,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: a7e411f5a57b73446ae406bdb654ecb0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -684,8 +683,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 692782834740488924}
   m_Mesh: {fileID: 0}
---- !u!64 &5701956768269901417
-MeshCollider:
+--- !u!65 &7952883603994635224
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -702,10 +701,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.16828743, y: 0.12671001, z: 1.4481941}
+  m_Center: {x: -0.084144756, y: -0.0327694, z: 0.72408944}
 --- !u!1 &2483426285220735144
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,7 +717,7 @@ GameObject:
   - component: {fileID: 7734364379190190386}
   - component: {fileID: 2377492480945337614}
   - component: {fileID: 6494950583916937251}
-  - component: {fileID: 2367004981959252909}
+  - component: {fileID: 3368941615119607349}
   m_Layer: 0
   m_Name: Blanket
   m_TagString: Untagged
@@ -1508,27 +1506,11 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2141
+  m_VersionIndex: 2150
   m_IsSelectable: 1
-  m_SelectedFaces: 1200000013000000
-  m_SelectedEdges:
-  - a: 73
-    b: 72
-  - a: 72
-    b: 74
-  - a: 74
-    b: 75
-  - a: 75
-    b: 73
-  - a: 77
-    b: 76
-  - a: 76
-    b: 78
-  - a: 78
-    b: 79
-  - a: 79
-    b: 77
-  m_SelectedVertices: 4a00000049000000480000004b0000004e0000004d0000004c0000004f000000
+  m_SelectedFaces: 
+  m_SelectedEdges: []
+  m_SelectedVertices: 
 --- !u!114 &7734364379190190386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1577,7 +1559,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 89626f1f78db8b746a202138029329c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1607,8 +1589,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2483426285220735144}
   m_Mesh: {fileID: 0}
---- !u!64 &2367004981959252909
-MeshCollider:
+--- !u!65 &3368941615119607349
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1625,10 +1607,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.97262865, y: 0.54888725, z: 0.8258978}
+  m_Center: {x: -0.48631904, y: -0.17294365, z: 0.4130087}
 --- !u!1 &4830678521296837135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1642,7 +1623,7 @@ GameObject:
   - component: {fileID: 1611427665411209881}
   - component: {fileID: 7870076014929494369}
   - component: {fileID: 6348825586525593619}
-  - component: {fileID: 7913778901154696681}
+  - component: {fileID: 5351459804191018316}
   m_Layer: 0
   m_Name: End
   m_TagString: Untagged
@@ -1877,7 +1858,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1763
+  m_VersionIndex: 1772
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1930,7 +1911,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: a7e411f5a57b73446ae406bdb654ecb0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1960,8 +1941,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4830678521296837135}
   m_Mesh: {fileID: 0}
---- !u!64 &7913778901154696681
-MeshCollider:
+--- !u!65 &5351459804191018316
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1978,10 +1959,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.16307491, y: 0.12670998, z: 1.4863311}
+  m_Center: {x: -0.08153848, y: -0.032769393, z: 0.74315107}
 --- !u!1 &5631946826577478754
 GameObject:
   m_ObjectHideFlags: 0
@@ -1995,7 +1975,7 @@ GameObject:
   - component: {fileID: 5624767102267299497}
   - component: {fileID: 3358245359663073442}
   - component: {fileID: 1447066187460511858}
-  - component: {fileID: 3414178141001208568}
+  - component: {fileID: 3375686305455114471}
   m_Layer: 0
   m_Name: Pillow
   m_TagString: Untagged
@@ -2230,19 +2210,11 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1411
+  m_VersionIndex: 1420
   m_IsSelectable: 1
   m_SelectedFaces: 
-  m_SelectedEdges:
-  - a: 0
-    b: 0
-  - a: 0
-    b: 0
-  - a: 0
-    b: 0
-  - a: 0
-    b: 0
-  m_SelectedVertices: 0000000000000000000000000000000000000000000000000000000000000000
+  m_SelectedEdges: []
+  m_SelectedVertices: 
 --- !u!114 &5624767102267299497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2291,7 +2263,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 5074938367fd43c46aece43848f519d7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2321,8 +2293,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5631946826577478754}
   m_Mesh: {fileID: 0}
---- !u!64 &3414178141001208568
-MeshCollider:
+--- !u!65 &3375686305455114471
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2339,10 +2311,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.78958887, y: 0.06139183, z: 0.44970703}
+  m_Center: {x: 0.39479825, y: 0.030698791, z: -0.22509766}
 --- !u!1 &7015987425406210278
 GameObject:
   m_ObjectHideFlags: 0

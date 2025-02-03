@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4404068152572121871}
   - component: {fileID: 5333106637996955696}
   - component: {fileID: 9035190212491157864}
-  - component: {fileID: 7444429537667690105}
+  - component: {fileID: 8163050530901023628}
   m_Layer: 0
   m_Name: Carpet_Reza
   m_TagString: Untagged
@@ -1482,8 +1482,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4409722182704589508}
   m_Mesh: {fileID: 0}
---- !u!64 &7444429537667690105
-MeshCollider:
+--- !u!65 &8163050530901023628
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1500,7 +1500,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 1.6346283, y: 0.056066513, z: 1.555542}
+  m_Center: {x: 0, y: 0, z: 0}

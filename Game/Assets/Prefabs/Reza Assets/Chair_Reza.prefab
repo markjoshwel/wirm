@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2714858582168943881}
   - component: {fileID: 654492395805503114}
   - component: {fileID: 370935732422066253}
-  - component: {fileID: 8501463975024279162}
+  - component: {fileID: 4393094922229037351}
   m_Layer: 0
   m_Name: Chair_Reza
   m_TagString: Untagged
@@ -2085,8 +2085,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8112006303114136004}
   m_Mesh: {fileID: 0}
---- !u!64 &8501463975024279162
-MeshCollider:
+--- !u!65 &4393094922229037351
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2103,7 +2103,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.35964966, y: 1.3296944, z: 0.35595703}
+  m_Center: {x: 0, y: 0.12033387, z: 0.000004887581}
