@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 575411875383585943}
   - component: {fileID: 8831154467855348274}
   - component: {fileID: 1204377218066115367}
-  - component: {fileID: 7811062931141183813}
+  - component: {fileID: 8598723596945162441}
   m_Layer: 0
   m_Name: Mouse
   m_TagString: Untagged
@@ -719,8 +719,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1400985188909651405}
   m_Mesh: {fileID: 0}
---- !u!64 &7811062931141183813
-MeshCollider:
+--- !u!65 &8598723596945162441
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -737,10 +737,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.17736816, y: 0.058124438, z: 0.12841797}
+  m_Center: {x: -0.0000026412308, y: 0.007495244, z: 0}
 --- !u!1 &5355515107409228555
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,7 +753,7 @@ GameObject:
   - component: {fileID: 6752468533994918083}
   - component: {fileID: 4984737125620984345}
   - component: {fileID: 1630707576868910841}
-  - component: {fileID: 1444983478173330347}
+  - component: {fileID: 6774903404058422061}
   m_Layer: 0
   m_Name: Screen
   m_TagString: Untagged
@@ -1072,8 +1071,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5355515107409228555}
   m_Mesh: {fileID: 0}
---- !u!64 &1444983478173330347
-MeshCollider:
+--- !u!65 &6774903404058422061
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1090,10 +1089,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.1424942, y: 0.4086399, z: 0.7642822}
+  m_Center: {x: 0.000015258789, y: 0, z: 0}
 --- !u!1 &6414564093745792384
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,7 +1105,7 @@ GameObject:
   - component: {fileID: 5710104960796538819}
   - component: {fileID: 1916338761463053395}
   - component: {fileID: 8620748246001117890}
-  - component: {fileID: 4587859620728101382}
+  - component: {fileID: 7984425357932400010}
   m_Layer: 0
   m_Name: Keyboard
   m_TagString: Untagged
@@ -1425,8 +1423,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6414564093745792384}
   m_Mesh: {fileID: 0}
---- !u!64 &4587859620728101382
-MeshCollider:
+--- !u!65 &7984425357932400010
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1443,10 +1441,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.24856567, y: 0.023757935, z: 0.6955566}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6543421850743639777
 GameObject:
   m_ObjectHideFlags: 0
@@ -1496,7 +1493,7 @@ GameObject:
   - component: {fileID: 4193184207980917976}
   - component: {fileID: 1124492829843663596}
   - component: {fileID: 7510553826603777282}
-  - component: {fileID: 8243162687804458272}
+  - component: {fileID: 4493466991706474796}
   m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
@@ -1814,8 +1811,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6890412808493816165}
   m_Mesh: {fileID: 0}
---- !u!64 &8243162687804458272
-MeshCollider:
+--- !u!65 &4493466991706474796
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1832,10 +1829,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.19460297, y: 0.04515457, z: 0.45654294}
+  m_Center: {x: -0.0000076293945, y: 0, z: 0}
 --- !u!1 &7355965143696167358
 GameObject:
   m_ObjectHideFlags: 0
@@ -1849,7 +1845,7 @@ GameObject:
   - component: {fileID: 6055174004015949584}
   - component: {fileID: 4480856770423694681}
   - component: {fileID: 7852443254743151969}
-  - component: {fileID: 437925568245176205}
+  - component: {fileID: 2888906947286502175}
   m_Layer: 0
   m_Name: Neck
   m_TagString: Untagged
@@ -2167,8 +2163,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7355965143696167358}
   m_Mesh: {fileID: 0}
---- !u!64 &437925568245176205
-MeshCollider:
+--- !u!65 &2888906947286502175
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2185,7 +2181,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.0668869, y: 0.09102249, z: 0.09265137}
+  m_Center: {x: 0, y: 0, z: 0}

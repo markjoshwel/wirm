@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5344349369708722718}
   - component: {fileID: 2197386212775010797}
   - component: {fileID: 6590879320293343848}
-  - component: {fileID: 603719125503560560}
+  - component: {fileID: 8215994402504918017}
   m_Layer: 0
   m_Name: Dustbin Bottom
   m_TagString: Untagged
@@ -1150,8 +1150,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1367446544595426640}
   m_Mesh: {fileID: 0}
---- !u!64 &603719125503560560
-MeshCollider:
+--- !u!65 &8215994402504918017
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1168,10 +1168,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.39040375, y: 0.018699646, z: 0.38000482}
+  m_Center: {x: 0, y: 0, z: -0.000061035156}
 --- !u!1 &6230126095818346109
 GameObject:
   m_ObjectHideFlags: 0
