@@ -10,14 +10,14 @@ using UnityEngine;
 
 public class Trash : MonoBehaviour
 {
-    public static int trashCollected = 0;
+    private BedroomTask bedroomTask;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("TrashBin"))
+        if (other.CompareTag("TrashBin"))
         {
-            trashCollected++;
-            Debug.Log("Trash thrown in the bin! Count: " + trashCollected);
+            bedroomTask.CollectTrash();
+            Debug.Log("Trash thrown in the bin! Count: " + bedroomTask.trashCollected);
             Destroy(gameObject);
         }
     }
