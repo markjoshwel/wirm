@@ -1,38 +1,46 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.XR.Interaction.Toolkit.Interactables;
-using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
-public class Socket : MonoBehaviour
+public class RubbishBin : MonoBehaviour
 {
-    private XRSocketInteractor socket;
+    private UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor socket;
 
     private void Start()
     {
-        socket = GetComponent<XRSocketInteractor>();
-        socket.selectEntered.AddListener(OnObjectPlaced);
+        socket = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor>();
+
+        if (socket == null)
+        {
+            Debug.LogError("XRSocketInteractor component is missing from the rubbish bin!");
+            return;
+        }
+
+        socket.selectEntered.AddListener(OnTrashPlaced);
     }
 
-    private void OnObjectPlaced(SelectEnterEventArgs args)
+    private void OnTrashPlaced(SelectEnterEventArgs args)
     {
-        XRBaseInteractable interactable = (XRBaseInteractable)args.interactableObject;
-        if (interactable != null)
-        {
-            Debug.Log($"Object {interactable.gameObject.name} placed in socket!");
+        UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable trash = (UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable)args.interactableObject;
 
-            // Example: Add haptic feedback to controllers
-            if (args.interactorObject is XRBaseInputInteractor controller)
+        if (trash != null)
+        {
+            Debug.Log($"{trash.gameObject.name} was placed in the rubbish bin and destroyed.");
+            Destroy(trash.gameObject);
+
+            // Add haptic feedback if using a VR controller
+            if (args.interactorObject is UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInputInteractor controller)
             {
-                controller.SendHapticImpulse(0.5f, 0.2f);
+                controller.SendHapticImpulse(0.7f, 0.2f);
             }
         }
     }
 
     private void OnDestroy()
     {
-        socket.selectEntered.RemoveListener(OnObjectPlaced);
+        if (socket != null)
+        {
+            socket.selectEntered.RemoveListener(OnTrashPlaced);
+        }
     }
 }
 
