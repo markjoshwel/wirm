@@ -21,8 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Waterfall Foam
-  m_Shader: {fileID: -6465566751694194690, guid: 4e3818e388d6ab547a7e9c55a18a2163,
-    type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 4e3818e388d6ab547a7e9c55a18a2163, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -64,7 +63,7 @@ Material:
     - _voronoi_scale: 10
     - _voronoi_speed: 7.83
     m_Colors:
-    - _bottom_in: {r: -1.72, g: 5.22, b: 0, a: 0}
+    - _bottom_in: {r: -0.71, g: 5.22, b: 0, a: 0}
     - _bottom_out: {r: 0, g: 0.96, b: 0, a: 0}
     - _in_min_max: {r: 0.2, g: 0.38, b: 0, a: 0}
     - _out_min_max: {r: 0, g: 0.26, b: 0, a: 0}
