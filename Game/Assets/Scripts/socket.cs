@@ -5,7 +5,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
-public class SocketInteraction : MonoBehaviour
+public class Socket : MonoBehaviour
 {
     private XRSocketInteractor socket;
 

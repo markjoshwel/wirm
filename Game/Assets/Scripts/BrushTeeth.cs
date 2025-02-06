@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
-public class Brushteeth : MonoBehaviour
+public class BrushTeeth : MonoBehaviour
 {
     // public Slider progressBar; // Reference to the Slider (progress bar)
     // public float progressTime = 5f; // Time for the progress bar to complete
