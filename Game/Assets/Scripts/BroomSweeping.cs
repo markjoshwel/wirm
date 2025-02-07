@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BroomSweeping : MonoBehaviour
+{
+    // To track how much trash has been collected so far
+    public int dirtSweeped = 0;
+    
+    // Defines how much trash is needed to collect in order to unlock the door
+    public int dirtRequired = 10;
+    
+    // Defines Audio References
+    public AudioSource audioSource;
+    public AudioClip sweepingSound;
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Dirt")) return;
+        
+        dirtSweeped++;
+        Destroy(other.gameObject);
+        
+        // Play sound only if no other sound is currently playing
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(sweepingSound);
+        }
+    }
+}

@@ -10,6 +10,7 @@ TagManager:
   - Info
   - InfoObject
   - Bottle
+  - Dirt
   layers:
   - Default
   - TransparentFX
