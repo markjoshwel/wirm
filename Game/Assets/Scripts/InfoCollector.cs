@@ -11,10 +11,15 @@ using TMPro;
 
 public class InfoCollector : MonoBehaviour
 {
-    public float detectionRange = 5f;  
-    public TMP_Text infoText;  // Reference to a UI Text (TextMeshPro)
+    public float detectionRange = 2f;  // Adjust for accurate VR detection
+    public float gazeTimeRequired = 2f;  // Time the player must look at the object before collecting info
+    public float displayTime = 5f;  // How long the info stays on screen
+    public TMP_Text infoText;  // UI Text (TextMeshPro)
+    
     private Camera vrCamera;
     private bool isDisplaying = false;
+    private GameObject currentObject = null;
+    private float gazeTimer = 0f;
 
     void Start()
     {
@@ -29,10 +34,29 @@ public class InfoCollector : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, detectionRange))
         {
-            if (hit.collider.CompareTag("InfoObject") && !isDisplaying)
+            if (hit.collider.CompareTag("InfoObject"))
             {
-                CollectInfo(hit.collider.gameObject);
+                if (currentObject == hit.collider.gameObject)
+                {
+                    gazeTimer += Time.deltaTime;
+                    if (gazeTimer >= gazeTimeRequired && !isDisplaying)
+                    {
+                        CollectInfo(currentObject);
+                    }
+                }
+                else
+                {
+                    // Reset timer if looking at a new object
+                    currentObject = hit.collider.gameObject;
+                    gazeTimer = 0f;
+                }
             }
+        }
+        else
+        {
+            // Reset if no valid object is in view
+            currentObject = null;
+            gazeTimer = 0f;
         }
     }
 
@@ -42,8 +66,8 @@ public class InfoCollector : MonoBehaviour
         infoText.text = "Info Collected: " + obj.name + "\n" + GetObjectInfo(obj);
         Debug.Log("Collected information from: " + obj.name);
 
-        // Hide text after 3 seconds
-        Invoke("ClearText", 3f);
+        // Hide text after displayTime
+        Invoke(nameof(ClearText), displayTime);
     }
 
     void ClearText()
@@ -55,11 +79,8 @@ public class InfoCollector : MonoBehaviour
     string GetObjectInfo(GameObject obj)
     {
         // Define object descriptions here
-        if (obj.name == "AncientArtifact")
-            return "This artifact was used by an old civilization...";
-
-        if (obj.name == "HologramTerminal")
-            return "A futuristic data console storing historical records.";
+        if (obj.name == "Info")
+            return "Test";
 
         return "An unknown object with mysterious origins.";
     }
