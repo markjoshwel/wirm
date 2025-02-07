@@ -12,6 +12,7 @@ using UnityEngine.UIElements;
 public class Letter : MonoBehaviour
 {
     public GameObject letterUI;
+    public AudioClip scribble;
     
     private void Start()
     {
