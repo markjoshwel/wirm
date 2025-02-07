@@ -1,3 +1,8 @@
+/*
+Author: Wai Lam
+Date: 6/2/25
+Description: Make the camera shake
+*/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

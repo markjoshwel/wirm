@@ -1,4 +1,8 @@
-using System.Collections;
+/*
+Author: Wai Lam
+Date: 27/1/25
+Description: Bathroom interaction
+*/using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
