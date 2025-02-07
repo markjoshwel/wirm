@@ -21,6 +21,8 @@ public class BedroomTask : MonoBehaviour
     
     // Defines the door 
     public GameObject door; 
+    
+    // Defines the grab interactable to know when the door is grabbed
     private XRGrabInteractable grabInteractable;
     
     // Defines door handle
