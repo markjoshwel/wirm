@@ -9,6 +9,7 @@ TagManager:
   - Destroyable
   - Info
   - InfoObject
+  - Bottle
   layers:
   - Default
   - TransparentFX
