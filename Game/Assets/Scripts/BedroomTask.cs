@@ -34,6 +34,11 @@ public class BedroomTask : MonoBehaviour
     // Defines UI references
     public GameObject lockedDoorUI;
     public GameObject unlockedDoorUI;
+    
+    // Defines Audio References
+    public AudioSource audioSource;
+    public AudioClip lockedSound;
+    public AudioClip unlockedSound;
 
     void Start()
     {
@@ -75,6 +80,12 @@ public class BedroomTask : MonoBehaviour
         // If player has collected/thrown required amount of trash
         if (trashCollected >= trashRequired)
         {
+            // Play sound only if no other sound is currently playing
+            if (!audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(unlockedSound);
+            }
+            
             // Call unlocking door function
             UnlockDoor();
         }
@@ -137,6 +148,12 @@ public class BedroomTask : MonoBehaviour
         {
             // Show the locked door UI
             lockedDoorUI.SetActive(true);
+            
+            // Play sound only if no other sound is currently playing
+            if (!audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(lockedSound);
+            }
             
             // Call the function to hide the UI after delay
             StartCoroutine(HideMessageAfterSeconds(lockedDoorUI, 5f));
