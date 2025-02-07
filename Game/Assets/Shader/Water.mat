@@ -62,17 +62,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Depth: 0
+    - _Depth: 2.01
     - _Displacement: 0
-    - _Foam_Depth: 0
-    - _Foam_Strength: 0
-    - _Foam_TIle: 0
-    - _Normal_Strength: 0
+    - _Foam_Depth: 0.25
+    - _Foam_Strength: 15.36
+    - _Foam_TIle: 3.78
+    - _Normal_Strength: 0.606
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Smoothness: 0
-    - _Strength: 0
+    - _Smoothness: 1
+    - _Strength: 0.543
     m_Colors:
-    - _Deep_Colour: {r: 0, g: 0, b: 0, a: 0}
-    - _Shallow_Colour: {r: 0, g: 0, b: 0, a: 0}
+    - _Deep_Colour: {r: 0.2077393, g: 0.38162473, b: 0.6754716, a: 0.5411765}
+    - _Shallow_Colour: {r: 0.42734766, g: 0.9008608, b: 0.93207544, a: 0.6745098}
   m_BuildTextureStacks: []
