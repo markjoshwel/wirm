@@ -16,15 +16,19 @@ public class BroomSweeping : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Dirt")) return;
-        
-        dirtSweeped++;
-        Destroy(other.gameObject);
-        
-        // Play sound only if no other sound is currently playing
-        if (!audioSource.isPlaying)
+        if (!other.CompareTag("Dirt"))
         {
-            audioSource.PlayOneShot(sweepingSound);
+            // Add to dirt swept count
+            dirtSweeped++;
+            
+            // Destroy it to prevent extra counting
+            Destroy(other.gameObject);
+        
+            // Play sound only if no other sound is currently playing
+            if (!audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(sweepingSound);
+            }
         }
     }
 }

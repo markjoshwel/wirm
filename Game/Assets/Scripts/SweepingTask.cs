@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Sweeping : MonoBehaviour
+public class SweepingTask : MonoBehaviour
 {
     public Transform broomParent; // Assign the parent object of the broom
     public float sweepSpeed = 2f; // Speed of automatic sweeping
