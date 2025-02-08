@@ -15,10 +15,10 @@ public class InfoCollector : MonoBehaviour
     public float detectionRange = 2f;
 
     // Defines how long the player must look at the object for to collect information
-    public float gazeTimeRequired = 2f;
+    public float gazeTimeRequired = 1.5f;
 
     // Defines how long the information UI will remain on screen
-    public float displayTime = 5f;
+    public float displayTime = 7f;
 
     // Defines the UI text to display
     public TMP_Text infoText;
@@ -34,6 +34,13 @@ public class InfoCollector : MonoBehaviour
 
     // Tracks how long the player has been looking at the object
     private float gazeTimer = 0f;
+    
+    // Defines Audio References
+    public AudioSource audioSource;
+    public AudioClip scribbleSound;
+    
+    // Store objects that have already been collected
+    private HashSet<GameObject> collectedObjects = new HashSet<GameObject>();
 
     void Start()
     {
@@ -56,23 +63,29 @@ public class InfoCollector : MonoBehaviour
             // Ensures that relevant info objects are detected
             if (hit.collider.CompareTag("InfoObject"))
             {
-                // If the player is still looking at the same object, the gaze time 
-                if (currentObject == hit.collider.gameObject)
+                GameObject targetObject = hit.collider.gameObject;
+
+                // **Fix: Stop gaze timer if object has been collected**
+                if (collectedObjects.Contains(targetObject))
                 {
-                    // Increases gaze time
+                    return;  // Exit without increasing gaze time
+                }
+
+                // If the player is still looking at the same object, increase gaze time
+                if (currentObject == targetObject)
+                {
                     gazeTimer += Time.deltaTime;
 
-                    // If gaze time reaches required time and is not displaying yet, display the information
+                    // If gaze time reaches required time and info is not displayed yet
                     if (gazeTimer >= gazeTimeRequired && !isDisplaying)
                     {
-                        // Display object information
-                        CollectInfo(currentObject);
+                        CollectInfo(targetObject);
                     }
                 }
                 else
                 {
-                    // Reset timer if looking at a new object
-                    currentObject = hit.collider.gameObject;
+                    // Reset timer when looking at a new object
+                    currentObject = targetObject;
                     gazeTimer = 0f;
                 }
             }
@@ -91,9 +104,20 @@ public class InfoCollector : MonoBehaviour
         // Prevents spamming of display
         isDisplaying = true;
 
+        // **Fix: Mark object as collected**
+        collectedObjects.Add(obj);
+
         // Displays information
-        infoText.text = "Info Collected: " + obj.name + "\n" + GetObjectInfo(obj);
+        infoText.text = "<size=15>Info Collected:</size>\n\n" + 
+                        "<size=20>" + obj.name + "</size>\n" + 
+                        "<size=16>" + GetObjectInfo(obj) + "</size>";
         Debug.Log("Collected information from: " + obj.name);
+        
+        // Play sound only if no other sound is currently playing
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(scribbleSound);
+        }
 
         // Clears text after displayed time
         Invoke(nameof(ClearText), displayTime);
@@ -112,9 +136,13 @@ public class InfoCollector : MonoBehaviour
     string GetObjectInfo(GameObject obj)
     {
         // Check if the object's name is the same
-        if (obj.CompareTag("Needles"))
+        if (obj.name == "Needles")
             // Returns predefined information
-            return "Test";
+            return "A used needle. If my parents finds out they would murder me.";
+        
+        if (obj.name == "Bottles")
+            // Returns predefined information
+            return "An empty bottle. It numbs the pain... but not for long enough";
         
         // Default information if there is no specific case
         return "An unknown object with mysterious origins.";

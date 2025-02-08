@@ -11,6 +11,7 @@ TagManager:
   - InfoObject
   - Bottle
   - Dirt
+  - Needles
   layers:
   - Default
   - TransparentFX
