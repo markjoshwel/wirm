@@ -6,6 +6,7 @@ Description: To track if cleaning/exploring bedroom task is done before allowing
 
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -13,13 +14,16 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class BedroomTask : MonoBehaviour
 {
+    [Header("Task Requirement Values")]
     // To track how much trash has been collected so far
     public int trashCollected = 0;
     
     // Defines how much trash is needed to collect in order to unlock the door
     public int trashRequired = 10;
     
+
     // Defines the door 
+    [Header("Door to Unlock")]
     public GameObject door; 
     
     // Defines the grab interactable to know when the door is grabbed
@@ -32,13 +36,19 @@ public class BedroomTask : MonoBehaviour
     private Rigidbody doorRigidbody;
     
     // Defines UI references
+    [Header("UI References")]
     public GameObject lockedDoorUI;
     public GameObject unlockedDoorUI;
+    public GameObject storyPanelUI;
+    public TMP_Text storyText;
     
     // Defines Audio References
+    [Header("Audio References")]
     public AudioSource audioSource;
     public AudioClip lockedSound;
     public AudioClip unlockedSound;
+    public AudioClip footstepsSound;
+    public AudioClip doorSlamSound;
 
     void Start()
     {
@@ -68,6 +78,15 @@ public class BedroomTask : MonoBehaviour
                 LockDoor(); 
             }
         }
+        
+        if (storyPanelUI != null && storyText != null)
+        {
+            storyPanelUI.SetActive(true);
+            storyText.text = "My parents are still home... I should clean up first.";
+            StartCoroutine(HideMessageAfterSeconds(storyPanelUI, 10f));
+            
+        }
+
     }
 
     // Functions when trash is collected/thrown
@@ -80,14 +99,10 @@ public class BedroomTask : MonoBehaviour
         // If player has collected/thrown required amount of trash
         if (trashCollected >= trashRequired)
         {
-            // Play sound only if no other sound is currently playing
-            if (!audioSource.isPlaying)
-            {
-                audioSource.PlayOneShot(unlockedSound);
-            }
+            Debug.Log("Trash requirement met! Starting sound sequence...");
             
-            // Call unlocking door function
-            UnlockDoor();
+            // Call unlocking door function/sequence
+            StartCoroutine(PlaySoundSequence());
         }
     }
 
@@ -122,7 +137,7 @@ public class BedroomTask : MonoBehaviour
             doorRigidbody.isKinematic = false; 
             
             // Unfreezes door to let it open
-            doorRigidbody.constraints = RigidbodyConstraints.None; // Removes restrictions
+            doorRigidbody.constraints = RigidbodyConstraints.None; 
         }
 
         // Ensure collider is not null
@@ -167,6 +182,26 @@ public class BedroomTask : MonoBehaviour
         // Trash collected is more or equal to trash required to collect
         return trashCollected >= trashRequired;
     }
+    
+    private IEnumerator PlaySoundSequence()
+    {
+        Debug.Log("Starting PlaySoundSequence...");
+        
+        // Play footsteps of parents walking away
+        audioSource.PlayOneShot(footstepsSound);
+        yield return new WaitForSeconds(footstepsSound.length);
+
+        // Play a door slam after the footsteps clip ends
+        audioSource.PlayOneShot(doorSlamSound);
+        yield return new WaitForSeconds(doorSlamSound.length);
+
+        // Unlocks the door after the clips and update the story
+        UnlockDoor();
+        storyText.text = "They finally left... just as soon as I finished cleaning. I can leave the room now.";
+        storyPanelUI.SetActive(true);
+        StartCoroutine(HideMessageAfterSeconds(storyPanelUI, 10f));
+    }
+
     
     // Function to hide the UI after a delay
     private IEnumerator HideMessageAfterSeconds(GameObject uiElement, float delay)

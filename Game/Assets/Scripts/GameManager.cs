@@ -60,4 +60,9 @@ public class GameManager : MonoBehaviour
     {
         
     }
+
+    public void BedroomTaskComplete()
+    {
+        bedroomCleaned = true;
+    }
 }
