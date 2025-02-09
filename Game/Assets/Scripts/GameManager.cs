@@ -65,4 +65,9 @@ public class GameManager : MonoBehaviour
     {
         bedroomCleaned = true;
     }
+
+    public void BrushTeethTaskComplete()
+    {
+        teethBrushed = true;
+    }
 }

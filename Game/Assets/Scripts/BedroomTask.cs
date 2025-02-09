@@ -14,6 +14,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class BedroomTask : MonoBehaviour
 {
+    private GameManager gameManager;
+        
     [Header("Task Requirement Values")]
     // To track how much trash has been collected so far
     public int trashCollected = 0;
@@ -99,7 +101,7 @@ public class BedroomTask : MonoBehaviour
         // If player has collected/thrown required amount of trash
         if (trashCollected >= trashRequired)
         {
-            Debug.Log("Trash requirement met! Starting sound sequence...");
+            GameManager.Instance.BedroomTaskComplete();
             
             // Call unlocking door function/sequence
             StartCoroutine(PlaySoundSequence());
@@ -147,6 +149,12 @@ public class BedroomTask : MonoBehaviour
             doorCollider.enabled = true; 
         }
         
+        // Play sound only if no other sound is currently playing
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(unlockedSound);
+        }
+        
         // Show the unlocked door UI
         unlockedDoorUI.SetActive(true);
         
@@ -185,8 +193,6 @@ public class BedroomTask : MonoBehaviour
     
     private IEnumerator PlaySoundSequence()
     {
-        Debug.Log("Starting PlaySoundSequence...");
-        
         // Play footsteps of parents walking away
         audioSource.PlayOneShot(footstepsSound);
         yield return new WaitForSeconds(footstepsSound.length);
@@ -197,6 +203,7 @@ public class BedroomTask : MonoBehaviour
 
         // Unlocks the door after the clips and update the story
         UnlockDoor();
+        
         storyText.text = "They finally left... just as soon as I finished cleaning. I can leave the room now.";
         storyPanelUI.SetActive(true);
         StartCoroutine(HideMessageAfterSeconds(storyPanelUI, 10f));
