@@ -1,4 +1,4 @@
-/*
+  /*
 Author: Reza
 Date: 3/2/25
 Description: To keep track of tasks, which level the player is at, and game mechanics
@@ -11,26 +11,27 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    /* Game Story Flow:
-     - Player cleans room while waiting for parents to leave
-     - The door unlocks after room is cleaned and explored and player either sweeps floor or brushes teeth
-     - 
-    */
     
     /// <summary>
-    ///     singleton pattern: define instance field for accessing the singleton elsewhere
+    ///     Define instance field for accessing the singleton elsewhere
     /// </summary>
     public static GameManager Instance;
 
-    /// <summary>
-    ///     Trackable Task Completions
-    /// </summary>
+
+    // Trackable Task Completions
     private bool bedroomCleaned = false;
     private bool teethBrushed = false;
     private bool floorSweeped = false;
     
     /// <summary>
-    ///     enforces singleton behaviour; sets doesn't destroy on load and checks for multiple instances
+    ///     Checks if tasks are completed
+    /// </summary>
+    public bool IsBedroomCleaned() { return bedroomCleaned; }
+    public bool IsTeethBrushed() { return teethBrushed; }
+    public bool IsFloorSweeped() { return floorSweeped; }
+    
+    /// <summary>
+    ///     Enforces singleton behaviour; sets doesn't destroy on load and checks for multiple instances
     /// </summary>
     private void Awake()
     {
@@ -60,15 +61,36 @@ public class GameManager : MonoBehaviour
     {
         
     }
+    
+    // Logs player's choices before leaving the house (for future Firebase tracking)
+    public void LogPlayerChoices()
+    {
+        Debug.Log("Player is trying to leave the house. Task Completion Status:");
+        Debug.Log("Bedroom Cleaned: " + bedroomCleaned);
+        Debug.Log("Teeth Brushed: " + teethBrushed);
+        Debug.Log("Floor Sweeped: " + floorSweeped);
 
+        // Future-proofing for Firebase tracking
+    }
+    
+
+    // Tracks if bedroom is cleaned or not
     public void BedroomTaskComplete()
     {
         bedroomCleaned = true;
     }
 
+    // Tracks if teeth is brushed or not
     public void BrushTeethTaskComplete()
     {
         teethBrushed = true;
     }
+
+    // Tracks if floor is sweeped or not
+    public void FloorSweepedTaskComplete()
+    {
+        floorSweeped = true;
+    }
+    
     
 }

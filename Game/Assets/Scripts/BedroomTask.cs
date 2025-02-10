@@ -213,7 +213,7 @@ public class BedroomTask : MonoBehaviour
         yield return new WaitForSeconds(doorSlamSound.length);
         
         
-        PostProcessingManager.Instance.StopEffect();
+        PostProcessingManager.Instance.StopEffect("Panic");
         
         // Clear the "!!!"
         storyText.text = "";
