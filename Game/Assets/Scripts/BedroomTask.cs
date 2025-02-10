@@ -86,7 +86,6 @@ public class BedroomTask : MonoBehaviour
             storyPanelUI.SetActive(true);
             storyText.text = "My parents are still home... I should clean up first.";
             StartCoroutine(HideMessageAfterSeconds(storyPanelUI, 10f));
-            
         }
 
     }
@@ -101,7 +100,14 @@ public class BedroomTask : MonoBehaviour
         // If player has collected/thrown required amount of trash
         if (trashCollected >= trashRequired)
         {
-            GameManager.Instance.BedroomTaskComplete();
+            if (GameManager.Instance == null)
+            {
+                Debug.LogError("GameManager instance is null!");
+            }
+            else
+            {
+                GameManager.Instance.BedroomTaskComplete();
+            }
             
             // Call unlocking door function/sequence
             StartCoroutine(PlaySoundSequence());
@@ -193,6 +199,9 @@ public class BedroomTask : MonoBehaviour
     
     private IEnumerator PlaySoundSequence()
     {
+        storyText.text = "!!!";
+        storyPanelUI.SetActive(true); 
+        
         // Play footsteps of parents walking away
         audioSource.PlayOneShot(footstepsSound);
         yield return new WaitForSeconds(footstepsSound.length);
@@ -200,12 +209,14 @@ public class BedroomTask : MonoBehaviour
         // Play a door slam after the footsteps clip ends
         audioSource.PlayOneShot(doorSlamSound);
         yield return new WaitForSeconds(doorSlamSound.length);
+        
+        // Clear the "!!!"
+        storyText.text = "";
 
         // Unlocks the door after the clips and update the story
         UnlockDoor();
         
         storyText.text = "They finally left... just as soon as I finished cleaning. I can leave the room now.";
-        storyPanelUI.SetActive(true);
         StartCoroutine(HideMessageAfterSeconds(storyPanelUI, 10f));
     }
     
