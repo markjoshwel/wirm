@@ -1,3 +1,9 @@
+/*
+Author: Reza
+Date: 7/2/25
+Description: Detects dirt and sweeps them up 
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

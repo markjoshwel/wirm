@@ -7,6 +7,7 @@ Description: To keep track of tasks, which level the player is at, and game mech
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,6 +21,13 @@ public class GameManager : MonoBehaviour
     ///     singleton pattern: define instance field for accessing the singleton elsewhere
     /// </summary>
     public static GameManager Instance;
+
+    /// <summary>
+    ///     Trackable Task Completions
+    /// </summary>
+    private bool bedroomCleaned = false;
+    private bool teethBrushed = false;
+    private bool floorSweeped = false;
     
     /// <summary>
     ///     enforces singleton behaviour; sets doesn't destroy on load and checks for multiple instances
@@ -40,14 +48,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    /// <summary>
-    ///     trackable game tasks (Reza)
-    /// </summary>
-    private bool bedroomCleaned = false;
-    private bool teethBrushed = false;
-    private bool floorSweeped = false;
-
     
     // Start is called before the first frame update
     void Start()
@@ -70,4 +70,5 @@ public class GameManager : MonoBehaviour
     {
         teethBrushed = true;
     }
+    
 }

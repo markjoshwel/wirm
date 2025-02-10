@@ -208,7 +208,6 @@ public class BedroomTask : MonoBehaviour
         storyPanelUI.SetActive(true);
         StartCoroutine(HideMessageAfterSeconds(storyPanelUI, 10f));
     }
-
     
     // Function to hide the UI after a delay
     private IEnumerator HideMessageAfterSeconds(GameObject uiElement, float delay)
