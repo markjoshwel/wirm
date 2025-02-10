@@ -15,7 +15,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class BedroomTask : MonoBehaviour
 {
     private GameManager gameManager;
-        
+    private PostProcessingManager postProcessingManager;
+    
     [Header("Task Requirement Values")]
     // To track how much trash has been collected so far
     public int trashCollected = 0;
@@ -23,7 +24,6 @@ public class BedroomTask : MonoBehaviour
     // Defines how much trash is needed to collect in order to unlock the door
     public int trashRequired = 10;
     
-
     // Defines the door 
     [Header("Door to Unlock")]
     public GameObject door; 
@@ -202,6 +202,8 @@ public class BedroomTask : MonoBehaviour
         storyText.text = "!!!";
         storyPanelUI.SetActive(true); 
         
+        PostProcessingManager.Instance.StartEffect("Panic");
+        
         // Play footsteps of parents walking away
         audioSource.PlayOneShot(footstepsSound);
         yield return new WaitForSeconds(footstepsSound.length);
@@ -210,11 +212,17 @@ public class BedroomTask : MonoBehaviour
         audioSource.PlayOneShot(doorSlamSound);
         yield return new WaitForSeconds(doorSlamSound.length);
         
+        
+        PostProcessingManager.Instance.StopEffect();
+        
         // Clear the "!!!"
         storyText.text = "";
 
         // Unlocks the door after the clips and update the story
         UnlockDoor();
+        
+        // Add a small delay before updating the text to ensure everything shows properly
+        yield return new WaitForSeconds(0.5f);
         
         storyText.text = "They finally left... just as soon as I finished cleaning. I can leave the room now.";
         StartCoroutine(HideMessageAfterSeconds(storyPanelUI, 10f));
@@ -226,5 +234,15 @@ public class BedroomTask : MonoBehaviour
         // Waits for delay to end and hides the UI
         yield return new WaitForSeconds(delay);
         uiElement.SetActive(false);
+    }
+    
+    public void ApplyHeadacheEffect()
+    {
+        PostProcessingManager.Instance?.TriggerEffect("Headache");
+    }
+
+    public void ApplyDizzinessEffect()
+    {
+        PostProcessingManager.Instance?.TriggerEffect("Dizziness");
     }
 }

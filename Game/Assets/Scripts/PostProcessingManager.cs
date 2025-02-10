@@ -12,6 +12,8 @@ using UnityEngine.Rendering.Universal;
 
 public class PostProcessingManager : MonoBehaviour
 {
+    public static PostProcessingManager Instance;
+    
     // Defines the Global Volume
     public Volume volume;
     
@@ -41,6 +43,18 @@ public class PostProcessingManager : MonoBehaviour
     
     // Checks if effect is active or not
     private bool isEffectActive = false;
+    
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -78,7 +92,7 @@ public class PostProcessingManager : MonoBehaviour
     }
 
     // Function to start the effect
-    private void StartEffect(string effectName)
+    public void StartEffect(string effectName)
     {
         // The effect is active
         isEffectActive = true;
@@ -88,29 +102,29 @@ public class PostProcessingManager : MonoBehaviour
     }
     
     // Function to stop the effect
-    private void StopEffect(string effectName)
+    public void StopEffect(string effectName)
     {
         // The effect is not active
         isEffectActive = false;
         
         // Reset effects to default
-        vignette.intensity.Override(0f);
-        chromaticAberration.intensity.Override(0f);
-        motionBlur.intensity.Override(0f);
-        lensDistortion.intensity.Override(0f);
-        colorAdjustments.postExposure.Override(0f);
+        if (vignette != null) vignette.intensity.Override(0f);
+        if (chromaticAberration != null) chromaticAberration.intensity.Override(0f);
+        if (motionBlur != null) motionBlur.intensity.Override(0f);
+        if (lensDistortion != null) lensDistortion.intensity.Override(0f);
+        if (colorAdjustments != null) colorAdjustments.postExposure.Override(0f);
     }
 
     // Applies effects over time based on the type
     private IEnumerator ApplyEffect(string effectName)
     {
         float time = 0f;
-        float timeToMax = 1f;
+        float duration = 1f;
 
-        while (time < timeToMax)
+        while (time < duration)
         {
             time += Time.deltaTime;
-            time = Mathf.Clamp01(time);
+            float t = Mathf.Clamp01(time / duration);
             
             // Values for headache effect
             if (effectName == "Headache")
@@ -126,6 +140,32 @@ public class PostProcessingManager : MonoBehaviour
                 lensDistortion.intensity.Override(lensDistortionIntensity.Evaluate(time));
             }
             
+            yield return null;
+        }
+    }
+    
+    public void ApplyPanicEffect()
+    {
+        StartCoroutine(LoopPanicEffect());
+    }
+    
+    private IEnumerator LoopPanicEffect()
+    {
+        float time = 0f;
+        float duration = 0.1f; 
+
+        while (isEffectActive)
+        {
+            time += Time.deltaTime;
+            float t = Mathf.PingPong(time / duration, 1f); // Looping the effect
+
+            // Apply intensity for panic effect
+            vignette.intensity.Override(vignetteIntensity.Evaluate(t));
+            chromaticAberration.intensity.Override(chromaticAberrationIntensity.Evaluate(t));
+            motionBlur.intensity.Override(motionBlurIntensity.Evaluate(t));
+            lensDistortion.intensity.Override(lensDistortionIntensity.Evaluate(t));
+            colorAdjustments.postExposure.Override(colorAdjustmentsIntensity.Evaluate(t));
+
             yield return null;
         }
     }
