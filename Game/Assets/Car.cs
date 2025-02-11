@@ -17,7 +17,6 @@ public class Car : MonoBehaviour
     public float rotationSpeed = 5.0f;   // Smooth turning speed
 
     private int currentWaypointIndex = 0; // Starting at the first waypoint
-    public Vector3 rotationOffset = Vector3.zero;
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Triggered by: " + other.name);
@@ -65,8 +64,7 @@ public class Car : MonoBehaviour
 
         if (direction != Vector3.zero)
         {
-            // Apply rotation offset
-            Quaternion lookRotation = Quaternion.LookRotation(direction) * Quaternion.Euler(rotationOffset);
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
         }
     }

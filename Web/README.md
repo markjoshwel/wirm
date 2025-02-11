@@ -90,15 +90,25 @@ user
 
 ### Local Development Setup
 
-~~[bun](https://bun.sh/) is used as the package manager and bundler for this project,
-but npm can be used as well for tailwindcss~~
+[bun](https://bun.sh/) is used as the package manager and bundler for this project,
+but npm can be used as well for tailwindcss
 
-~~**note:** firebase-tools does not work well with bun,
-so you will need to use npm for that~~
+**note:** firebase-tools does not work well with bun,
+so you will need to use npm for that
 
-use a live server, firebase emulator, or something similar
+everything you need to do is available as a script in the `package.json` file
 
-everything is in the `public/` folder, and works as-is
+use `bun run ...` or `npm run ...` to run the scripts
+
+| script | description | bun | npm |
+|--------|-------------|-----|-----|
+| `css` | build css from tailwind | ✅ | ✅ |
+| `build` | buiild css and bundle the website | ✅ | ❌ |
+| `dev-css` | build css and watch | ✅ | ✅ |
+| `dev-build` | bundle and watch (this does not watch build css on filesystem change, please run `dev-css` separately) | ✅ | ❌ |
+| `deploy-live` | deploy to firebase hosting | ✅ | ✅ |
+| `deploy-staging` | deploy to firebase hosting on a staging channel | ✅ | ✅ |
+| `deploy` | `build` + `deploy-live` | ✅ | ❌ |
 
 ### Cloud Development Setup
 
