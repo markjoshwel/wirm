@@ -2,8 +2,8 @@
   "name": "echoesbehindcloseddoors-web",
   "scripts": {
     "css": "tailwindcss -i css/styles.src.css -o css/styles.css --minify",
-    "css-process": "lightningcss --minify --bundle css/styles.css -o css/styles.min.css",
-    "build": "bun run css && bun run css-process && rm -rf public/; bun build index.html --outdir=public",
+    "css-process": "lightningcss --minify --bundle --targets '>= 0.25%' css/styles.css -o css/styles.min.css",
+    "build": "bun run css && bun run css-process && rm -rf public/; bun build index.html login.html --outdir=public",
     "dev-css": "tailwindcss -i css/styles.src.css -o css/styles.css --watch",
     "dev-build": "bun build index.html --outdir=public --watch",
     "deploy-live": "firebase deploy --only hosting",

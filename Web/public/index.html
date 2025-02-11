@@ -6,15 +6,31 @@
     <title>Echoes Behind Closed Doors</title>
 
     <!-- favicons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon-xhq3hzfq.png" />
-    <link rel="icon" type="image/x-icon" href="./favicon-4nk2rrtb.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32-sqpfcyy0.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16-6gdgm8kp.png" />
-    <link rel="manifest" href="./site-h99v0pws.webmanifest" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/png/apple-touch-icon.png"
+    />
+    <link rel="icon" type="image/x-icon" href="/ico/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/png/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/png/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- TODO: social share -->
 
-    <!-- TODO: temporary ui bundling fix (https://github.com/oven-sh/bun/issues/17243) -->
+    <!-- ui stuff -->
+    <!-- temporary ui bundling fix (https://github.com/oven-sh/bun/issues/17243) -->
+    <script type="module" src="/js/ebcd-common-franken-ui.js"></script>
     <link
       rel="stylesheet"
       href="https://unpkg.com/franken-ui@2.0.0-internal.42/dist/css/core.min.css"
@@ -71,7 +87,6 @@
           U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
           U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
       }
-
       @theme {
         --font-sans: "Geist", sans-serif;
         --font-mono: "'Geist Mono'", monospace;
@@ -80,7 +95,6 @@
         font-family: Geist, sans-serif;
         font-feature-settings: "liga" 1, "calt" 1; /* fix for Chrome */
       }
-
       @media (max-width: 768px) {
         .uk-subnav > * > :first-child {
           padding-left: 0.5rem !important;
@@ -88,12 +102,7 @@
         }
       }
     </style>
-
-    <!-- franken-ui -->
-    <!-- TODO: temporary ui bundling fix (see above) -->
-    <!-- <link rel="stylesheet" href="/css/styles.css" /> -->
-    
-  <script type="module" crossorigin src="./index-ra0608an.js"></script></head>
+  </head>
   <body class="bg-background text-foreground">
     <main>
       <section
@@ -120,8 +129,12 @@
           data-uk-sticky="position:top"
         >
           <div class="flex flex-row gap-2">
-            <img src="./logo-icon-1yfzf2ex.png" alt="wirm logo" class="!h-[2.5rem]" />
-            <img src="./logo-wordmark-blue-x0tvrafq.png" alt="wirm wordmark" class="!h-[2.5rem]" />
+            <img src="/png/logo-icon.png" alt="wirm logo" class="!h-[2.5rem]" />
+            <img
+              src="/png/logo-wordmark-blue.png"
+              alt="wirm wordmark"
+              class="!h-[2.5rem]"
+            />
           </div>
 
           <nav class="flex">
@@ -135,21 +148,21 @@
                 <div data-uk-dropdown="mode: click">
                   <ul class="uk-dropdown-nav uk-nav">
                     <li id="nav-auth-logIn">
-                      <a href="/login">Log In</a>
+                      <a href="/login.html">Log In</a>
                     </li>
                     <li id="nav-auth-signUp">
-                      <a href="/signup">Sign Up</a>
-                    </li>
-                    <li id="nav-auth-logOut">
-                      <a href="/profile?logOut=true">Log Out</a>
+                      <a href="/signup.html">Sign Up</a>
                     </li>
                     <li id="nav-auth-profile">
-                      <a href="/profile">Profile</a>
+                      <a href="/profile.html">Profile</a>
+                    </li>
+                    <li id="nav-auth-logOut">
+                      <a href="/profile.html?logOut=true">Log Out</a>
                     </li>
                   </ul>
                 </div>
               </li>
-              <li><a href="/booth">Manage Booth</a></li>
+              <li><a href="/booth.html">Manage Booth</a></li>
             </ul>
           </nav>
         </header>
@@ -274,6 +287,7 @@
       </section>
     </main>
 
-    
+    <script type="module" src="/js/ebcd-landing-qrcode.js"></script>
+    <script type="module" src="/js/ebcd-common-navbar.js"></script>
   </body>
 </html>
