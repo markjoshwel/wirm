@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Echoes Behind Closed Doors</title>
+
+    <!-- favicons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/png/apple-touch-icon.png"
+    />
+    <link rel="icon" type="image/x-icon" href="/ico/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/png/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/png/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- TODO: social share -->
+
+    <!-- ui stuff -->
+    <!-- temporary ui bundling fix (https://github.com/oven-sh/bun/issues/17243) -->
+    <script type="module" src="/js/ebcd-common-franken-ui.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/franken-ui@2.0.0-internal.42/dist/css/core.min.css"
+    />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <style>
+      /* latin-ext */
+      @font-face {
+        font-family: "Geist";
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/geist/v1/gyByhwUxId8gMEwSGFWNPoTcZY7pVQ.woff2)
+          format("woff2");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+          U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+          U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+          U+A720-A7FF;
+      }
+      /* latin */
+      @font-face {
+        font-family: "Geist";
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/geist/v1/gyByhwUxId8gMEwcGFWNPoTcZY4.woff2)
+          format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+          U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+          U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      /* latin-ext */
+      @font-face {
+        font-family: "Geist Mono";
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/geistmono/v1/or3nQ6H-1_WfwkMZI_qYFrkdmhHijks9bNn0.woff2)
+          format("woff2");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+          U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+          U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+          U+A720-A7FF;
+      }
+      /* latin */
+      @font-face {
+        font-family: "Geist Mono";
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/geistmono/v1/or3nQ6H-1_WfwkMZI_qYFrcdmhHijks9bA.woff2)
+          format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+          U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+          U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      @theme {
+        --font-sans: "Geist", sans-serif;
+        --font-mono: "'Geist Mono'", monospace;
+      }
+      :root {
+        font-family: Geist, sans-serif;
+        font-feature-settings: "liga" 1, "calt" 1; /* fix for Chrome */
+      }
+      @media (max-width: 768px) {
+        .uk-subnav > * > :first-child {
+          padding-left: 0.5rem !important;
+          padding-right: 0.5rem !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-background text-foreground">
+    <main class="flex flex-col items-center justify-center h-screen">
+      <div class="w-80 !space-y-6">
+        <div class="flex flex-col !space-y-2 text-center">
+          <h1 class="uk-h3">Authenticate with Us</h1>
+          <p class="text-sm text-muted-foreground">
+            Log in with a magic link. No account yet? We'll make one!
+          </p>
+        </div>
+        <div class="!space-y-2">
+          <input
+            class="uk-input"
+            placeholder="name@example.com"
+            type="text"
+          />
+          <button class="uk-btn uk-btn-primary w-full" href="#check-your-email" data-uk-toggle>
+            Send a Magic Link
+          </button>
+        </div>
+        <div class="relative">
+          <div class="absolute inset-0 flex items-center">
+            <span class="w-full border-t border-border"></span>
+          </div>
+          <div class="relative flex justify-center text-xs uppercase">
+            <span class="bg-background px-2 text-muted-foreground"
+              >Or continue with</span
+            >
+          </div>
+        </div>
+        <button class="uk-btn uk-btn-default w-full">
+          <svg role="img" viewBox="0 0 24 24" class="mr-2 h-4 w-4">
+            <path
+              fill="currentColor"
+              d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
+            ></path>
+          </svg>
+          Google
+        </button>
+        <!-- <p class="px-8 text-center text-sm text-muted-foreground">
+          By clicking continue, you agree to our
+          <a
+            class="underline underline-offset-4 hover:text-primary"
+            href="#"
+            >Terms of Service</a
+          >
+          and
+          <a
+            class="underline underline-offset-4 hover:text-primary"
+            href="#"
+            >Privacy Policy</a
+          >.
+        </p> -->
+      </div>
+    </main>
+
+    <div id="check-your-email" class="uk-flex-top" data-uk-modal>
+      <div class="uk-modal-dialog uk-margin-auto-vertical">
+        <button
+          class="uk-modal-close absolute right-4 top-4"
+          type="button"
+          data-uk-close
+        ></button>
+        <div class="uk-modal-header">
+          <h2 class="uk-modal-title">You've Got Mail!</h2>
+        </div>
+        <div class="uk-modal-body">
+          <p>
+            We've sent you an email with a magical link to authenticate with us.
+            If you're a new user, you'll make an account. If you're an existing
+            user, you'll be logged in. Check your inbox!
+          </p>
+        </div>
+        <div class="uk-modal-footer uk-text-right">
+          <button class="uk-modal-close uk-btn uk-btn-default">Okay!</button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/js/ebcd-auth.js"></script>
+  </body>
+</html> 
