@@ -1,0 +1,27 @@
+{
+  "name": "echoesbehindcloseddoors-web",
+  "scripts": {
+    "css": "tailwindcss -i css/styles.src.css -o css/styles.css --minify",
+    "css-process": "lightningcss --minify --bundle --targets '>= 0.25%' css/styles.css -o css/styles.min.css",
+    "build": "bun run css && bun run css-process && rm -rf public/; bun build index.html login.html --outdir=public",
+    "dev-css": "tailwindcss -i css/styles.src.css -o css/styles.css --watch",
+    "dev-build": "bun build index.html --outdir=public --watch",
+    "deploy-live": "firebase deploy --only hosting",
+    "deploy-staging": "firebase hosting:channel:deploy staging --expires 1d",
+    "deploy": "bun run build && bun run deploy-live"
+  },
+  "dependencies": {
+    "firebase": "^11.3.0",
+    "franken-ui": "^2.0.0-internal.42",
+    "lightningcss-cli": "^1.29.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.0.6",
+    "tailwindcss": "^4.0.6"
+  },
+  "trustedDependencies": [
+    "@parcel/watcher",
+    "lightningcss-cli",
+    "protobufjs"
+  ]
+}
