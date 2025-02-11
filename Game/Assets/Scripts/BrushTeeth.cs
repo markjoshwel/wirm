@@ -23,6 +23,8 @@ public class BrushTeeth : MonoBehaviour
     private float timer = 0f;
     private bool isGrabbing = false;
     
+    private bool taskCompleted = false;
+    
     // Defines UI references
     [Header("UI References")]
 
@@ -54,7 +56,7 @@ public class BrushTeeth : MonoBehaviour
 
     void Update()
     {
-        if (isGrabbing)
+        if (isGrabbing && !taskCompleted)
         {
             timer += Time.deltaTime;
             progressBar.value = timer / progressTime;
@@ -108,6 +110,9 @@ public class BrushTeeth : MonoBehaviour
 
     private void CompleteProgress()
     {
+        if (taskCompleted) return;
+        
+        taskCompleted = true;
         progressBar.gameObject.SetActive(false);
         isGrabbing = false;
         
@@ -119,8 +124,11 @@ public class BrushTeeth : MonoBehaviour
         
         GameManager.Instance.BrushTeethTaskComplete();
         
+        storyPanelUI.SetActive(true);
         storyText.text = "I should be fresh enough to go to school now...";
-        StartCoroutine(HideMessageAfterSeconds(storyPanelUI, 7f));
+
+        // Clear the text after a delay
+        StartCoroutine(ClearMessageAfterSeconds(7f));
 
         Debug.Log("Progress completed!");
     }
@@ -134,10 +142,10 @@ public class BrushTeeth : MonoBehaviour
         }
     }
     
-    private IEnumerator HideMessageAfterSeconds(GameObject uiElement, float delay)
+    private IEnumerator ClearMessageAfterSeconds(float delay)
     {
         // Waits for delay to end and hides the UI
         yield return new WaitForSeconds(delay);
-        uiElement.SetActive(false);
+        storyText.text = "";
     }
 }
