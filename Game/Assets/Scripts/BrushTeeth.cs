@@ -11,6 +11,7 @@ using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using TMPro;
 
 public class BrushTeeth : MonoBehaviour
 {
@@ -22,7 +23,14 @@ public class BrushTeeth : MonoBehaviour
     private float timer = 0f;
     private bool isGrabbing = false;
     
-    // Audio References
+    // Defines UI references
+    [Header("UI References")]
+
+    public GameObject storyPanelUI;
+    public TMP_Text storyText;
+    
+    // Defines Audio References
+    [Header("Audio References")]
     public AudioSource audioSource;
     public AudioClip brushingSound;
 
@@ -110,6 +118,9 @@ public class BrushTeeth : MonoBehaviour
         }
         
         GameManager.Instance.BrushTeethTaskComplete();
+        
+        storyText.text = "I should be fresh enough to go to school now...";
+        StartCoroutine(HideMessageAfterSeconds(storyPanelUI, 7f));
 
         Debug.Log("Progress completed!");
     }
@@ -121,5 +132,12 @@ public class BrushTeeth : MonoBehaviour
             grabInteractable.selectEntered.RemoveListener(OnGrab);
             grabInteractable.selectExited.RemoveListener(OnRelease);
         }
+    }
+    
+    private IEnumerator HideMessageAfterSeconds(GameObject uiElement, float delay)
+    {
+        // Waits for delay to end and hides the UI
+        yield return new WaitForSeconds(delay);
+        uiElement.SetActive(false);
     }
 }

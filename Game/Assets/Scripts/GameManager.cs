@@ -91,6 +91,4 @@ public class GameManager : MonoBehaviour
     {
         floorSweeped = true;
     }
-    
-    
 }
