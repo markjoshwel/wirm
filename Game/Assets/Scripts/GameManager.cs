@@ -17,10 +17,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static GameManager Instance;
 
-    // Defines UI references
-    [Header("UI References")]
-    public GameObject storyPanelUI;
-    public TMP_Text storyText;
 
     // Trackable Task Completions
     private bool bedroomCleaned = false;
@@ -76,42 +72,23 @@ public class GameManager : MonoBehaviour
 
         // Future-proofing for Firebase tracking
     }
-
-    public void AreTasksDone()
-    {
-        if (bedroomCleaned && teethBrushed && floorSweeped)
-        {
-            storyText.text = "I think I did everything... I should go to school now";
-            storyPanelUI.SetActive(true);
-            StartCoroutine(HideMessageAfterSeconds(storyPanelUI, 7f));
-        }
-    }
+    
 
     // Tracks if bedroom is cleaned or not
     public void BedroomTaskComplete()
     {
         bedroomCleaned = true;
-        AreTasksDone();
     }
 
     // Tracks if teeth is brushed or not
     public void BrushTeethTaskComplete()
     {
         teethBrushed = true;
-        AreTasksDone();
     }
 
     // Tracks if floor is sweeped or not
     public void FloorSweepedTaskComplete()
     {
         floorSweeped = true;
-        AreTasksDone();
     }
-    private IEnumerator HideMessageAfterSeconds(GameObject uiElement, float delay)
-    {
-        // Waits for delay to end and hides the UI
-        yield return new WaitForSeconds(delay);
-        uiElement.SetActive(false);
-    }
-    
 }

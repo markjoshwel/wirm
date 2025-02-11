@@ -20,8 +20,6 @@ public class BroomSweeping : MonoBehaviour
     // Defines how much trash is needed to collect in order to unlock the door
     public int dirtRequired = 10;
     
-    private bool taskCompleted = false;
-    
     // Defines UI references
     [Header("UI References")]
     public GameObject storyPanelUI;
@@ -35,28 +33,25 @@ public class BroomSweeping : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (dirtSweeped >= dirtRequired && !taskCompleted)
+        if (dirtSweeped >= dirtRequired)
         {
-            taskCompleted = true; 
             GameManager.Instance.FloorSweepedTaskComplete();
             
-            storyPanelUI.SetActive(true);
             storyText.text = "I hope the house is clean enough now so I don't get scolded later...";
-            
-            StartCoroutine(ClearMessageAfterSeconds(7f));
+            StartCoroutine(HideMessageAfterSeconds(storyPanelUI, 7f));
         }
     }
     
     private void OnTriggerEnter(Collider other)
     {
-        // Now correctly checks for "Dirt" before triggering
-        if (other.CompareTag("Dirt"))  
+        if (!other.CompareTag("Dirt"))
         {
+            // Add to dirt swept count
             dirtSweeped++;
-
+            
             // Destroy it to prevent extra counting
             Destroy(other.gameObject);
-
+        
             // Play sound only if no other sound is currently playing
             if (!audioSource.isPlaying)
             {
@@ -64,11 +59,10 @@ public class BroomSweeping : MonoBehaviour
             }
         }
     }
-    
-    private IEnumerator ClearMessageAfterSeconds(float delay)
+    private IEnumerator HideMessageAfterSeconds(GameObject uiElement, float delay)
     {
         // Waits for delay to end and hides the UI
         yield return new WaitForSeconds(delay);
-        storyText.text = "";
+        uiElement.SetActive(false);
     }
 }

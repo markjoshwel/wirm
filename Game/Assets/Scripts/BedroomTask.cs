@@ -40,6 +40,7 @@ public class BedroomTask : MonoBehaviour
     // Defines UI references
     [Header("UI References")]
     public GameObject lockedDoorUI;
+    public GameObject unlockedDoorUI;
     public GameObject storyPanelUI;
     public TMP_Text storyText;
     
@@ -50,13 +51,12 @@ public class BedroomTask : MonoBehaviour
     public AudioClip unlockedSound;
     public AudioClip footstepsSound;
     public AudioClip doorSlamSound;
-    public AudioClip throwTrashSound;
 
     void Start()
     {
         // Hide all UI prompts on start
         lockedDoorUI.SetActive(false);
-        //unlockedDoorUI.SetActive(false);
+        unlockedDoorUI.SetActive(false);
         
         // Ensure door is not null
         if (door != null)
@@ -85,7 +85,7 @@ public class BedroomTask : MonoBehaviour
         {
             storyPanelUI.SetActive(true);
             storyText.text = "My parents are still home... I should clean up first.";
-            StartCoroutine(ClearMessageAfterSeconds(7f));
+            StartCoroutine(HideMessageAfterSeconds(storyPanelUI, 10f));
         }
 
     }
@@ -95,13 +95,6 @@ public class BedroomTask : MonoBehaviour
     {
         // Add to trash count
         trashCollected++;
-        
-        // Play sound only if no other sound is currently playing
-        if (!audioSource.isPlaying)
-        {
-            audioSource.PlayOneShot(throwTrashSound);
-        }
-        
         Debug.Log($"Trash collected: {trashCollected}/{trashRequired}");
 
         // If player has collected/thrown required amount of trash
@@ -169,10 +162,10 @@ public class BedroomTask : MonoBehaviour
         }
         
         // Show the unlocked door UI
-       // unlockedDoorUI.SetActive(true);
+        unlockedDoorUI.SetActive(true);
         
         // Call the function to hide the UI after delay
-        //StartCoroutine(HideMessageAfterSeconds(unlockedDoorUI, 5f));
+        StartCoroutine(HideMessageAfterSeconds(unlockedDoorUI, 5f));
         Debug.Log("Room is clean! The door is now unlocked.");
     }
 
@@ -192,7 +185,7 @@ public class BedroomTask : MonoBehaviour
             }
             
             // Call the function to hide the UI after delay
-            StartCoroutine(HidePanelAfterSeconds(lockedDoorUI, 5f));
+            StartCoroutine(HideMessageAfterSeconds(lockedDoorUI, 5f));
             Debug.Log("The door is locked! Clean the room first.");
         }
     }
@@ -206,10 +199,10 @@ public class BedroomTask : MonoBehaviour
     
     private IEnumerator PlaySoundSequence()
     {
-        PostProcessingManager.Instance.TriggerEffect("Panic");
-        
-        storyPanelUI.SetActive(true); 
         storyText.text = "!!!";
+        storyPanelUI.SetActive(true); 
+        
+        PostProcessingManager.Instance.StartEffect("Panic");
         
         // Play footsteps of parents walking away
         audioSource.PlayOneShot(footstepsSound);
@@ -219,7 +212,7 @@ public class BedroomTask : MonoBehaviour
         audioSource.PlayOneShot(doorSlamSound);
         yield return new WaitForSeconds(doorSlamSound.length);
         
-        // Stop the panic effect once the door slam sound ends
+        
         PostProcessingManager.Instance.StopEffect("Panic");
         
         // Clear the "!!!"
@@ -228,22 +221,28 @@ public class BedroomTask : MonoBehaviour
         // Unlocks the door after the clips and update the story
         UnlockDoor();
         
+        // Add a small delay before updating the text to ensure everything shows properly
+        yield return new WaitForSeconds(0.5f);
+        
         storyText.text = "They finally left... just as soon as I finished cleaning. I can leave the room now.";
-        StartCoroutine(ClearMessageAfterSeconds(7f));
+        StartCoroutine(HideMessageAfterSeconds(storyPanelUI, 10f));
     }
     
     // Function to hide the UI after a delay
-    private IEnumerator ClearMessageAfterSeconds(float delay)
-    {
-        // Waits for delay to end and hides the UI
-        yield return new WaitForSeconds(delay);
-        storyText.text = "";
-    }
-    
-    private IEnumerator HidePanelAfterSeconds(GameObject uiElement, float delay)
+    private IEnumerator HideMessageAfterSeconds(GameObject uiElement, float delay)
     {
         // Waits for delay to end and hides the UI
         yield return new WaitForSeconds(delay);
         uiElement.SetActive(false);
+    }
+    
+    public void ApplyHeadacheEffect()
+    {
+        PostProcessingManager.Instance?.TriggerEffect("Headache");
+    }
+
+    public void ApplyDizzinessEffect()
+    {
+        PostProcessingManager.Instance?.TriggerEffect("Dizziness");
     }
 }
