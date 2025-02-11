@@ -13,6 +13,7 @@ public class BroomSweeping : MonoBehaviour
 {
     private GameManager gameManager;
     private PostProcessingManager postProcessingManager;
+    private StorylineManager storylineManager;
     
     // To track how much trash has been collected so far
     public int dirtSweeped = 0;
@@ -24,14 +25,19 @@ public class BroomSweeping : MonoBehaviour
     
     // Defines UI references
     [Header("UI References")]
-    public GameObject storyPanelUI;
+    //public GameObject storyPanelUI;
     public TMP_Text storyText;
     
     // Defines Audio References
     [Header("Audio References")]
     public AudioSource audioSource;
     public AudioClip sweepingSound;
-    
+
+    void Start()
+    {
+        storylineManager = FindObjectOfType<StorylineManager>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -40,10 +46,12 @@ public class BroomSweeping : MonoBehaviour
             taskCompleted = true; 
             GameManager.Instance.FloorSweepedTaskComplete();
             
-            storyPanelUI.SetActive(true);
-            storyText.text = "I hope the house is clean enough now so I don't get scolded later...";
+            //storyPanelUI.SetActive(true);
+            //storyText.text = "I hope the house is clean enough now so I don't get scolded later...";
             
-            StartCoroutine(ClearMessageAfterSeconds(7f));
+            storylineManager.EnqueueMessage("I tried my best... Hopefully I don't get scolded later.", 7f);
+            
+            //StartCoroutine(ClearMessageAfterSeconds(7f));
         }
     }
     
