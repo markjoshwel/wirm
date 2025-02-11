@@ -79,10 +79,11 @@ public class GameManager : MonoBehaviour
 
     public void AreTasksDone()
     {
+        Debug.Log("TASKS ARE DONE");
         if (bedroomCleaned && teethBrushed && floorSweeped)
         {
-            storyText.text = "I think I did everything... I should go to school now";
             storyPanelUI.SetActive(true);
+            storyText.text = "I think I did everything... I should go to school now";
             StartCoroutine(HideMessageAfterSeconds(storyPanelUI, 7f));
         }
     }
@@ -113,5 +114,4 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         uiElement.SetActive(false);
     }
-    
 }

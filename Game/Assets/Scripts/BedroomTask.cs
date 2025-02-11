@@ -16,6 +16,7 @@ public class BedroomTask : MonoBehaviour
 {
     private GameManager gameManager;
     private PostProcessingManager postProcessingManager;
+    private StorylineManager storylineManager;
     
     [Header("Task Requirement Values")]
     // To track how much trash has been collected so far
@@ -228,7 +229,7 @@ public class BedroomTask : MonoBehaviour
         // Unlocks the door after the clips and update the story
         UnlockDoor();
         
-        storyText.text = "They finally left... just as soon as I finished cleaning. I can leave the room now.";
+        storylineManager.EnqueueMessage("They finally left... just as soon as I finished cleaning. I can leave the room now.", 7f);
         StartCoroutine(ClearMessageAfterSeconds(7f));
     }
     

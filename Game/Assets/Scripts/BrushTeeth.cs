@@ -16,6 +16,7 @@ using TMPro;
 public class BrushTeeth : MonoBehaviour
 {
     private GameManager gameManager;
+    private StorylineManager storylineManager;
     
     public Slider progressBar; // Reference to the Slider (progress bar)
     public float progressTime = 5f; // Time for the progress bar to complete

@@ -13,6 +13,7 @@ public class BroomSweeping : MonoBehaviour
 {
     private GameManager gameManager;
     private PostProcessingManager postProcessingManager;
+    private StorylineManager storylineManager;
     
     // To track how much trash has been collected so far
     public int dirtSweeped = 0;
@@ -41,9 +42,7 @@ public class BroomSweeping : MonoBehaviour
             GameManager.Instance.FloorSweepedTaskComplete();
             
             storyPanelUI.SetActive(true);
-            storyText.text = "I hope the house is clean enough now so I don't get scolded later...";
-            
-            StartCoroutine(ClearMessageAfterSeconds(7f));
+            storylineManager.EnqueueMessage("I hope the house is clean enough now so I don't get scolded later...", 7f)
         }
     }
     
