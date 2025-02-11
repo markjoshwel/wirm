@@ -1,5 +1,5 @@
+/* @import url("https://unpkg.com/franken-ui@2.0.0-internal.42/dist/css/core.min.css"); */
 @import "./franken-core.css";
-/* @import "./franken-utilities.css"; */
 @import "tailwindcss";
 
 /* latin-ext */
