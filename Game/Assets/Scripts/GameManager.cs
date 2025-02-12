@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     private bool bedroomCleaned = false;
     private bool teethBrushed = false;
     private bool floorSweeped = false;
+    private bool goToSchool = false;
 
     // Queue for managing messages
     private Queue<string> messageQueue = new Queue<string>();
@@ -36,6 +37,8 @@ public class GameManager : MonoBehaviour
     public bool IsBedroomCleaned() { return bedroomCleaned; }
     public bool IsTeethBrushed() { return teethBrushed; }
     public bool IsFloorSweeped() { return floorSweeped; }
+    
+    public bool IsGoToSchool() { return goToSchool; }
     
     /// <summary>
     ///     Enforces singleton behaviour; sets doesn't destroy on load and checks for multiple instances
@@ -96,6 +99,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Bedroom Cleaned: " + bedroomCleaned);
         Debug.Log("Teeth Brushed: " + teethBrushed);
         Debug.Log("Floor Sweeped: " + floorSweeped);
+        Debug.Log("Go To School: " + goToSchool);
     }
 
     public void AreTasksDone()
@@ -125,5 +129,10 @@ public class GameManager : MonoBehaviour
     {
         floorSweeped = true;
         AreTasksDone();
+    }
+
+    public void GoToSchoolTaskComplete()
+    {
+        goToSchool = true;
     }
 }

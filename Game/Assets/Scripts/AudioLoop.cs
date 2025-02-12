@@ -19,7 +19,11 @@ public class AudioLoop : MonoBehaviour
         }
         StartCoroutine(PlayPauseLoop());
     }
-
+    
+    public void StartAudioLoop() 
+    {
+        StartCoroutine(PlayPauseLoop());
+    }
     private IEnumerator PlayPauseLoop()
     {
         while (true)
