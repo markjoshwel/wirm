@@ -156,6 +156,10 @@ public class InfoCollector : MonoBehaviour
             // Returns predefined information
             return "I don't remember if daddy or I did this.";
         
+        if (obj.name == "ParentsDoor")
+            // Returns predefined information
+            return "My parents room. It's locked";
+        
         // Default information if there is no specific case
         return "There's nothing to look at.";
     }

@@ -39,7 +39,7 @@ public class LeaveHouseTrigger : MonoBehaviour
     {
         confirmationPanel.SetActive(true);
         warningText.text = "Am I sure I want to leave the house? I might not have completed everything...";
-        StartCoroutine(HideWarningPanelAfterDelay(10f)); // can change how long you want the text to show for 
+        StartCoroutine(HideWarningPanelAfterDelay(7f)); // can change how long you want the text to show for 
     }
     IEnumerator HideWarningPanelAfterDelay(float delay)
     {
