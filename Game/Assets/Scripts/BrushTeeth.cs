@@ -16,7 +16,6 @@ using TMPro;
 public class BrushTeeth : MonoBehaviour
 {
     private GameManager gameManager;
-    private StorylineManager storylineManager;
     
     public Slider progressBar; // Reference to the Slider (progress bar)
     public float progressTime = 5f; // Time for the progress bar to complete
@@ -39,8 +38,6 @@ public class BrushTeeth : MonoBehaviour
 
     void Start()
     {
-        storylineManager = FindObjectOfType<StorylineManager>();
-        
         grabInteractable = GetComponent<XRGrabInteractable>();
 
         if (grabInteractable == null)
@@ -127,13 +124,11 @@ public class BrushTeeth : MonoBehaviour
         
         GameManager.Instance.BrushTeethTaskComplete();
         
-        storylineManager.EnqueueMessage("I should be fresh enough to go to school...", 7f);
-        
-        //storyPanelUI.SetActive(true);
-        //storyText.text = "I should be fresh enough to go to school now...";
+        storyPanelUI.SetActive(true);
+        storyText.text = "I should be fresh enough to go to school now...";
 
         // Clear the text after a delay
-        //StartCoroutine(ClearMessageAfterSeconds(7f));
+        StartCoroutine(ClearMessageAfterSeconds(7f));
 
         Debug.Log("Progress completed!");
     }

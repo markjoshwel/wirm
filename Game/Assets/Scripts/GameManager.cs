@@ -11,7 +11,6 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    
     /// <summary>
     ///     Define instance field for accessing the singleton elsewhere
     /// </summary>
@@ -26,6 +25,10 @@ public class GameManager : MonoBehaviour
     private bool bedroomCleaned = false;
     private bool teethBrushed = false;
     private bool floorSweeped = false;
+
+    // Queue for managing messages
+    private Queue<string> messageQueue = new Queue<string>();
+    private bool isMessageActive = false;
     
     /// <summary>
     ///     Checks if tasks are completed
@@ -53,19 +56,39 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // Continuously check and display queued messages
+        if (!isMessageActive && messageQueue.Count > 0)
+        {
+            string nextMessage = messageQueue.Dequeue();
+            StartCoroutine(DisplayMessage(nextMessage));
+        }
     }
-    
+
+    /// <summary>
+    ///     Queues a message to be displayed
+    /// </summary>
+    public void QueueMessage(string message)
+    {
+        messageQueue.Enqueue(message);
+    }
+
+    /// <summary>
+    ///     Displays a message and waits for it to disappear
+    /// </summary>
+    private IEnumerator DisplayMessage(string message)
+    {
+        isMessageActive = true;
+        storyPanelUI.SetActive(true);
+        storyText.text = message;
+        yield return new WaitForSeconds(7f); // Wait for 7 seconds before hiding
+        storyPanelUI.SetActive(false);
+        isMessageActive = false;
+    }
+
     // Logs player's choices before leaving the house (for future Firebase tracking)
     public void LogPlayerChoices()
     {
@@ -73,18 +96,13 @@ public class GameManager : MonoBehaviour
         Debug.Log("Bedroom Cleaned: " + bedroomCleaned);
         Debug.Log("Teeth Brushed: " + teethBrushed);
         Debug.Log("Floor Sweeped: " + floorSweeped);
-
-        // Future-proofing for Firebase tracking
     }
 
     public void AreTasksDone()
     {
-        Debug.Log("TASKS ARE DONE");
         if (bedroomCleaned && teethBrushed && floorSweeped)
         {
-            storyPanelUI.SetActive(true);
-            storyText.text = "I think I did everything... I should go to school now";
-            StartCoroutine(HideMessageAfterSeconds(storyPanelUI, 7f));
+            QueueMessage("I think I did everything... I think I can leave for school now");
         }
     }
 
@@ -107,11 +125,5 @@ public class GameManager : MonoBehaviour
     {
         floorSweeped = true;
         AreTasksDone();
-    }
-    private IEnumerator HideMessageAfterSeconds(GameObject uiElement, float delay)
-    {
-        // Waits for delay to end and hides the UI
-        yield return new WaitForSeconds(delay);
-        uiElement.SetActive(false);
     }
 }

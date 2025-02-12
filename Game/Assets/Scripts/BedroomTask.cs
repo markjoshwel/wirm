@@ -16,7 +16,6 @@ public class BedroomTask : MonoBehaviour
 {
     private GameManager gameManager;
     private PostProcessingManager postProcessingManager;
-    private StorylineManager storylineManager;
     
     [Header("Task Requirement Values")]
     // To track how much trash has been collected so far
@@ -41,8 +40,8 @@ public class BedroomTask : MonoBehaviour
     // Defines UI references
     [Header("UI References")]
     public GameObject lockedDoorUI;
-    //public GameObject storyPanelUI;
-    //public TMP_Text storyText;
+    public GameObject storyPanelUI;
+    public TMP_Text storyText;
     
     // Defines Audio References
     [Header("Audio References")]
@@ -55,8 +54,6 @@ public class BedroomTask : MonoBehaviour
 
     void Start()
     {
-        storylineManager = FindObjectOfType<StorylineManager>();
-        
         // Hide all UI prompts on start
         lockedDoorUI.SetActive(false);
         //unlockedDoorUI.SetActive(false);
@@ -84,13 +81,13 @@ public class BedroomTask : MonoBehaviour
             }
         }
         
-        storylineManager.EnqueueMessage("My parents are still home... I should wait for them to leave.", 7f);
-        /*if (storyPanelUI != null && storyText != null)
+        if (storyPanelUI != null && storyText != null)
         {
             storyPanelUI.SetActive(true);
             storyText.text = "My parents are still home... I should clean up first.";
             StartCoroutine(ClearMessageAfterSeconds(7f));
-        }*/
+        }
+
     }
 
     // Functions when trash is collected/thrown
@@ -211,9 +208,8 @@ public class BedroomTask : MonoBehaviour
     {
         PostProcessingManager.Instance.TriggerEffect("Panic");
         
-        storylineManager.EnqueueMessage("!!!", 7f);
-        /*storyPanelUI.SetActive(true); 
-        storyText.text = "!!!";*/
+        storyPanelUI.SetActive(true); 
+        storyText.text = "!!!";
         
         // Play footsteps of parents walking away
         audioSource.PlayOneShot(footstepsSound);
@@ -227,15 +223,13 @@ public class BedroomTask : MonoBehaviour
         PostProcessingManager.Instance.StopEffect("Panic");
         
         // Clear the "!!!"
-        //storyText.text = "";
+        storyText.text = "";
 
         // Unlocks the door after the clips and update the story
         UnlockDoor();
         
-        
-        storylineManager.EnqueueMessage("They finally left... I can leave the room now", 5f);
-        /*storyText.text = "They finally left just as soon as I finished cleaning. I can leave the room now.";
-        StartCoroutine(ClearMessageAfterSeconds(7f));*/
+        storyText.text = "They finally left... just as soon as I finished cleaning. I can leave the room now.";
+        StartCoroutine(ClearMessageAfterSeconds(7f));
     }
     
     // Function to hide the UI after a delay
@@ -243,7 +237,7 @@ public class BedroomTask : MonoBehaviour
     {
         // Waits for delay to end and hides the UI
         yield return new WaitForSeconds(delay);
-        //storyText.text = "";
+        storyText.text = "";
     }
     
     private IEnumerator HidePanelAfterSeconds(GameObject uiElement, float delay)
