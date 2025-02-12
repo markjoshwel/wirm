@@ -142,9 +142,21 @@ public class InfoCollector : MonoBehaviour
         
         if (obj.name == "Bottles")
             // Returns predefined information
-            return "An empty bottle. It numbs the pain... but not for long enough";
+            return "Saw daddy drink this... I like how it numbs the pain";
+        
+        if (obj.name == "Cigarettes")
+            // Returns predefined information
+            return "Stole this from mommy. I hope she doesn't find out.";
+        
+        if (obj.name == "Penknife")
+            // Returns predefined information
+            return "Sometimes I use this to feel something.";
+        
+        if (obj.name == "Blood")
+            // Returns predefined information
+            return "I don't remember if daddy or I did this.";
         
         // Default information if there is no specific case
-        return "An unknown object with mysterious origins.";
+        return "There's nothing to look at.";
     }
 }
