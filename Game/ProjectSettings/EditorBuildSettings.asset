@@ -5,16 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Samples/XR Interaction Toolkit/3.0.3/Scenes/SampleScene.unity
     guid: 55daccc09a3b69647bbab145b54a3ab3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/calling scene.unity
     guid: 48cde6b0ab9794ada98c7371a0e98e40
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Wai Lam's interaction.unity
     guid: 66fe0e94fa29b1f4fb504e90cf59f1a2
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/isaac interaction.unity
     guid: 0918c8f89e6184c5caed264887eabbb4
   - enabled: 1
@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/House.unity
     guid: a59e0e295e616ae43a48088e6f52328d
+  - enabled: 1
+    path: Assets/Scenes/Town.unity
+    guid: 34ddf74f9d161b149ad0af6f15f9ed1a
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}

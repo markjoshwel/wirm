@@ -18,6 +18,7 @@ public class LeaveHouseTrigger : MonoBehaviour
     public string nextSceneName;
     public GameObject confirmationPanel; 
     public TMP_Text warningText;
+    public GameObject warningPanel;
     
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,12 @@ public class LeaveHouseTrigger : MonoBehaviour
     {
         confirmationPanel.SetActive(true);
         warningText.text = "Am I sure I want to leave the house? I might not have completed everything...";
+        StartCoroutine(HideWarningPanelAfterDelay(10f)); // can change how long you want the text to show for 
+    }
+    IEnumerator HideWarningPanelAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        warningPanel.SetActive(false);
     }
 
     public void ConfirmLeave()
@@ -49,6 +56,7 @@ public class LeaveHouseTrigger : MonoBehaviour
     public void CancelLeave()
     {
         confirmationPanel.SetActive(false);
+        warningPanel.SetActive(true);
     }
 
 }
