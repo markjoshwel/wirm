@@ -58,6 +58,16 @@ public class GameManager : MonoBehaviour
             Debug.Log("awake as non-singleton instance, destroying self");
             Destroy(gameObject);
         }
+        
+        // Try to find UI elements if not set
+        if (storyPanelUI == null)
+        {
+            storyPanelUI = GameObject.Find("StoryPanelUI");
+        }
+        if (storyText == null)
+        {
+            storyText = GameObject.Find("StoryText").GetComponent<TMP_Text>();
+        }
     }
 
     // Update is called once per frame
