@@ -30,12 +30,13 @@
 
     <!-- ui stuff -->
     <!-- temporary ui bundling fix (https://github.com/oven-sh/bun/issues/17243) -->
-    <script type="module" src="/js/ebcd-common-franken-ui.js"></script>
     <link
       rel="stylesheet"
       href="https://unpkg.com/franken-ui@2.0.0-internal.42/dist/css/core.min.css"
     />
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script type="module" src="/js/ebcd-common-franken-ui.js"></script>
+    <script type="module" src="/js/ebcd-auth.js"></script>
     <style>
       /* latin-ext */
       @font-face {
@@ -113,14 +114,15 @@
           </p>
         </div>
         <div class="!space-y-2">
-          <input
-            class="uk-input"
-            placeholder="name@example.com"
-            type="text"
-          />
-          <button class="uk-btn uk-btn-primary w-full" href="#check-your-email" data-uk-toggle>
+          <input id="auth-field-email" class="uk-input" placeholder="name@example.com" type="text" />
+          <a
+            id="auth-button-magic"
+            class="uk-btn uk-btn-primary w-full"
+            href="#check-your-email"
+            data-uk-toggle
+          >
             Send a Magic Link
-          </button>
+          </a>
         </div>
         <div class="relative">
           <div class="absolute inset-0 flex items-center">
@@ -132,7 +134,7 @@
             >
           </div>
         </div>
-        <button class="uk-btn uk-btn-default w-full">
+        <button id="auth-button-sso-google" class="uk-btn uk-btn-default w-full">
           <svg role="img" viewBox="0 0 24 24" class="mr-2 h-4 w-4">
             <path
               fill="currentColor"
@@ -158,7 +160,7 @@
       </div>
     </main>
 
-    <div id="check-your-email" class="uk-flex-top" data-uk-modal>
+    <div id="check-your-email" class="uk-flex-top uk-modal" data-uk-modal>
       <div class="uk-modal-dialog uk-margin-auto-vertical">
         <button
           class="uk-modal-close absolute right-4 top-4"
@@ -166,13 +168,11 @@
           data-uk-close
         ></button>
         <div class="uk-modal-header">
-          <h2 class="uk-modal-title">You've Got Mail!</h2>
+          <h2 id="auth-modal-result-header" class="uk-modal-title">Hmm...</h2>
         </div>
         <div class="uk-modal-body">
-          <p>
-            We've sent you an email with a magical link to authenticate with us.
-            If you're a new user, you'll make an account. If you're an existing
-            user, you'll be logged in. Check your inbox!
+          <p id="auth-modal-result-body">
+            Waiting for a response from the server...
           </p>
         </div>
         <div class="uk-modal-footer uk-text-right">
@@ -180,6 +180,5 @@
         </div>
       </div>
     </div>
-    <script type="module" src="/js/ebcd-auth.js"></script>
   </body>
-</html> 
+</html>
