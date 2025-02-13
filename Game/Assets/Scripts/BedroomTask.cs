@@ -251,7 +251,7 @@ public class BedroomTask : MonoBehaviour
         yield return new WaitForSeconds(doorSlamSound.length);
         
         // Stop the panic effect once the door slam sound ends
-        PostProcessingManager.Instance.StopEffect("Panic");
+        PostProcessingManager.Instance.StopEffect();
         
         // Clear the "!!!"
         storyText.text = "";

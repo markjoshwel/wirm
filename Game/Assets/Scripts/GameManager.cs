@@ -169,6 +169,6 @@ public class GameManager : MonoBehaviour
     private void LoadCallingScene()
     {
         Debug.Log("Loading Calling Scene: callingChoice");
-        SceneManager.LoadScene("callingChoice");
+        SceneManager.LoadScene("CallingChoice");
     }
 }

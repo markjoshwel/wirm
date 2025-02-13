@@ -41,11 +41,14 @@ public class PostProcessingManager : MonoBehaviour
     private bool isEffectActive = false;
 
     // Defines Audio References
-    [Header("Audio References")] public AudioSource audioSource;
+    [Header("Audio References")] 
+    public AudioSource audioSource;
     public AudioClip heartbeatSound;
     public AudioClip whisperSound;
     public AudioClip distortedWhisperSound;
 
+    // Holds the current effect name to manage stopping and starting dynamically
+    private string currentEffectName = "";
 
     void Awake()
     {
@@ -70,45 +73,48 @@ public class PostProcessingManager : MonoBehaviour
         volume.profile.TryGet(out colorAdjustments);
     }
 
-    // Update is called once per frame
-    void Update()
+    // Checks if an effect is currently active
+    public bool IsEffectActive()
     {
-
+        return isEffectActive;
     }
 
-    // Function to start effects if there is none currently, and stop current effects to start next ones
+    // Function to trigger effects dynamically based on the effect name passed
     public void TriggerEffect(string effectName)
     {
-        // If an effect is already active
+        // If an effect is already active, stop the current one
         if (isEffectActive)
         {
-            // Stop the effect
-            StopEffect(effectName);
+            StopEffect(currentEffectName);
         }
 
-        // If there's no active effects 
-        else
-        {
-            // Start the effect
-            StartEffect(effectName);
-        }
+        // Start the new effect
+        StartEffect(effectName);
     }
 
-    // Function to start the effect
+    // Start a specific effect
     public void StartEffect(string effectName)
     {
-        // The effect is active
         isEffectActive = true;
+        currentEffectName = effectName;
 
-        // Calls coroutine to apply the effect
         StartCoroutine(ApplyEffect(effectName));
     }
 
-    // Function to stop the effect
-    public void StopEffect(string effectName)
+    // Stop the active effect
+    public void StopEffect()
     {
-        // The effect is not active
+        if (isEffectActive)
+        {
+            StopEffect(currentEffectName);
+        }
+    }
+
+    // Stop a specific effect
+    private void StopEffect(string effectName)
+    {
         isEffectActive = false;
+        currentEffectName = "";
 
         // Reset effects to default
         if (vignette != null) vignette.intensity.Override(0f);
@@ -117,17 +123,17 @@ public class PostProcessingManager : MonoBehaviour
         if (lensDistortion != null) lensDistortion.intensity.Override(0f);
         if (colorAdjustments != null) colorAdjustments.postExposure.Override(0f);
 
-        // Stop audio
+        // Stop the audio
         if (audioSource != null)
         {
             audioSource.Stop();
         }
     }
 
-    // Applies effects over time based on the type
+    // Applies effects over time based on the effect name
     private IEnumerator ApplyEffect(string effectName)
     {
-        // Handle the audio for the effect
+        // Handle audio for the effect
         if (effectName == "Panic")
         {
             audioSource.clip = heartbeatSound;
@@ -171,10 +177,11 @@ public class PostProcessingManager : MonoBehaviour
                 lensDistortion.intensity.Override(lensDistortionIntensity.Evaluate(Time.time));
                 chromaticAberration.intensity.Override(chromaticAberrationIntensity.Evaluate(Time.time));
             }
+
             yield return null;
         }
 
-        // Stop audio when the effect ends
+        // Stop audio after the effect ends
         if (audioSource != null && audioSource.isPlaying)
         {
             audioSource.Stop();
