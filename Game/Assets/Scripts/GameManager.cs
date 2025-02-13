@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     ///     Define instance field for accessing the singleton elsewhere
     /// </summary>
     public static GameManager Instance;
+    
+    public int currentDay = 1;
 
     // Defines UI references
     [Header("UI References")]
@@ -144,5 +146,10 @@ public class GameManager : MonoBehaviour
     public void GoToSchoolTaskComplete()
     {
         goToSchool = true;
+    }
+    
+    public void IncrementDay()
+    {
+        currentDay++;
     }
 }

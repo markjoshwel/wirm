@@ -81,14 +81,48 @@ public class BedroomTask : MonoBehaviour
             }
         }
         
+        // Hide the story panel at the start
+        if (storyPanelUI != null)
+            storyPanelUI.SetActive(false);
+
+        // Subscribe to the event from DayPanelManager
+        CanvasFade.OnDayPanelHidden += ShowStoryText;
+        
+        // if (storyPanelUI != null && storyText != null)
+        // {
+        //     storyPanelUI.SetActive(true);
+        //     storyText.text = "My parents are still home... I should clean up first.";
+        //     StartCoroutine(ClearMessageAfterSeconds(7f));
+        // }
+
+    }
+    
+    private void OnDestroy()
+    {
+        // Unsubscribe to prevent memory leaks
+        CanvasFade.OnDayPanelHidden -= ShowStoryText;
+    }
+
+    private void ShowStoryText()
+    {
+        // Activate story panel and show text after the Day Panel disappears
+        StartCoroutine(DelayedStoryText());
+    }
+
+    private IEnumerator DelayedStoryText()
+    {
+        yield return new WaitForSeconds(0.5f); // Small delay to ensure smooth transition
+
         if (storyPanelUI != null && storyText != null)
         {
             storyPanelUI.SetActive(true);
             storyText.text = "My parents are still home... I should clean up first.";
             StartCoroutine(ClearMessageAfterSeconds(7f));
         }
-
     }
+
+ 
+
 
     // Functions when trash is collected/thrown
     public void CollectTrash()

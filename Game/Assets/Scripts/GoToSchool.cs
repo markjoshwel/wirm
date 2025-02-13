@@ -69,6 +69,10 @@ public class GoToSchool : MonoBehaviour
             GameManager.Instance.GoToSchoolTaskComplete();
             
         }
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.IncrementDay();
+        }
     }
 
     IEnumerator FadeInAndLoadScene()
