@@ -17,6 +17,7 @@ public class GoToSchool : MonoBehaviour
     public float displayDuration = 5f;  // Time the UI stays fully visible
     public AudioSource[] audioSources;
 
+    private bool atPond = false;
     private bool hasTriggered = false;  // Prevent multiple triggers
     
     public AudioLoop audioLoop;
@@ -25,6 +26,10 @@ public class GoToSchool : MonoBehaviour
     [Header("UI References")]
     public GameObject storyPanelUI;
     public TMP_Text storyText;
+    
+    [Header("Triggers")]
+    public Collider parkPondTrigger; // Assign in Inspector
+    public Collider schoolTrigger;   // Assign in Inspector
 
     void Awake()
     {
@@ -39,16 +44,29 @@ public class GoToSchool : MonoBehaviour
         if (storyPanelUI != null)
             storyPanelUI.SetActive(true);
 
-        if (storyText != null)
+        if (gameManager.currentDay == 1)
         {
-            storyText.text = "I guess I should head to school now...";
-            StartCoroutine(ClearMessageAfterSeconds(7f));
+            if (storyText != null)
+            {
+                storyText.text = "I guess I should head to school now...";
+                StartCoroutine(ClearMessageAfterSeconds(7f));
+            }
+        
+            if (audioLoop != null)
+            {
+                audioLoop.StartAudioLoop();
+            }
+        }
+
+        if (gameManager.currentDay == 2)
+        {
+            if (storyText != null)
+            {
+                storyText.text = "I need to calm down first... maybe going to the park pond would help...";
+                StartCoroutine(ClearMessageAfterSeconds(7f));
+            }
         }
         
-        if (audioLoop != null)
-        {
-            audioLoop.StartAudioLoop();
-        }
     }
 
     private IEnumerator ClearMessageAfterSeconds(float delay)
@@ -60,48 +78,48 @@ public class GoToSchool : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Check if the player entered the trigger
-        if (!hasTriggered && other.CompareTag("Player"))
+        // // Check if the player entered the trigger
+        // if (!hasTriggered && other.CompareTag("Player"))
+        // {
+        //     hasTriggered = true;
+        //     StartCoroutine(FadeInAndLoadScene());
+        //     
+        //     // Task completion is noted here
+        //     gameManager.GoToSchoolTaskComplete();
+        // }
+        
+        if (gameManager.currentDay == 2)
+        {
+            if (!atPond && other == parkPondTrigger) // Player arrives at pond first
+            {
+                atPond = true;
+                StartCoroutine(StayAtPond());
+            }
+            else if (atPond && !hasTriggered && other == schoolTrigger) // Player can go to school after pond
+            {
+                hasTriggered = true;
+                StartCoroutine(FadeInAndLoadScene());
+                gameManager.GoToSchoolTaskComplete();
+            }
+        }
+        else if (!hasTriggered && other == schoolTrigger) // Normal case for Day 1
         {
             hasTriggered = true;
             StartCoroutine(FadeInAndLoadScene());
-            
-            // Task completion is noted here
             gameManager.GoToSchoolTaskComplete();
         }
+    }
+    
+    private IEnumerator StayAtPond()
+    {
+        storyText.text = "The sound of the water is soothing...";
+        yield return new WaitForSeconds(7f);
+        storyText.text = "I feel a little better now. I should head to school now.";
+        StartCoroutine(ClearMessageAfterSeconds(7f));
     }
 
     IEnumerator FadeInAndLoadScene()
     {
-        // // Fade In
-        // yield return StartCoroutine(Fade(0f, 1f, fadeDuration));
-        //
-        // // Display UI for 5 seconds
-        // yield return new WaitForSeconds(displayDuration);
-        //
-        // // Determine the next scene based on the current day
-        // int currentDay = gameManager.currentDay;
-        // string nextScene;
-        //
-        // switch (currentDay)
-        // {
-        //     case 2:
-        //         nextScene = "Day2";
-        //         break;
-        //     case 3:
-        //         nextScene = "Day3"; // need another way to go to day 3 tho bcos they arent going to sch on day 3
-        //         break;
-        //     default:
-        //         nextScene = "Start"; // Fallback in case of unexpected day value
-        //         break;
-        // }
-        //
-        // // Load the determined next scene
-        // SceneManager.LoadScene(nextScene);
-        //
-        // // Increment the day AFTER transitioning to avoid multiple increments
-        // gameManager.IncrementDay();
-        
         yield return StartCoroutine(Fade(0f, 1f, fadeDuration));
         yield return new WaitForSeconds(displayDuration);
 
