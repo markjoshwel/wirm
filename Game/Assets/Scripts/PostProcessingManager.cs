@@ -177,6 +177,15 @@ public class PostProcessingManager : MonoBehaviour
                 lensDistortion.intensity.Override(lensDistortionIntensity.Evaluate(Time.time));
                 chromaticAberration.intensity.Override(chromaticAberrationIntensity.Evaluate(Time.time));
             }
+            
+            if (effectName == "Worst")
+            {
+                vignette.intensity.Override(vignetteIntensity.Evaluate(Time.time));
+                motionBlur.intensity.Override(motionBlurIntensity.Evaluate(Time.time));
+                lensDistortion.intensity.Override(lensDistortionIntensity.Evaluate(Time.time));
+                chromaticAberration.intensity.Override(chromaticAberrationIntensity.Evaluate(Time.time));
+                colorAdjustments.postExposure.Override(colorAdjustmentsIntensity.Evaluate(Time.time * 0.8f)); 
+            }
 
             yield return null;
         }
