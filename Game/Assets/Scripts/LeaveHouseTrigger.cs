@@ -50,6 +50,7 @@ public class LeaveHouseTrigger : MonoBehaviour
     public void ConfirmLeave()
     {
         GameManager.Instance.LogPlayerChoices(); 
+        GameManager.Instance.SetLastScene(SceneManager.GetActiveScene().name);
         SceneManager.LoadScene(nextSceneName);
     }
 

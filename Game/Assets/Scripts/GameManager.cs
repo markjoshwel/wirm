@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     
     public int currentDay = 1;
+    
+    private string lastSceneName;
 
     // Defines UI references
     [Header("UI References")]
@@ -151,5 +153,15 @@ public class GameManager : MonoBehaviour
     public void IncrementDay()
     {
         currentDay++;
+    }
+    
+    public void SetLastScene(string sceneName)
+    {
+        lastSceneName = sceneName;
+    }
+
+    public string GetLastScene()
+    {
+        return lastSceneName;
     }
 }

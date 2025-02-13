@@ -82,6 +82,8 @@ public class GoToSchool : MonoBehaviour
 
         // Display UI for 5 seconds
         yield return new WaitForSeconds(displayDuration);
+        
+        GameManager.Instance.SetLastScene(SceneManager.GetActiveScene().name);
 
         // Load the next scene
         SceneManager.LoadScene(nextSceneName);
