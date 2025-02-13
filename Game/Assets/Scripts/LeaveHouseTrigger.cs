@@ -23,8 +23,8 @@ public class LeaveHouseTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-     confirmationPanel.SetActive(false);
-     warningText.text = "";
+        confirmationPanel.SetActive(false);
+        warningText.text = "";
     }
     
     private void OnTriggerEnter(Collider other)
@@ -41,6 +41,7 @@ public class LeaveHouseTrigger : MonoBehaviour
         warningText.text = "Am I sure I want to leave the house? I might not have completed everything...";
         StartCoroutine(HideWarningPanelAfterDelay(7f)); // can change how long you want the text to show for 
     }
+
     IEnumerator HideWarningPanelAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -49,9 +50,14 @@ public class LeaveHouseTrigger : MonoBehaviour
 
     public void ConfirmLeave()
     {
+        // Log player choices
         GameManager.Instance.LogPlayerChoices(); 
-        GameManager.Instance.SetLastScene(SceneManager.GetActiveScene().name);
+        
+        // Load the next scene directly without needing to set the last scene
         SceneManager.LoadScene(nextSceneName);
+
+        // Optionally, you can increment the day or perform other necessary actions
+        GameManager.Instance.IncrementDay();
     }
 
     public void CancelLeave()
@@ -59,5 +65,4 @@ public class LeaveHouseTrigger : MonoBehaviour
         confirmationPanel.SetActive(false);
         warningPanel.SetActive(true);
     }
-
 }

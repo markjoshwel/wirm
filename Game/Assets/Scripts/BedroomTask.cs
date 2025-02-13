@@ -121,9 +121,6 @@ public class BedroomTask : MonoBehaviour
         }
     }
 
- 
-
-
     // Functions when trash is collected/thrown
     public void CollectTrash()
     {
