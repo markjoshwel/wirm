@@ -3,9 +3,7 @@ import "https://unpkg.com/franken-ui@2.0.0-internal.42/dist/js/icon.iife.js";
 
 const htmlElement = document.documentElement;
 
-const __FRANKEN__ = JSON.parse(
-  localStorage.getItem("__FRANKEN__") || "{}"
-);
+const __FRANKEN__ = JSON.parse(localStorage.getItem("__FRANKEN__") || "{}");
 
 if (
   __FRANKEN__.mode === "dark" ||

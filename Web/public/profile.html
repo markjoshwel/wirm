@@ -36,7 +36,8 @@
     />
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <script type="module" src="/js/ebcd-common-franken-ui.js"></script>
-    <script type="module" src="/js/ebcd-auth.js"></script>
+    <script type="module" src="/js/ebcd-common-navbar.js"></script>
+    <script type="module" src="/js/ebcd-profile.js"></script>
     <style>
       /* latin-ext */
       @font-face {
@@ -105,83 +106,44 @@
     </style>
   </head>
   <body class="bg-background text-foreground">
-    <main class="flex flex-col items-center justify-center h-screen">
-      <div class="w-80 !space-y-6">
-        <div class="flex flex-col !space-y-2 text-center">
-          <h1 class="uk-h3">Authenticate with Us</h1>
-          <p class="text-sm text-muted-foreground">
-            Log in with a social sign on. No account yet? It'll make one!
-          </p>
-        </div>
-        <!-- <div class="!space-y-2">
-          <input id="auth-field-email" class="uk-input" placeholder="name@example.com" type="text" />
-          <a
-            id="auth-button-magic"
-            class="uk-btn uk-btn-primary w-full"
-            href="#check-your-email"
-            data-uk-toggle
-          >
-            Send a Magic Link
-          </a>
-        </div>
-        <div class="relative">
-          <div class="absolute inset-0 flex items-center">
-            <span class="w-full border-t border-border"></span>
-          </div>
-          <div class="relative flex justify-center text-xs uppercase">
-            <span class="bg-background px-2 text-muted-foreground"
-              >Or continue with</span
-            >
-          </div>
-        </div> -->
-        <button
-          id="auth-button-sso-google"
-          class="uk-btn uk-btn-primary w-full"
-        >
-          <svg role="img" viewBox="0 0 24 24" class="mr-2 h-4 w-4">
-            <path
-              fill="currentColor"
-              d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
-            ></path>
-          </svg>
-          Google
-        </button>
-        <!-- <p class="px-8 text-center text-sm text-muted-foreground">
-          By clicking continue, you agree to our
-          <a
-            class="underline underline-offset-4 hover:text-primary"
-            href="#"
-            >Terms of Service</a
-          >
-          and
-          <a
-            class="underline underline-offset-4 hover:text-primary"
-            href="#"
-            >Privacy Policy</a
-          >.
-        </p> -->
+    <header
+      class="uk-position-top !uk-position-z-index p-4 flex justify-between !bg-[hsl(var(--muted))]/75 !backdrop-blur-md text-muted-foreground"
+      data-uk-sticky="position:top"
+    >
+      <div class="flex flex-row gap-2">
+        <img src="/png/logo-icon.png" alt="wirm logo" class="!h-[2.5rem]" />
+        <img
+          src="/png/logo-wordmark-blue.png"
+          alt="wirm wordmark"
+          class="!h-[2.5rem]"
+        />
       </div>
-    </main>
 
-    <div id="check-your-email" class="uk-flex-top uk-modal" data-uk-modal>
-      <div class="uk-modal-dialog uk-margin-auto-vertical">
-        <button
-          class="uk-modal-close absolute right-4 top-4"
-          type="button"
-          data-uk-close
-        ></button>
-        <div class="uk-modal-header">
-          <h2 id="auth-modal-result-header" class="uk-modal-title">Hmm...</h2>
-        </div>
-        <div class="uk-modal-body">
-          <p id="auth-modal-result-body">
-            Waiting for a response from the server...
-          </p>
-        </div>
-        <div class="uk-modal-footer uk-text-right">
-          <button class="uk-modal-close uk-btn uk-btn-default">Okay!</button>
-        </div>
-      </div>
-    </div>
+      <nav class="flex">
+        <ul class="uk-subnav uk-subnav-primary">
+          <li class="uk-active"><a href="/">About</a></li>
+          <li>
+            <a href>
+              <span class="mr-2">Account</span>
+              <uk-icon icon="chevron-down"></uk-icon>
+            </a>
+            <div data-uk-dropdown="mode: click">
+              <ul class="uk-dropdown-nav uk-nav">
+                <li id="nav-auth-logIn">
+                  <a href="/auth.html">Authenticate</a>
+                </li>
+                <li id="nav-auth-profile">
+                  <a href="/profile.html">Profile</a>
+                </li>
+                <li id="nav-auth-logOut">
+                  <a href="/profile.html?logOut=true">Log Out</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li><a href="/booth.html">Manage Booth</a></li>
+        </ul>
+      </nav>
+    </header>
   </body>
 </html>

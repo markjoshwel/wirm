@@ -33,53 +33,53 @@ const actionCodeSettings = {
 // h2..... id="auth-modal-result-header"
 // p...... id="auth-modal-result-body"
 
-// handle magic link auth
-const buttonSendLink = document.getElementById("auth-button-magic");
-buttonSendLink.addEventListener("click", async (event) => {
-  console.log("ebcd-auth: clicked magic");
+// // handle magic link auth
+// const buttonSendLink = document.getElementById("auth-button-magic");
+// buttonSendLink.addEventListener("click", async (event) => {
+//   console.log("ebcd-auth: clicked magic");
 
-  const modalResultHeader = document.getElementById("auth-modal-result-header");
-  const modalResultBody = document.getElementById("auth-modal-result-body");
-  const fieldEmail = document.getElementById("auth-field-email");
-  // try get email from fieldEmail.value
-  const email = fieldEmail ? fieldEmail.value.trim() : null;
+//   const modalResultHeader = document.getElementById("auth-modal-result-header");
+//   const modalResultBody = document.getElementById("auth-modal-result-body");
+//   const fieldEmail = document.getElementById("auth-field-email");
+//   // try get email from fieldEmail.value
+//   const email = fieldEmail ? fieldEmail.value.trim() : null;
 
-  // if email is blank
-  if (!email) {
-    modalResultHeader.innerText = "Error!";
-    modalResultBody.innerText = "Please enter an email address.";
-    return;
-  }
+//   // if email is blank
+//   if (!email) {
+//     modalResultHeader.innerText = "Error!";
+//     modalResultBody.innerText = "Please enter an email address.";
+//     return;
+//   }
 
-  // if email is not valid
-  if (!email.includes("@")) {
-    modalResultHeader.innerText = "Error!";
-    modalResultBody.innerText = "Please enter a valid email address.";
-    return;
-  }
+//   // if email is not valid
+//   if (!email.includes("@")) {
+//     modalResultHeader.innerText = "Error!";
+//     modalResultBody.innerText = "Please enter a valid email address.";
+//     return;
+//   }
 
-  console.log("ebcd-auth/auth-button-magic: sent!");
-  authWithMagicLink(auth, email, actionCodeSettings)
-    .then(() => {
-      console.log("ebcd-auth/auth-button-magic: success!");
-      // The link was successfully sent. Inform the user.
-      modalResultHeader.innerText = "You've Got Mail!";
-      modalResultBody.innerText = `We've sent you an email to ${email} with a magical link to authenticate with us. If you're a new user, you'll make an account. If you're an existing user, you'll be logged in. Check your inbox!`;
+//   console.log("ebcd-auth/auth-button-magic: sent!");
+//   authWithMagicLink(auth, email, actionCodeSettings)
+//     .then(() => {
+//       console.log("ebcd-auth/auth-button-magic: success!");
+//       // The link was successfully sent. Inform the user.
+//       modalResultHeader.innerText = "You've Got Mail!";
+//       modalResultBody.innerText = `We've sent you an email to ${email} with a magical link to authenticate with us. If you're a new user, you'll make an account. If you're an existing user, you'll be logged in. Check your inbox!`;
 
-      // Save the email locally so you don't need to ask the user for it again
-      // if they open the link on the same device.
-      window.localStorage.setItem("emailForSignIn", email);
-    })
-    .catch((error) => {
-      console.log(
-        "ebcd-auth/auth-button-magic: error...",
-        error.code,
-        error.message
-      );
-      modalResultHeader.innerText = "Error!";
-      modalResultBody.innerHTML = `We've encountered an error. Tell the booth runner about this!<br>${error.message}`;
-    });
-});
+//       // Save the email locally so you don't need to ask the user for it again
+//       // if they open the link on the same device.
+//       window.localStorage.setItem("emailForSignIn", email);
+//     })
+//     .catch((error) => {
+//       console.log(
+//         "ebcd-auth/auth-button-magic: error...",
+//         error.code,
+//         error.message
+//       );
+//       modalResultHeader.innerText = "Error!";
+//       modalResultBody.innerHTML = `We've encountered an error. Tell the booth runner about this!<br>${error.message}`;
+//     });
+// });
 
 // handle sso auth
 // <button id="button-sso-google">
