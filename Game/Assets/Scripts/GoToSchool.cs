@@ -31,10 +31,12 @@ public class GoToSchool : MonoBehaviour
     public Collider parkPondTrigger; // Assign in Inspector
     public Collider schoolTrigger;   // Assign in Inspector
 
+    public ResetPosition xrRig;
     void Awake()
     {
+        Debug.Log("IM AWAKE");
         gameManager = GameManager.Instance; // Reference to GameManager instance
-
+        Debug.Log("currentday: " + gameManager.currentDay);
         if (storyPanelUI == null)
             storyPanelUI = GameObject.Find("Story Panel"); // Use the exact name
 
@@ -131,6 +133,8 @@ public class GoToSchool : MonoBehaviour
         yield return new WaitForSeconds(1f); // Small delay to ensure scene transition
 
         gameManager.IncrementDay(); // Now called *after* scene fully loads
+        
+        xrRig.ResetingPosition();
     }
 
     IEnumerator Fade(float startAlpha, float endAlpha, float duration)
