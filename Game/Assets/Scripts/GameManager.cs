@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,9 +16,16 @@ public class GameManager : MonoBehaviour
     ///     Define instance field for accessing the singleton elsewhere
     /// </summary>
     public static GameManager Instance;
-    
+
+    // Starts from Day 1
     public int currentDay = 1;
     
+    // Tracks GoToSchool task status
+    private bool goToSchool = false;
+    private bool bedroomCleaned = false;
+    private bool teethBrushed = false;
+    private bool floorSweeped = false;
+
     private string lastSceneName;
 
     // Defines UI references
@@ -25,27 +33,20 @@ public class GameManager : MonoBehaviour
     public GameObject storyPanelUI;
     public TMP_Text storyText;
 
-    // Trackable Task Completions
-    private bool bedroomCleaned = false;
-    private bool teethBrushed = false;
-    private bool floorSweeped = false;
-    private bool goToSchool = false;
-
     // Queue for managing messages
     private Queue<string> messageQueue = new Queue<string>();
     private bool isMessageActive = false;
-    
+
     /// <summary>
     ///     Checks if tasks are completed
     /// </summary>
     public bool IsBedroomCleaned() { return bedroomCleaned; }
     public bool IsTeethBrushed() { return teethBrushed; }
     public bool IsFloorSweeped() { return floorSweeped; }
-    
     public bool IsGoToSchool() { return goToSchool; }
-    
+
     /// <summary>
-    ///     Enforces singleton behaviour; sets doesn't destroy on load and checks for multiple instances
+    ///     Enforces singleton behavior; sets doesn't destroy on load and checks for multiple instances
     /// </summary>
     private void Awake()
     {
@@ -62,7 +63,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("awake as non-singleton instance, destroying self");
             Destroy(gameObject);
         }
-        
+
         // Try to find UI elements if not set
         if (storyPanelUI == null)
         {
@@ -116,6 +117,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Go To School: " + goToSchool);
     }
 
+    // Checks if all tasks are done before player can go to school
     public void AreTasksDone()
     {
         if (bedroomCleaned && teethBrushed && floorSweeped)
@@ -149,19 +151,24 @@ public class GameManager : MonoBehaviour
     {
         goToSchool = true;
     }
-    
+
+    // Increments the current day by 1
     public void IncrementDay()
     {
         currentDay++;
-    }
-    
-    public void SetLastScene(string sceneName)
-    {
-        lastSceneName = sceneName;
+        Debug.Log("Day incremented to: " + currentDay); // Debug log for tracking day increment
+        
+        // Checks if it's Day 4, then loads the callingChoice scene
+        if (currentDay > 3)
+        {
+            LoadCallingScene();
+        }
     }
 
-    public string GetLastScene()
+    // Loads the callingChoice scene when Day 3 is completed
+    private void LoadCallingScene()
     {
-        return lastSceneName;
+        Debug.Log("Loading Calling Scene: callingChoice");
+        SceneManager.LoadScene("callingChoice");
     }
 }

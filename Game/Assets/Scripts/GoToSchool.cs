@@ -11,26 +11,25 @@ using UnityEngine.SceneManagement;
 public class GoToSchool : MonoBehaviour
 {
     private GameManager gameManager;
-    
-    
+
     public CanvasGroup fadeCanvasGroup; // Assign in Inspector
     public float fadeDuration = 1f;     // Duration for fade in/out
     public float displayDuration = 5f;  // Time the UI stays fully visible
-    public string nextSceneName;        // Name of the scene to load
     public AudioSource[] audioSources;
 
     private bool hasTriggered = false;  // Prevent multiple triggers
     
     public AudioLoop audioLoop;
+    
     // Defines UI references
     [Header("UI References")]
-
     public GameObject storyPanelUI;
     public TMP_Text storyText;
-    
 
     void Start()
     {
+        gameManager = GameManager.Instance; // Reference to GameManager instance
+
         if (storyPanelUI == null)
             storyPanelUI = GameObject.Find("Story Panel"); // Use the exact name
 
@@ -50,15 +49,15 @@ public class GoToSchool : MonoBehaviour
         {
             audioLoop.StartAudioLoop();
         }
-        
-
     }
+
     private IEnumerator ClearMessageAfterSeconds(float delay)
     {
         // Waits for delay to end and hides the UI
         yield return new WaitForSeconds(delay);
         storyText.text = "";
     }
+
     private void OnTriggerEnter(Collider other)
     {
         // Check if the player entered the trigger
@@ -66,12 +65,9 @@ public class GoToSchool : MonoBehaviour
         {
             hasTriggered = true;
             StartCoroutine(FadeInAndLoadScene());
-            GameManager.Instance.GoToSchoolTaskComplete();
             
-        }
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.IncrementDay();
+            // Task completion is noted here
+            gameManager.GoToSchoolTaskComplete();
         }
     }
 
@@ -82,11 +78,29 @@ public class GoToSchool : MonoBehaviour
 
         // Display UI for 5 seconds
         yield return new WaitForSeconds(displayDuration);
-        
-        GameManager.Instance.SetLastScene(SceneManager.GetActiveScene().name);
 
-        // Load the next scene
-        SceneManager.LoadScene(nextSceneName);
+        // Determine the next scene based on the current day
+        int currentDay = gameManager.currentDay;
+        string nextScene;
+
+        switch (currentDay)
+        {
+            case 2:
+                nextScene = "Day2";
+                break;
+            case 3:
+                nextScene = "Day3"; // need another way to go to day 3 tho bcos they arent going to sch on day 3
+                break;
+            default:
+                nextScene = "Start"; // Fallback in case of unexpected day value
+                break;
+        }
+
+        // Load the determined next scene
+        SceneManager.LoadScene(nextScene);
+
+        // Increment the day AFTER transitioning to avoid multiple increments
+        gameManager.IncrementDay();
     }
 
     IEnumerator Fade(float startAlpha, float endAlpha, float duration)
