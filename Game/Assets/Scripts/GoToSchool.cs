@@ -26,7 +26,7 @@ public class GoToSchool : MonoBehaviour
     public GameObject storyPanelUI;
     public TMP_Text storyText;
 
-    void Start()
+    void Awake()
     {
         gameManager = GameManager.Instance; // Reference to GameManager instance
 
@@ -73,34 +73,46 @@ public class GoToSchool : MonoBehaviour
 
     IEnumerator FadeInAndLoadScene()
     {
-        // Fade In
+        // // Fade In
+        // yield return StartCoroutine(Fade(0f, 1f, fadeDuration));
+        //
+        // // Display UI for 5 seconds
+        // yield return new WaitForSeconds(displayDuration);
+        //
+        // // Determine the next scene based on the current day
+        // int currentDay = gameManager.currentDay;
+        // string nextScene;
+        //
+        // switch (currentDay)
+        // {
+        //     case 2:
+        //         nextScene = "Day2";
+        //         break;
+        //     case 3:
+        //         nextScene = "Day3"; // need another way to go to day 3 tho bcos they arent going to sch on day 3
+        //         break;
+        //     default:
+        //         nextScene = "Start"; // Fallback in case of unexpected day value
+        //         break;
+        // }
+        //
+        // // Load the determined next scene
+        // SceneManager.LoadScene(nextScene);
+        //
+        // // Increment the day AFTER transitioning to avoid multiple increments
+        // gameManager.IncrementDay();
+        
         yield return StartCoroutine(Fade(0f, 1f, fadeDuration));
-
-        // Display UI for 5 seconds
         yield return new WaitForSeconds(displayDuration);
 
-        // Determine the next scene based on the current day
         int currentDay = gameManager.currentDay;
-        string nextScene;
+        string nextScene = currentDay == 2 ? "Day2" : (currentDay == 3 ? "Day3" : "Start");
 
-        switch (currentDay)
-        {
-            case 2:
-                nextScene = "Day2";
-                break;
-            case 3:
-                nextScene = "Day3"; // need another way to go to day 3 tho bcos they arent going to sch on day 3
-                break;
-            default:
-                nextScene = "Start"; // Fallback in case of unexpected day value
-                break;
-        }
-
-        // Load the determined next scene
         SceneManager.LoadScene(nextScene);
 
-        // Increment the day AFTER transitioning to avoid multiple increments
-        gameManager.IncrementDay();
+        yield return new WaitForSeconds(1f); // Small delay to ensure scene transition
+
+        gameManager.IncrementDay(); // Now called *after* scene fully loads
     }
 
     IEnumerator Fade(float startAlpha, float endAlpha, float duration)

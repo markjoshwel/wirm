@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     private bool floorSweeped = false;
 
     private string lastSceneName;
+    
+    private bool hasIncrementedToday = false; 
 
     // Defines UI references
     [Header("UI References")]
@@ -73,6 +75,7 @@ public class GameManager : MonoBehaviour
         {
             storyText = GameObject.Find("StoryText").GetComponent<TMP_Text>();
         }
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     // Update is called once per frame
@@ -155,14 +158,21 @@ public class GameManager : MonoBehaviour
     // Increments the current day by 1
     public void IncrementDay()
     {
+        if (hasIncrementedToday) return; // Prevents multiple increments
+        hasIncrementedToday = true;
+
         currentDay++;
-        Debug.Log("Day incremented to: " + currentDay); // Debug log for tracking day increment
-        
-        // Checks if it's Day 4, then loads the callingChoice scene
+        Debug.Log("Day incremented to: " + currentDay);
+
         if (currentDay > 3)
         {
             LoadCallingScene();
         }
+    }
+    
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        hasIncrementedToday = false; // Allows the day to be incremented again in the next transition
     }
 
     // Loads the callingChoice scene when Day 3 is completed
