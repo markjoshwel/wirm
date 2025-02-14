@@ -80,15 +80,7 @@ public class GoToSchool : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // // Check if the player entered the trigger
-        // if (!hasTriggered && other.CompareTag("Player"))
-        // {
-        //     hasTriggered = true;
-        //     StartCoroutine(FadeInAndLoadScene());
-        //     
-        //     // Task completion is noted here
-        //     gameManager.GoToSchoolTaskComplete();
-        // }
+
         
         if (gameManager.currentDay == 2)
         {
