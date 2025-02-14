@@ -1,31 +1,31 @@
 /*
- Author : Wai Lam
- Date : 13/2/2025
- Description : Counting days
+ * Author: Wai Lam
+ * Date: 13/2/2025
+ * Description: Counting days
  */
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using TMPro;
+
 using System;
+using System.Collections;
+using TMPro;
+using UnityEngine;
 
 public class CanvasFade : MonoBehaviour
 {
     public CanvasGroup dayPanel; // Assign the UI Panel
     public TextMeshProUGUI dayText; // Assign the TextMeshPro UI
-    
-    public static event Action OnDayPanelHidden;
+
     private void Start()
     {
         if (GameManager.Instance != null)
         {
-            int dayNumber = GameManager.Instance.currentDay;
+            var dayNumber = GameManager.Instance.currentDay;
             dayText.text = "Day " + dayNumber;
         }
 
         StartCoroutine(FadeOutPanel());
     }
+
+    public static event Action OnDayPanelHidden;
 
     private IEnumerator FadeOutPanel()
     {
@@ -34,8 +34,8 @@ public class CanvasFade : MonoBehaviour
 
         yield return new WaitForSeconds(3f); // Display for 3 seconds
 
-        float fadeDuration = 1.5f;
-        float elapsedTime = 0f;
+        const float fadeDuration = 1.5f;
+        var elapsedTime = 0f;
 
         while (elapsedTime < fadeDuration)
         {
@@ -45,8 +45,7 @@ public class CanvasFade : MonoBehaviour
         }
 
         dayPanel.gameObject.SetActive(false);
-        
-        OnDayPanelHidden?.Invoke();
 
+        OnDayPanelHidden?.Invoke();
     }
 }
