@@ -79,6 +79,8 @@ public class GoToSchool : MonoBehaviour
                 effect.Play(); // Play each particle system
             }
             
+            PostProcessingManager.Instance.TriggerEffect("Panic");
+            
         }
         
     }
@@ -122,6 +124,7 @@ public class GoToSchool : MonoBehaviour
     {
         storyText.text = "The sound of the water is soothing...";
         yield return new WaitForSeconds(7f);
+        PostProcessingManager.Instance.StopEffect();
         storyText.text = "I feel a little better now. I should head to school now.";
         StartCoroutine(ClearMessageAfterSeconds(7f));
     }
