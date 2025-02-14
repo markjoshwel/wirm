@@ -11,9 +11,9 @@ using UnityEngine;
 public class BroomSweeping : MonoBehaviour
 {
     // To track how much trash has been collected so far
-    public int dirtSweeped;
+    public int dirtSweepCount;
 
-    // Defines how much trash is needed to collect in order to unlock the door
+    // Defines how much trash is needed to collect to unlock the door
     public int dirtRequired = 10;
 
     // Defines UI references
@@ -25,39 +25,37 @@ public class BroomSweeping : MonoBehaviour
     [Header("Audio References")] public AudioSource audioSource;
 
     public AudioClip sweepingSound;
-    private GameManager gameManager;
-    private PostProcessingManager PostProcessingManager;
+    private GameManager _gameManager;
+    private PostProcessingManager _postProcessingManager;
 
-    private bool taskCompleted;
+    private bool _taskCompleted;
 
     // Update is called once per frame
     private void Update()
     {
-        if (dirtSweeped >= dirtRequired && !taskCompleted)
-        {
-            taskCompleted = true;
-            GameManager.Instance.FloorSweepedTaskComplete();
+        if (dirtSweepCount < dirtRequired || _taskCompleted) return;
+        
+        _taskCompleted = true;
+        GameManager.Instance.FloorSweepedTaskComplete();
 
-            storyPanelUI.SetActive(true);
-            storyText.text = "I hope the house is clean enough now so I don't get scolded later...";
+        storyPanelUI.SetActive(true);
+        storyText.text = "I hope the house is clean enough now so I don't get scolded later...";
 
-            StartCoroutine(ClearMessageAfterSeconds(7f));
-        }
+        StartCoroutine(ClearMessageAfterSeconds(7f));
     }
 
     private void OnTriggerEnter(Collider other)
     {
         // Now correctly checks for "Dirt" before triggering
-        if (other.CompareTag("Dirt"))
-        {
-            dirtSweeped++;
+        if (!other.CompareTag("Dirt")) return;
+        
+        dirtSweepCount++;
 
-            // Destroy it to prevent extra counting
-            Destroy(other.gameObject);
+        // Destroy it to prevent extra counting
+        Destroy(other.gameObject);
 
-            // Play sound only if no other sound is currently playing
-            if (!audioSource.isPlaying) audioSource.PlayOneShot(sweepingSound);
-        }
+        // Play sound only if no other sound is currently playing
+        if (!audioSource.isPlaying) audioSource.PlayOneShot(sweepingSound);
     }
 
     private IEnumerator ClearMessageAfterSeconds(float delay)
