@@ -12,7 +12,7 @@ using UnityEngine.Rendering.Universal;
 
 public class PostProcessingManager : MonoBehaviour
 {
-    public static PostProcessingManager Instance { get; private set; }
+    public static PostProcessingManager Instance;
 
     // Defines the Global Volume
     public Volume volume;
