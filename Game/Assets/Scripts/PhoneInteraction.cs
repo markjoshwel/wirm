@@ -1,5 +1,10 @@
+/*
+ * Author: Isaac
+ * Date: 11/2/25
+ * Description: Post-processing camera effects emulating various conditions
+ */
+
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.SceneManagement;
 
 public class PhoneInteraction : MonoBehaviour
@@ -8,70 +13,53 @@ public class PhoneInteraction : MonoBehaviour
     public GameObject choiceUI; // Assign your UI Panel in Inspector
     public Transform attachTransform; // Drag XR Controller's Attach Transform here
 
-    private AudioSource audioSource;
-    private bool phonePickedUp = false;
-    private bool choiceMade = false;
+    private AudioSource _audioSource;
+    private bool _choiceMade;
+    private bool _phonePickedUp;
 
-    void Start()
+    private void Start()
     {
         // Ensure AudioSource is available
-        if (!TryGetComponent(out audioSource))
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
+        if (!TryGetComponent(out _audioSource)) _audioSource = gameObject.AddComponent<AudioSource>();
 
-        if (phoneCallAudio != null)
-        {
-            audioSource.clip = phoneCallAudio;
-        }
+        if (phoneCallAudio != null) _audioSource.clip = phoneCallAudio;
 
         choiceUI.SetActive(false); // Hide UI initially
     }
 
-    // Public method to be used in XR Grab Interactable's On Select Entered event
-    public void PickUpPhone()
-    {
-        if (!phonePickedUp)
-        {
-            phonePickedUp = true;
-            Debug.Log("Phone Picked Up! Showing UI.");
-            choiceUI.SetActive(true); // Show UI panel
-
-            // Ensure phone attaches properly
-            if (attachTransform != null)
-            {
-                transform.position = attachTransform.position;
-                transform.rotation = attachTransform.rotation;
-            }
-        }
-    }
-
     private void Update()
     {
-        if (phonePickedUp && !choiceMade)
-        {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                AnswerCall();
-            }
-            else if (Input.GetKeyDown(KeyCode.B))
-            {
-                DeclineCall();
-            }
-        }
+        if (!_phonePickedUp || _choiceMade) return;
+        if (Input.GetKeyDown(KeyCode.A))
+            AnswerCall();
+        else if (Input.GetKeyDown(KeyCode.B)) DeclineCall();
     }
-    
-    // mark : this is whether the player chooses between seeking help/not seeking help
-    // maybe because they were scared or smtg? 
-    
-    // we can save this to ask them why they chose this and gather info on this bcos
-    // that time i pitched this to a teacher they were happy
-    
-    // smtg along the lines of the MSF wanting to know how to improve and get people to reach out???
+
+    // Public method to be used in XR Grab interactable OnSelectEntered event
+    public void PickUpPhone()
+    {
+        if (_phonePickedUp) return;
+        _phonePickedUp = true;
+        Debug.Log("Phone Picked Up! Showing UI.");
+        choiceUI.SetActive(true); // Show the UI panel
+
+        // Ensure the phone attaches properly
+        if (attachTransform == null) return;
+        transform.position = attachTransform.position;
+        transform.rotation = attachTransform.rotation;
+    }
+
+    // for mark (backend): this is whether the player chooses between seeking help/not seeking help
+    // maybe because they were scared or something? 
+
+    // we can save this to ask them why they chose this and gather info on this because
+    // that time I pitched this to a teacher they were happy
+
+    // something like the MSF wanting to know how to improve and get people to reach out???
 
     private void AnswerCall()
     {
-        choiceMade = true;
+        _choiceMade = true;
         Debug.Log("Phone Answered! Loading GoodEnding...");
         choiceUI.SetActive(false);
         SceneManager.LoadScene("GoodEnding");
@@ -79,10 +67,9 @@ public class PhoneInteraction : MonoBehaviour
 
     private void DeclineCall()
     {
-        choiceMade = true;
+        _choiceMade = true;
         Debug.Log("Call Declined! Loading BadEnding...");
         choiceUI.SetActive(false);
         SceneManager.LoadScene("BadEnding");
     }
 }
-
