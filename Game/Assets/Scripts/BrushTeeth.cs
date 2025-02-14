@@ -1,8 +1,8 @@
 /*
-Author: Wai Lam & Reza
-Date: 27/1/25
-Description: Bathroom interaction
-*/
+ * Author: Wai Lam & Reza
+ * Date: 27/1/25
+ * Description: Bathroom interaction
+ */
 
 using System.Collections;
 using TMPro;
