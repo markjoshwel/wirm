@@ -35,7 +35,7 @@ public class GoToSchool : MonoBehaviour
     void Awake()
     {
         Debug.Log("IM AWAKE");
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
         gameManager = GameManager.Instance; // Reference to GameManager instance
         Debug.Log("currentday: " + gameManager.currentDay);
         if (storyPanelUI == null)
@@ -95,13 +95,15 @@ public class GoToSchool : MonoBehaviour
                 hasTriggered = true;
                 StartCoroutine(FadeInAndLoadScene());
                 gameManager.GoToSchoolTaskComplete();
+                gameManager.IncrementDay(); 
             }
         }
-        else if (!hasTriggered && other == schoolTrigger) // Normal case for Day 1
+        else if (gameManager.currentDay == 1) // Normal case for Day 1
         {
             hasTriggered = true;
             StartCoroutine(FadeInAndLoadScene());
             gameManager.GoToSchoolTaskComplete();
+            gameManager.IncrementDay(); 
         }
     }
     
@@ -124,8 +126,6 @@ public class GoToSchool : MonoBehaviour
         SceneManager.LoadScene(nextScene);
 
         yield return new WaitForSeconds(1f); // Small delay to ensure scene transition
-
-        gameManager.IncrementDay(); // Now called *after* scene fully loads
         
         xrRig.ResetingPosition();
     }
