@@ -1,13 +1,13 @@
 /*
-Author: Reza and Wai Lam
-Date: 3/2/25
-Description: To keep track of tasks, which level the player is at, and game mechanics
-*/
+ * Author: Reza and Wai Lam
+ * Date: 3/2/25
+ * Description: To keep track of tasks, which level the player is at, and game mechanics
+ */
 
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -17,51 +17,28 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static GameManager Instance;
 
-    // current day, publicly readable, privately settable
-
-    // for public access, setting is a no-op
-    public int currentDay { get; private set; } = 1;
-
-    // Tracks GoToSchool task status
-    private bool goToSchool = false;
-    private bool bedroomCleaned = false;
-    private bool teethBrushed = false;
-    private bool floorSweeped = false;
-
-    private string lastSceneName;
-
-    private bool hasIncrementedToday = false;
-
     // Defines UI references
     [Header("UI References")] public GameObject storyPanelUI;
     public TMP_Text storyText;
 
     // Queue for managing messages
-    private Queue<string> messageQueue = new Queue<string>();
-    private bool isMessageActive = false;
+    private readonly Queue<string> messageQueue = new();
+    private bool bedroomCleaned;
+    private bool floorSweeped;
 
-    /// <summary>
-    ///     Checks if tasks are completed
-    /// </summary>
-    public bool IsBedroomCleaned()
-    {
-        return bedroomCleaned;
-    }
+    // Tracks GoToSchool task status
+    private bool goToSchool;
 
-    public bool IsTeethBrushed()
-    {
-        return teethBrushed;
-    }
+    private bool hasIncrementedToday;
+    private bool isMessageActive;
 
-    public bool IsFloorSweeped()
-    {
-        return floorSweeped;
-    }
+    private string lastSceneName;
+    private bool teethBrushed;
 
-    public bool IsGoToSchool()
-    {
-        return goToSchool;
-    }
+    // current day, publicly readable, privately settable
+
+    // for public access, setting is a no-op
+    public int currentDay { get; private set; } = 1;
 
     /// <summary>
     ///     Enforces singleton behavior; sets doesn't destroy on load and checks for multiple instances
@@ -88,28 +65,45 @@ public class GameManager : MonoBehaviour
         currentDay = 1;
 
         // Try to find UI elements if not set
-        if (storyPanelUI == null)
-        {
-            storyPanelUI = GameObject.Find("StoryPanelUI");
-        }
+        if (storyPanelUI == null) storyPanelUI = GameObject.Find("StoryPanelUI");
 
-        if (storyText == null)
-        {
-            storyText = GameObject.Find("StoryText").GetComponent<TMP_Text>();
-        }
+        if (storyText == null) storyText = GameObject.Find("StoryText").GetComponent<TMP_Text>();
 
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // Continuously check and display queued messages
         if (!isMessageActive && messageQueue.Count > 0)
         {
-            string nextMessage = messageQueue.Dequeue();
+            var nextMessage = messageQueue.Dequeue();
             StartCoroutine(DisplayMessage(nextMessage));
         }
+    }
+
+    /// <summary>
+    ///     Checks if tasks are completed
+    /// </summary>
+    public bool IsBedroomCleaned()
+    {
+        return bedroomCleaned;
+    }
+
+    public bool IsTeethBrushed()
+    {
+        return teethBrushed;
+    }
+
+    public bool IsFloorSweeped()
+    {
+        return floorSweeped;
+    }
+
+    public bool IsGoToSchool()
+    {
+        return goToSchool;
     }
 
     /// <summary>
@@ -147,11 +141,9 @@ public class GameManager : MonoBehaviour
     public void AreTasksDone()
     {
         if (bedroomCleaned && teethBrushed && floorSweeped)
-        {
             QueueMessage("I think I did everything... I think I can leave for school now");
-        }
     }
-    
+
     // mark : u can track whether they want to do their tasks, some people may be unmoticvated to 
     // do the tasks in game, then we can ask them irl why they didnt do the task
 
@@ -186,13 +178,13 @@ public class GameManager : MonoBehaviour
     {
         if (hasIncrementedToday) return; // Prevents multiple increments
         hasIncrementedToday = true;
-        
+
         currentDay++;
         Debug.Log("Day incremented to: " + currentDay);
         if (currentDay > 3) LoadCallingScene();
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         hasIncrementedToday = false; // Allows the day to be incremented again in the next transition
     }
