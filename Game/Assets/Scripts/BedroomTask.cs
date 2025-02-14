@@ -125,7 +125,7 @@ public class BedroomTask : MonoBehaviour
 
         // If the player has collected/ thrown the required amount of trash
         if (trashCollected < trashRequired) return;
-        
+
         if (GameManager.Instance == null)
             Debug.LogError("GameManager instance is null!");
         else

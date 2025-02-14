@@ -14,16 +14,16 @@ public class DrawerDynamicJointConfiguration : MonoBehaviour
 {
     [Header("mark's all-in-one dynamic drawer component")]
     [Space(10)]
-    #if UNITY_EDITOR
-        [HelpBox("make sure every child inside both prefabs are under the" +
-                 "'Interactable Environment' layer.\n\n" +
-                 "whatever non-standard (a la ProBuilder) object geometry under the " +
-                 "interactable prefab should have a convex mesh collider if the console nags about it!\n\n" +
-                 "any Curve Interaction Casters (a la 'XR Origin (VR)' > 'Camera Offset' > '... Controller' " +
-                 "> 'Near-Far Interactor' > 'Curve Interaction Caster') should be have the " +
-                 "'Interactable Environment' layer included in its' Raycast Mask.",
-            HelpBoxMessageType.Error)]
-    #endif
+#if UNITY_EDITOR
+    [HelpBox("make sure every child inside both prefabs are under the" +
+             "'Interactable Environment' layer.\n\n" +
+             "whatever non-standard (a la ProBuilder) object geometry under the " +
+             "interactable prefab should have a convex mesh collider if the console nags about it!\n\n" +
+             "any Curve Interaction Casters (a la 'XR Origin (VR)' > 'Camera Offset' > '... Controller' " +
+             "> 'Near-Far Interactor' > 'Curve Interaction Caster') should be have the " +
+             "'Interactable Environment' layer included in its' Raycast Mask.",
+        HelpBoxMessageType.Error)]
+#endif
     [Space(10)]
     [SerializeField]
     private MovementAxis movementAxis = MovementAxis.Z;

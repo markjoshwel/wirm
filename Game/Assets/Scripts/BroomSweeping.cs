@@ -34,7 +34,7 @@ public class BroomSweeping : MonoBehaviour
     private void Update()
     {
         if (dirtSweepCount < dirtRequired || _taskCompleted) return;
-        
+
         _taskCompleted = true;
         GameManager.Instance.FloorSweepedTaskComplete();
 
@@ -48,7 +48,7 @@ public class BroomSweeping : MonoBehaviour
     {
         // Now correctly checks for "Dirt" before triggering
         if (!other.CompareTag("Dirt")) return;
-        
+
         dirtSweepCount++;
 
         // Destroy it to prevent extra counting

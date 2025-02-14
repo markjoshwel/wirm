@@ -9,7 +9,7 @@ using UnityEngine;
 public class CameraGhostFollow : MonoBehaviour
 {
     public Transform target; // Usually the Main Camera (XR Rig's Head)
-    
+
     public float followSpeed = 5f; // How quickly it follows the target
     public Vector3 offset = new(0, -0.2f, 1.5f); // Position offset
     public bool followRotation = true; // Toggle for rotating with the head
@@ -26,7 +26,7 @@ public class CameraGhostFollow : MonoBehaviour
 
         // Smooth Rotation Follow (Yaw + Pitch)
         if (!followRotation) return;
-        
+
         // Capture target's full rotation
         var targetEulerAngles = target.eulerAngles;
 

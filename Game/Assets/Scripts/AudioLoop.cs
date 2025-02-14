@@ -33,7 +33,7 @@ public class AudioLoop : MonoBehaviour
             audioSource.Stop(); // Pause the audio
             yield return new WaitForSeconds(15f); // Pause for 15 seconds
         }
-        
+
         // NOTE: are we really just going to let this stay alive forever
         // ReSharper disable once IteratorNeverReturns
     }

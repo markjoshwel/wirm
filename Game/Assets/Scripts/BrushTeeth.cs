@@ -54,7 +54,7 @@ public class BrushTeeth : MonoBehaviour
     private void Update()
     {
         if (!_isGrabbing || _taskCompleted) return;
-        
+
         _timer += Time.deltaTime;
         progressBar.value = _timer / progressTime;
 
@@ -64,7 +64,7 @@ public class BrushTeeth : MonoBehaviour
     private void OnDestroy()
     {
         if (_grabInteractable == null) return;
-        
+
         _grabInteractable.selectEntered.RemoveListener(OnGrab);
         _grabInteractable.selectExited.RemoveListener(OnRelease);
     }
@@ -83,7 +83,7 @@ public class BrushTeeth : MonoBehaviour
 
         // Play brushing sound while toothbrush is grabbed, plays only if it isn't playing already
         if (audioSource.isPlaying) return;
-        
+
         audioSource.clip = brushingSound;
 
         // Loops the sound for as long as the toothbrush is held; allows editable progress time

@@ -31,7 +31,7 @@ public class Car : MonoBehaviour
     {
         // Check if the collider belongs to the player
         if (!other.CompareTag("Player")) return;
-        
+
         Debug.Log("Teleporting Player...");
         TeleportPlayer();
     }
