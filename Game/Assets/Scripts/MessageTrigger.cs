@@ -1,45 +1,44 @@
 /*
-Author: Reza
-Date: 7/2/25
-Description: General script for any message triggering areas
-*/
+ * Author: Reza
+ * Date: 7/2/25
+ * Description: General script for any message triggering areas
+ */
 
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class MessageTrigger : MonoBehaviour
 {
     // Defines UI references
-    [Header("UI References")]
-    public GameObject storyPanelUI;
+    [Header("UI References")] public GameObject storyPanelUI;
+
     public TMP_Text storyText;
-    
+
     [Header("Message Settings")]
     // Custom message for this trigger
-    [TextArea(3, 5)] public string message;
-    
+    [TextArea(3, 5)]
+    public string message;
+
     // How long the message stays on screen
-    public float displayDuration = 5f; 
-    
-    // Has message been triggered already or not
-    private bool messageTriggered = false;
-    
+    public float displayDuration = 5f;
+
+    // Has the message been triggered already or not?
+    private bool _messageTriggered;
+
     private void OnTriggerEnter(Collider other)
     {
-        // Shows up only if message has not been triggered and ensures only player triggers it
-        if (!messageTriggered && other.CompareTag("Player"))
-        {
-            storyPanelUI.SetActive(true);
-            storyText.text = message;
-            StartCoroutine(HideMessageAfterSeconds(displayDuration));
-            
-            // Prevents message triggering again
-            messageTriggered = true;
-        }
+        // Shows up only if the message has not been triggered and ensures only player triggers it
+        if (_messageTriggered || !other.CompareTag("Player")) return;
+
+        storyPanelUI.SetActive(true);
+        storyText.text = message;
+        StartCoroutine(HideMessageAfterSeconds(displayDuration));
+
+        // Prevents a message triggering again
+        _messageTriggered = true;
     }
-    
+
     private IEnumerator HideMessageAfterSeconds(float delay)
     {
         // Waits for delay to end and hides the UI
