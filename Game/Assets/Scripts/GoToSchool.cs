@@ -95,7 +95,7 @@ public class GoToSchool : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        
+        Debug.Log("Triggered by: " + other.gameObject.name);
         if (gameManager.currentDay == 2)
         {
             if (!atPond && other == parkPondTrigger) // Player arrives at pond first
@@ -103,7 +103,7 @@ public class GoToSchool : MonoBehaviour
                 atPond = true;
                 StartCoroutine(StayAtPond());
             }
-            else if (atPond && !hasTriggered && other == schoolTrigger) // Player can go to school after pond
+            else if (atPond && other == schoolTrigger) // Player can go to school after pond
             {
                 hasTriggered = true;
                 StartCoroutine(FadeInAndLoadScene());

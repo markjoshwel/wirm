@@ -42,14 +42,15 @@ public class LeaveHouseTrigger : MonoBehaviour
         if (gameManager.currentDay == 1)
         {
             warningText.text = "Should I leave the house? I might not have completed everything...";
-            StartCoroutine(HideWarningPanelAfterDelay(7f)); // can change how long you want the text to show for 
+           
         }
 
-        if (gameManager.currentDay == 2)
+        else if (gameManager.currentDay == 2)
         {
             warningText.text = "Do I even want to go to school...";
-            StartCoroutine(HideWarningPanelAfterDelay(7f)); // can change how long you want the text to show for
+          
         }
+        StartCoroutine(HideWarningPanelAfterDelay(7f)); // can change how long you want the text to show for
     }
 
     IEnumerator HideWarningPanelAfterDelay(float delay)
@@ -69,13 +70,13 @@ public class LeaveHouseTrigger : MonoBehaviour
 
     public void CancelLeave()
     {
-        confirmationPanel.SetActive(false);
-        warningPanel.SetActive(true);
-
         if (gameManager.currentDay == 2)
         {
             gameManager.IncrementDay();
             SceneManager.LoadScene(Day3);
         }
+        confirmationPanel.SetActive(false);
+        warningPanel.SetActive(true);
+       
     }
 }
