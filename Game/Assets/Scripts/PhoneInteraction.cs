@@ -60,6 +60,14 @@ public class PhoneInteraction : MonoBehaviour
             }
         }
     }
+    
+    // mark : this is whether the player chooses between seeking help/not seeking help
+    // maybe because they were scared or smtg? 
+    
+    // we can save this to ask them why they chose this and gather info on this bcos
+    // that time i pitched this to a teacher they were happy
+    
+    // smtg along the lines of the MSF wanting to know how to improve and get people to reach out???
 
     private void AnswerCall()
     {

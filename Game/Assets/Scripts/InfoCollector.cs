@@ -132,7 +132,12 @@ public class InfoCollector : MonoBehaviour
         // Allows new information to be displayed
         isDisplaying = false;
     }
-
+    
+    // mark : this info collecting mechanism is more of easter eggs and if the players are 
+    // observant enough to look around the room / find out what the character is going through
+    
+    // can use this as statistics of what players tend to focus on 
+    
     string GetObjectInfo(GameObject obj)
     {
         // Check if the object's name is the same
