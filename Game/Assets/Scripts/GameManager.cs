@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
             QueueMessage("I think I did everything... I think I can leave for school now");
     }
 
-    // mark: u can track whether they want to do their tasks, some people may be unmotivated to 
+    // for mark (backend): u can track whether they want to do their tasks, some people may be unmotivated to 
     // do the tasks in game, then we can ask them irl why they didn't do the task
 
     // Tracks if the bedroom is cleaned or not
