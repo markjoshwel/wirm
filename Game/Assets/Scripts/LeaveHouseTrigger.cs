@@ -1,5 +1,5 @@
 /*
-Author: Reza and Wai Lam 
+Author: Reza, Wai Lam, Mark
 Date: 10/2/25
 Description: Verifies whether tasks in the house are completed before going to the next scene
 */
@@ -36,10 +36,13 @@ public class LeaveHouseTrigger : MonoBehaviour
 
     void ShowConfirmationButtons()
     {
-        // FIXME: possibly refer to purely GameManager.Instance instead of any
+        // FIXED: possibly refer to purely GameManager.Instance instead of any
         // early-bound reference to GameManager because the game manager might
         // not have died fast enough for other scripts to refer to the new
         // GameManager instance
+        
+        // keeping this here for future ref
+        // --mark
         
         Debug.Log("Current Day in ShowConfirmationButtons: " + GameManager.Instance.currentDay);
         confirmationPanel.SetActive(true);
@@ -77,13 +80,12 @@ public class LeaveHouseTrigger : MonoBehaviour
 
     public void CancelLeave()
     {
-        if (gameManager.currentDay == 2)
+        if (GameManager.Instance.currentDay == 2)
         {
-            gameManager.IncrementDay();
+            GameManager.Instance.IncrementDay();
             SceneManager.LoadScene(Day3);
         }
         confirmationPanel.SetActive(false);
         warningPanel.SetActive(true);
-       
     }
 }
