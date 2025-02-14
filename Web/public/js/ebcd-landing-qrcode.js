@@ -51,6 +51,6 @@ function generateQrCode(text) {
   );
 }
 
-const svg = generateQrCode(window.location.origin + "/signup.html");
+const svg = generateQrCode(window.location.origin + "/auth.html");
 document.getElementById("hero-svg").innerHTML = svg;
 document.getElementById("hero-svg").classList.remove("uk-placeholder");

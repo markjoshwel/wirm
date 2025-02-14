@@ -3,9 +3,164 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Echoes Behind Closed Doors</title>
+
+    <!-- favicons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/png/apple-touch-icon.png"
+    />
+    <link rel="icon" type="image/x-icon" href="/ico/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/png/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/png/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- TODO: social share -->
+
+    <!-- ui stuff -->
+    <!-- temporary ui bundling fix (https://github.com/oven-sh/bun/issues/17243) -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/franken-ui@2.0.0-internal.42/dist/css/core.min.css"
+    />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script type="module" src="/js/ebcd-common-franken-ui.js"></script>
+    <script type="module" src="/js/ebcd-common-navbar.js"></script>
+    <style>
+      /* latin-ext */
+      @font-face {
+        font-family: "Geist";
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/geist/v1/gyByhwUxId8gMEwSGFWNPoTcZY7pVQ.woff2)
+          format("woff2");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+          U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+          U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+          U+A720-A7FF;
+      }
+      /* latin */
+      @font-face {
+        font-family: "Geist";
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/geist/v1/gyByhwUxId8gMEwcGFWNPoTcZY4.woff2)
+          format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+          U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+          U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      /* latin-ext */
+      @font-face {
+        font-family: "Geist Mono";
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/geistmono/v1/or3nQ6H-1_WfwkMZI_qYFrkdmhHijks9bNn0.woff2)
+          format("woff2");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+          U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+          U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+          U+A720-A7FF;
+      }
+      /* latin */
+      @font-face {
+        font-family: "Geist Mono";
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/geistmono/v1/or3nQ6H-1_WfwkMZI_qYFrcdmhHijks9bA.woff2)
+          format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+          U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+          U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      @theme {
+        --font-sans: "Geist", sans-serif;
+        --font-mono: "'Geist Mono'", monospace;
+      }
+      :root {
+        font-family: Geist, sans-serif;
+        font-feature-settings: "liga" 1, "calt" 1; /* fix for Chrome */
+      }
+      @media (max-width: 768px) {
+        .uk-subnav > * > :first-child {
+          padding-left: 0.5rem !important;
+          padding-right: 0.5rem !important;
+        }
+      }
+    </style>
   </head>
-  <body>
-    404
+  <body class="bg-background text-foreground">
+    <header
+      class="uk-position-top !uk-position-z-index p-4 flex justify-between !bg-[hsl(var(--muted))]/75 !backdrop-blur-md text-muted-foreground"
+      data-uk-sticky="position:top"
+    >
+      <div class="flex flex-row gap-2">
+        <img src="/png/logo-icon.png" alt="wirm logo" class="!h-[2.5rem]" />
+        <img
+          src="/png/logo-wordmark-blue.png"
+          alt="wirm wordmark"
+          class="!h-[2.5rem]"
+        />
+      </div>
+
+      <nav class="flex">
+        <ul class="uk-subnav uk-subnav-primary">
+          <li class="uk-active"><a href="/">About</a></li>
+          <li>
+            <a href>
+              <span class="mr-2">Account</span>
+              <uk-icon icon="chevron-down"></uk-icon>
+            </a>
+            <div data-uk-dropdown="mode: click">
+              <ul class="uk-dropdown-nav uk-nav">
+                <li id="nav-auth-logIn">
+                  <a href="/auth.html">Authenticate</a>
+                </li>
+                <li id="nav-auth-profile">
+                  <a href="/profile.html">Profile</a>
+                </li>
+                <li id="nav-auth-logOut">
+                  <a href="/profile.html?logOut=true">Log Out</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li><a href="/booth.html">Manage Booth</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- 404 card -->
+    <main class="flex flex-col items-center justify-center h-screen">
+      <div class="w-80 !space-y-6">
+        <div class="flex flex-col !space-y-2 text-center">
+          <h1 class="uk-h1">404!</h1>
+          <p class="text-sm text-muted-foreground">
+            Page not found.
+          </p>
+        </div>
+        <a
+          class="uk-btn uk-btn-primary self-center"
+          href="/"
+        >
+          Bring me back!
+      </a>
+      </div>
+    </main>
   </body>
 </html>
