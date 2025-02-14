@@ -12,6 +12,7 @@ using UnityEngine.SceneManagement;
 public class GoToSchool : MonoBehaviour
 {
     private GameManager gameManager;
+    public PostProcessingManager postProcessingManager;
 
     public CanvasGroup fadeCanvasGroup; // Assign in Inspector
     public float fadeDuration = 1f;     // Duration for fade in/out
@@ -37,6 +38,13 @@ public class GoToSchool : MonoBehaviour
     public ResetPosition xrRig;
     void Awake()
     {
+        if (postProcessingManager == null)
+        {
+            postProcessingManager = FindObjectOfType<PostProcessingManager>();
+        }
+        
+        SceneManager.sceneLoaded += OnSceneLoaded; // Subscribe to scene loaded event
+        
         Debug.Log("IM AWAKE");
         // DontDestroyOnLoad(gameObject);
         gameManager = GameManager.Instance; // Reference to GameManager instance
@@ -78,8 +86,32 @@ public class GoToSchool : MonoBehaviour
                 effect.Play(); // Play each particle system
             }
             
+            PostProcessingManager.Instance.TriggerEffect("Panic");            
         }
         
+    }
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded; // Unsubscribe to prevent memory leaks
+    }
+    
+    IEnumerator WaitAndFindPostProcessing()
+    {
+        yield return new WaitForSeconds(0.1f); // Small delay to ensure scene objects are initialized
+        postProcessingManager = FindObjectOfType<PostProcessingManager>();
+
+        if (postProcessingManager == null)
+        {
+            Debug.LogError("PostProcessingManager still not found!");
+        }
+        else
+        {
+            Debug.Log("PostProcessingManager found after delay.");
+        }
+    }
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        StartCoroutine(WaitAndFindPostProcessing());
     }
 
     private IEnumerator ClearMessageAfterSeconds(float delay)
@@ -121,6 +153,7 @@ public class GoToSchool : MonoBehaviour
     {
         storyText.text = "The sound of the water is soothing...";
         yield return new WaitForSeconds(7f);
+        PostProcessingManager.Instance.StopEffect();
         storyText.text = "I feel a little better now. I should head to school now.";
         StartCoroutine(ClearMessageAfterSeconds(7f));
     }
