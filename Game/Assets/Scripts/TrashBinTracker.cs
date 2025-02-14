@@ -1,14 +1,12 @@
 /*
-Author: Reza
-Date: 4/2/25
-Description: To track how much trash has been thrown in the trashbin 
-*/
+ * Author: Reza
+ * Date: 4/2/25
+ * Description: To track how much trash has been thrown in the trash bin
+ */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Trash : MonoBehaviour
+public class TrashBinTracker : MonoBehaviour
 {
     private BedroomTask bedroomTask;
 
@@ -17,10 +15,7 @@ public class Trash : MonoBehaviour
         // Find the BedroomTask script in the scene
         bedroomTask = FindObjectOfType<BedroomTask>();
 
-        if (bedroomTask == null)
-        {
-            Debug.LogWarning("BedroomTask script not found in the scene!");
-        }
+        if (bedroomTask == null) Debug.LogWarning("BedroomTask script not found in the scene!");
     }
 
     private void OnTriggerEnter(Collider other)
