@@ -35,6 +35,7 @@ public class GoToSchool : MonoBehaviour
     void Awake()
     {
         Debug.Log("IM AWAKE");
+        DontDestroyOnLoad(gameObject);
         gameManager = GameManager.Instance; // Reference to GameManager instance
         Debug.Log("currentday: " + gameManager.currentDay);
         if (storyPanelUI == null)

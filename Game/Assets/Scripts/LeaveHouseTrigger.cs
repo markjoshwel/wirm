@@ -55,9 +55,6 @@ public class LeaveHouseTrigger : MonoBehaviour
         
         // Load the next scene directly without needing to set the last scene
         SceneManager.LoadScene(nextSceneName);
-
-        // Optionally, you can increment the day or perform other necessary actions
-        GameManager.Instance.IncrementDay();
     }
 
     public void CancelLeave()
