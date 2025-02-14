@@ -29,6 +29,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Day2.unity
     guid: 16cbfc040f037e6479359f442ef826bd
+  - enabled: 1
+    path: Assets/Scenes/Testing Scenes/Day Increment Playground Before.unity
+    guid: fdac41edd0f0efe4eb8881e767913e2a
+  - enabled: 1
+    path: Assets/Scenes/Testing Scenes/Day Increment Playground After.unity
+    guid: 065e518bf23235d4298388363e3f16f8
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}

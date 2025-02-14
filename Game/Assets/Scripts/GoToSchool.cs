@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 public class GoToSchool : MonoBehaviour
 {
     private GameManager gameManager;
-    public PostProcessingManager PostProcessingManager;
+   // public PostProcessingManager PostProcessingManager;
 
     public CanvasGroup fadeCanvasGroup; // Assign in Inspector
     public float fadeDuration = 1f;     // Duration for fade in/out
@@ -50,7 +50,7 @@ public class GoToSchool : MonoBehaviour
         
         if (storyPanelUI != null)
             storyPanelUI.SetActive(true);
-
+        
         if (gameManager.currentDay == 1)
         {
             if (storyText != null)
@@ -79,7 +79,7 @@ public class GoToSchool : MonoBehaviour
                 effect.Play(); // Play each particle system
             }
             
-            PostProcessingManager.Instance.TriggerEffect("Panic");
+           // PostProcessingManager.Instance.TriggerEffect("Panic");
             
         }
         
@@ -124,7 +124,7 @@ public class GoToSchool : MonoBehaviour
     {
         storyText.text = "The sound of the water is soothing...";
         yield return new WaitForSeconds(7f);
-        PostProcessingManager.Instance.StopEffect();
+       // PostProcessingManager.Instance.StopEffect();
         storyText.text = "I feel a little better now. I should head to school now.";
         StartCoroutine(ClearMessageAfterSeconds(7f));
     }

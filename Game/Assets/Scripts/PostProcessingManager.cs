@@ -187,7 +187,7 @@ public class PostProcessingManager : MonoBehaviour
                 colorAdjustments.postExposure.Override(colorAdjustmentsIntensity.Evaluate(Time.time * 0.8f)); 
             }
 
-            yield return null;
+            yield return 0;
         }
 
         // Stop audio after the effect ends

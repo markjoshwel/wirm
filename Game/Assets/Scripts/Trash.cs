@@ -19,7 +19,7 @@ public class Trash : MonoBehaviour
 
         if (bedroomTask == null)
         {
-            Debug.LogError("BedroomTask script not found in the scene!");
+            Debug.LogWarning("BedroomTask script not found in the scene!");
         }
     }
 

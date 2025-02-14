@@ -20,7 +20,6 @@ public class Car : MonoBehaviour
     public Vector3 rotationOffset = Vector3.zero;
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Triggered by: " + other.name);
         // Check if the collider belongs to the player
         if (other.CompareTag("Player"))
         {

@@ -1,5 +1,5 @@
-  /*
-Author: Reza and Wai Lam 
+/*
+Author: Reza and Wai Lam
 Date: 3/2/25
 Description: To keep track of tasks, which level the player is at, and game mechanics
 */
@@ -17,9 +17,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static GameManager Instance;
 
-    // Starts from Day 1
-    public int currentDay = 1;
-    
+    // current day, publicly readable, privately settable
+
+    // for public access, setting is a no-op
+    public int currentDay { get; private set; } = 1;
+
     // Tracks GoToSchool task status
     private bool goToSchool = false;
     private bool bedroomCleaned = false;
@@ -27,12 +29,11 @@ public class GameManager : MonoBehaviour
     private bool floorSweeped = false;
 
     private string lastSceneName;
-    
-    private bool hasIncrementedToday = false; 
+
+    private bool hasIncrementedToday = false;
 
     // Defines UI references
-    [Header("UI References")]
-    public GameObject storyPanelUI;
+    [Header("UI References")] public GameObject storyPanelUI;
     public TMP_Text storyText;
 
     // Queue for managing messages
@@ -42,10 +43,25 @@ public class GameManager : MonoBehaviour
     /// <summary>
     ///     Checks if tasks are completed
     /// </summary>
-    public bool IsBedroomCleaned() { return bedroomCleaned; }
-    public bool IsTeethBrushed() { return teethBrushed; }
-    public bool IsFloorSweeped() { return floorSweeped; }
-    public bool IsGoToSchool() { return goToSchool; }
+    public bool IsBedroomCleaned()
+    {
+        return bedroomCleaned;
+    }
+
+    public bool IsTeethBrushed()
+    {
+        return teethBrushed;
+    }
+
+    public bool IsFloorSweeped()
+    {
+        return floorSweeped;
+    }
+
+    public bool IsGoToSchool()
+    {
+        return goToSchool;
+    }
 
     /// <summary>
     ///     Enforces singleton behavior; sets doesn't destroy on load and checks for multiple instances
@@ -55,26 +71,33 @@ public class GameManager : MonoBehaviour
         // check if instance hasn't been set yet
         if (Instance == null)
         {
-            Debug.Log("awake as singleton instance, setting self as the forever-alive instance");
+            Debug.Log(
+                $"game manager ({GetInstanceID()}) is awake as singleton instance, setting self as the forever-alive instance");
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         // check if instance is already set and it's not this instance
         else if (Instance != null && Instance != this)
         {
-            Debug.Log("awake as non-singleton instance, destroying self");
+            Debug.Log($"game manager ({GetInstanceID()}) is awake as non-singleton instance, destroying self");
             Destroy(gameObject);
+            return;
         }
+
+        Debug.Log($"game manager ({GetInstanceID()}) is initialising itself!");
+        currentDay = 1;
 
         // Try to find UI elements if not set
         if (storyPanelUI == null)
         {
             storyPanelUI = GameObject.Find("StoryPanelUI");
         }
+
         if (storyText == null)
         {
             storyText = GameObject.Find("StoryText").GetComponent<TMP_Text>();
         }
+
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -163,16 +186,12 @@ public class GameManager : MonoBehaviour
     {
         if (hasIncrementedToday) return; // Prevents multiple increments
         hasIncrementedToday = true;
-
+        
         currentDay++;
         Debug.Log("Day incremented to: " + currentDay);
-
-        if (currentDay > 3)
-        {
-            LoadCallingScene();
-        }
+        if (currentDay > 3) LoadCallingScene();
     }
-    
+
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         hasIncrementedToday = false; // Allows the day to be incremented again in the next transition

@@ -12,8 +12,6 @@ using TMPro;
 
 public class LeaveHouseTrigger : MonoBehaviour
 {
-    public GameManager gameManager; 
-    
     // Name of the next scene
     public string nextSceneName;
     public string Day3;
@@ -38,15 +36,24 @@ public class LeaveHouseTrigger : MonoBehaviour
 
     void ShowConfirmationButtons()
     {
+        // FIXME: possibly refer to purely GameManager.Instance instead of any
+        // early-bound reference to GameManager because the game manager might
+        // not have died fast enough for other scripts to refer to the new
+        // GameManager instance
+        
+        Debug.Log("Current Day in ShowConfirmationButtons: " + GameManager.Instance.currentDay);
         confirmationPanel.SetActive(true);
-        if (gameManager.currentDay == 1)
+        warningPanel.SetActive(true);  
+        Debug.Log("Current Day is: " + GameManager.Instance.currentDay);
+        if (GameManager.Instance.currentDay == 1)
         {
+            Debug.Log("Setting text for Day 1");
             warningText.text = "Should I leave the house? I might not have completed everything...";
-           
         }
 
-        else if (gameManager.currentDay == 2)
+        else if (GameManager.Instance.currentDay == 2)
         {
+            Debug.Log("Setting text for Day 2");
             warningText.text = "Do I even want to go to school...";
           
         }
