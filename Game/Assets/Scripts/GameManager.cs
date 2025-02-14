@@ -1,5 +1,5 @@
   /*
-Author: Reza
+Author: Reza and Wai Lam 
 Date: 3/2/25
 Description: To keep track of tasks, which level the player is at, and game mechanics
 */

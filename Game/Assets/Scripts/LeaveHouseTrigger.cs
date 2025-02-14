@@ -1,5 +1,5 @@
 /*
-Author: Reza
+Author: Reza and Wai Lam 
 Date: 10/2/25
 Description: Verifies whether tasks in the house are completed before going to the next scene
 */

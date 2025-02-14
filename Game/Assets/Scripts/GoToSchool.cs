@@ -1,5 +1,5 @@
 /*
-Author: Wai Lam
+Author: Wai Lam and Reza
 Date: 12/2/25
 Description: Go to school
 */
@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+
 public class GoToSchool : MonoBehaviour
 {
     private GameManager gameManager;
@@ -21,6 +22,8 @@ public class GoToSchool : MonoBehaviour
     private bool hasTriggered = false;  // Prevent multiple triggers
     
     public AudioLoop audioLoop;
+    
+    public ParticleSystem[] particleEffects;
     
     // Defines UI references
     [Header("UI References")]
@@ -68,6 +71,13 @@ public class GoToSchool : MonoBehaviour
                 storyText.text = "I need to calm down first... maybe going to the park pond would help...";
                 StartCoroutine(ClearMessageAfterSeconds(7f));
             }
+            
+            foreach (ParticleSystem effect in particleEffects)
+            {
+                effect.gameObject.SetActive(true); // Ensure the GameObject is active
+                effect.Play(); // Play each particle system
+            }
+            
         }
         
     }
