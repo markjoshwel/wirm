@@ -12,7 +12,7 @@ using TMPro;
 public class BroomSweeping : MonoBehaviour
 {
     private GameManager gameManager;
-    private PostProcessingManager postProcessingManager;
+    private PostProcessingManager PostProcessingManager;
     
     // To track how much trash has been collected so far
     public int dirtSweeped = 0;

@@ -12,6 +12,7 @@ using UnityEngine.SceneManagement;
 public class GoToSchool : MonoBehaviour
 {
     private GameManager gameManager;
+    public PostProcessingManager PostProcessingManager;
 
     public CanvasGroup fadeCanvasGroup; // Assign in Inspector
     public float fadeDuration = 1f;     // Duration for fade in/out
