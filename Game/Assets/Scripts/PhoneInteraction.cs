@@ -51,12 +51,13 @@ public class PhoneInteraction : MonoBehaviour
         Debug.Log("Phone Answered! Playing Audio...");
         audioSource.Play();
         choiceUI.SetActive(false); // Hide UI after choice
+        SceneManager.LoadScene("GoodEnding");
     }
 
     void DeclineCall()
     {
         choiceMade = true;
         Debug.Log("Call Declined! Loading 'House' scene...");
-        SceneManager.LoadScene("House");
+        SceneManager.LoadScene("BadEnding");
     }
 }
