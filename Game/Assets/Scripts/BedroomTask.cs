@@ -106,12 +106,10 @@ public class BedroomTask : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f); // Small delay to ensure a smooth transition
 
-        if (storyPanelUI != null && storyText != null)
-        {
-            storyPanelUI.SetActive(true);
-            storyText.text = "My parents are still home... I should clean up first.";
-            StartCoroutine(ClearMessageAfterSeconds(7f));
-        }
+        if (!storyPanelUI || storyText == null) yield break;
+        storyPanelUI.SetActive(true);
+        storyText.text = "My parents are still home... I should clean up first.";
+        StartCoroutine(ClearMessageAfterSeconds(7f));
     }
 
     // Functions when trash is collected/thrown
@@ -126,16 +124,15 @@ public class BedroomTask : MonoBehaviour
         Debug.Log($"Trash collected: {trashCollected}/{trashRequired}");
 
         // If the player has collected/ thrown the required amount of trash
-        if (trashCollected >= trashRequired)
-        {
-            if (GameManager.Instance == null)
-                Debug.LogError("GameManager instance is null!");
-            else
-                GameManager.Instance.BedroomTaskComplete();
+        if (trashCollected < trashRequired) return;
+        
+        if (GameManager.Instance == null)
+            Debug.LogError("GameManager instance is null!");
+        else
+            GameManager.Instance.BedroomTaskComplete();
 
-            // Call unlocking door function/sequence
-            StartCoroutine(PlaySoundSequence());
-        }
+        // Call unlocking door function/sequence
+        StartCoroutine(PlaySoundSequence());
     }
 
     // Functions when the door is locked
@@ -190,18 +187,17 @@ public class BedroomTask : MonoBehaviour
     private void OnDoorGrabAttempt(SelectEnterEventArgs args)
     {
         // If the amount of trash collected is lesser than the required amount
-        if (trashCollected < trashRequired)
-        {
-            // Show the locked door UI
-            lockedDoorUI.SetActive(true);
+        if (trashCollected >= trashRequired) return;
 
-            // Play sound only if no other sound is currently playing
-            if (!audioSource.isPlaying) audioSource.PlayOneShot(lockedSound);
+        // Show the locked door UI
+        lockedDoorUI.SetActive(true);
 
-            // Call the function to hide the UI after delay
-            StartCoroutine(HidePanelAfterSeconds(lockedDoorUI, 5f));
-            Debug.Log("The door is locked! Clean the room first.");
-        }
+        // Play sound only if no other sound is currently playing
+        if (!audioSource.isPlaying) audioSource.PlayOneShot(lockedSound);
+
+        // Call the function to hide the UI after delay
+        StartCoroutine(HidePanelAfterSeconds(lockedDoorUI, 5f));
+        Debug.Log("The door is locked! Clean the room first.");
     }
 
     // Function when the task is completed
