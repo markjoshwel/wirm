@@ -18,7 +18,7 @@ public class CanvasFade : MonoBehaviour
     {
         if (GameManager.Instance != null)
         {
-            var dayNumber = GameManager.Instance.currentDay;
+            var dayNumber = GameManager.Instance.CurrentDay;
             dayText.text = "Day " + dayNumber;
         }
 

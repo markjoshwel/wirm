@@ -36,7 +36,7 @@ public class BroomSweeping : MonoBehaviour
         if (dirtSweepCount < dirtRequired || _taskCompleted) return;
 
         _taskCompleted = true;
-        GameManager.Instance.FloorSweepedTaskComplete();
+        GameManager.Instance.FloorSweptTaskComplete();
 
         storyPanelUI.SetActive(true);
         storyText.text = "I hope the house is clean enough now so I don't get scolded later...";

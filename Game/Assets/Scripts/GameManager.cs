@@ -1,5 +1,5 @@
 /*
- * Author: Reza and Wai Lam
+ * Author: Reza, Wai Lam, Mark
  * Date: 3/2/25
  * Description: To keep track of tasks, which level the player is at, and game mechanics
  */
@@ -22,23 +22,23 @@ public class GameManager : MonoBehaviour
     public TMP_Text storyText;
 
     // Queue for managing messages
-    private readonly Queue<string> messageQueue = new();
-    private bool bedroomCleaned;
-    private bool floorSweeped;
+    private readonly Queue<string> _messageQueue = new();
+    private bool _bedroomCleaned;
+    private bool _floorSwept;
 
     // Tracks GoToSchool task status
-    private bool goToSchool;
+    private bool _goToSchool;
 
-    private bool hasIncrementedToday;
-    private bool isMessageActive;
+    private bool _hasIncrementedToday;
+    private bool _isMessageActive;
 
-    private string lastSceneName;
-    private bool teethBrushed;
+    private string _lastSceneName;
+    private bool _teethBrushed;
 
     // current day, publicly readable, privately settable
 
     // for public access, setting is a no-op
-    public int currentDay { get; private set; } = 1;
+    public int CurrentDay { get; private set; } = 1;
 
     /// <summary>
     ///     Enforces singleton behavior; sets doesn't destroy on load and checks for multiple instances
@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log($"game manager ({GetInstanceID()}) is initialising itself!");
-        currentDay = 1;
+        CurrentDay = 1;
 
         // Try to find UI elements if not set
         if (storyPanelUI == null) storyPanelUI = GameObject.Find("StoryPanelUI");
@@ -76,9 +76,9 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         // Continuously check and display queued messages
-        if (!isMessageActive && messageQueue.Count > 0)
+        if (!_isMessageActive && _messageQueue.Count > 0)
         {
-            var nextMessage = messageQueue.Dequeue();
+            var nextMessage = _messageQueue.Dequeue();
             StartCoroutine(DisplayMessage(nextMessage));
         }
     }
@@ -88,30 +88,31 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public bool IsBedroomCleaned()
     {
-        return bedroomCleaned;
+        return _bedroomCleaned;
     }
 
     public bool IsTeethBrushed()
     {
-        return teethBrushed;
+        return _teethBrushed;
     }
 
-    public bool IsFloorSweeped()
+    public bool IsFloorSwept()
     {
-        return floorSweeped;
+        return _floorSwept;
     }
 
     public bool IsGoToSchool()
     {
-        return goToSchool;
+        return _goToSchool;
     }
 
     /// <summary>
     ///     Queues a message to be displayed
     /// </summary>
+    // ReSharper disable once MemberCanBePrivate.Global
     public void QueueMessage(string message)
     {
-        messageQueue.Enqueue(message);
+        _messageQueue.Enqueue(message);
     }
 
     /// <summary>
@@ -119,80 +120,82 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private IEnumerator DisplayMessage(string message)
     {
-        isMessageActive = true;
+        _isMessageActive = true;
         storyPanelUI.SetActive(true);
         storyText.text = message;
         yield return new WaitForSeconds(7f); // Wait for 7 seconds before hiding
         storyPanelUI.SetActive(false);
-        isMessageActive = false;
+        _isMessageActive = false;
     }
 
-    // Logs player's choices before leaving the house (for future Firebase tracking)
+    // log the players choices before leaving the house (for future Firebase tracking)
     public void LogPlayerChoices()
     {
         Debug.Log("Player is trying to leave the house. Task Completion Status:");
-        Debug.Log("Bedroom Cleaned: " + bedroomCleaned);
-        Debug.Log("Teeth Brushed: " + teethBrushed);
-        Debug.Log("Floor Sweeped: " + floorSweeped);
-        Debug.Log("Go To School: " + goToSchool);
+        Debug.Log("Bedroom Cleaned: " + _bedroomCleaned);
+        Debug.Log("Teeth Brushed: " + _teethBrushed);
+        Debug.Log("Floor Swept: " + _floorSwept);
+        Debug.Log("Go To School: " + _goToSchool);
     }
 
     // Checks if all tasks are done before player can go to school
+    // ReSharper disable once MemberCanBePrivate.Global
     public void AreTasksDone()
     {
-        if (bedroomCleaned && teethBrushed && floorSweeped)
+        if (_bedroomCleaned && _teethBrushed && _floorSwept)
             QueueMessage("I think I did everything... I think I can leave for school now");
     }
 
-    // mark : u can track whether they want to do their tasks, some people may be unmoticvated to 
-    // do the tasks in game, then we can ask them irl why they didnt do the task
+    // mark: u can track whether they want to do their tasks, some people may be unmotivated to 
+    // do the tasks in game, then we can ask them irl why they didn't do the task
 
-    // Tracks if bedroom is cleaned or not
+    // Tracks if the bedroom is cleaned or not
     public void BedroomTaskComplete()
     {
-        bedroomCleaned = true;
+        _bedroomCleaned = true;
         AreTasksDone();
     }
 
-    // Tracks if teeth is brushed or not
+    // Tracks if teeth are brushed or not
     public void BrushTeethTaskComplete()
     {
-        teethBrushed = true;
+        _teethBrushed = true;
         AreTasksDone();
     }
 
-    // Tracks if floor is sweeped or not
-    public void FloorSweepedTaskComplete()
+    // Tracks if the floor has been swept or not
+    public void FloorSweptTaskComplete()
     {
-        floorSweeped = true;
+        _floorSwept = true;
         AreTasksDone();
     }
 
     public void GoToSchoolTaskComplete()
     {
-        goToSchool = true;
+        _goToSchool = true;
     }
 
     // Increments the current day by 1
     public void IncrementDay()
     {
-        if (hasIncrementedToday) return; // Prevents multiple increments
-        hasIncrementedToday = true;
+        if (_hasIncrementedToday) return; // Prevents multiple increments
+        _hasIncrementedToday = true;
 
-        currentDay++;
-        Debug.Log("Day incremented to: " + currentDay);
-        if (currentDay > 3) LoadCallingScene();
+        CurrentDay++;
+        Debug.Log("Day incremented to: " + CurrentDay);
+        if (CurrentDay > 3) LoadCallingScene();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        hasIncrementedToday = false; // Allows the day to be incremented again in the next transition
+        _hasIncrementedToday = false; // Allows the day to be incremented again in the next transition
     }
 
     // Loads the callingChoice scene when Day 3 is completed
     private void LoadCallingScene()
     {
         Debug.Log("Loading Calling Scene: callingChoice");
-        SceneManager.LoadScene("CallingChoice");
+        Debug.LogError("not ready yet");
+        // FIXME: SceneManager.LoadScene("CallingChoice");
     }
 }

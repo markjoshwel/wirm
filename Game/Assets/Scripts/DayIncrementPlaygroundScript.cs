@@ -32,11 +32,11 @@ public class DayIncrementPlaygroundScript : MonoBehaviour
             Debug.Log("initialisation wait...");
             yield return new WaitForSeconds(3);
 
-            Debug.Log($"hello vro, day is {GameManager.Instance.currentDay}");
+            Debug.Log($"hello vro, day is {GameManager.Instance.CurrentDay}");
 
             // get game manager and then increment the day
             GameManager.Instance.IncrementDay();
-            Debug.Log($"post-increment day is {GameManager.Instance.currentDay}");
+            Debug.Log($"post-increment day is {GameManager.Instance.CurrentDay}");
 
             // change to the next scene
             // ReSharper disable once Unity.LoadSceneDisabledSceneName
@@ -48,7 +48,7 @@ public class DayIncrementPlaygroundScript : MonoBehaviour
             Debug.Log("initialisation wait...");
             yield return new WaitForSeconds(3);
 
-            Debug.Log($"hello vro, day is {GameManager.Instance.currentDay}");
+            Debug.Log($"hello vro, day is {GameManager.Instance.CurrentDay}");
         }
 
         yield return 0;
