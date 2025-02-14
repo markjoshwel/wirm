@@ -1,46 +1,43 @@
 /*
-Author: Wai Lam & Reza 
+Author: Wai Lam & Reza
 Date: 27/1/25
 Description: Bathroom interaction
 */
 
 using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
-using TMPro;
 
 public class BrushTeeth : MonoBehaviour
 {
-    private GameManager gameManager;
-    
     public Slider progressBar; // Reference to the Slider (progress bar)
     public float progressTime = 5f; // Time for the progress bar to complete
-    private XRGrabInteractable grabInteractable;
-    private float timer = 0f;
-    private bool isGrabbing = false;
-    
-    private bool taskCompleted = false;
-    
+
     // Defines UI references
-    [Header("UI References")]
+    [Header("UI References")] public GameObject storyPanelUI;
 
-    public GameObject storyPanelUI;
     public TMP_Text storyText;
-    
+
     // Defines Audio References
-    [Header("Audio References")]
-    public AudioSource audioSource;
+    [Header("Audio References")] public AudioSource audioSource;
+
     public AudioClip brushingSound;
+    private GameManager _gameManager;
+    private XRGrabInteractable _grabInteractable;
+    private bool _isGrabbing;
 
-    void Start()
+    private bool _taskCompleted;
+    private float _timer;
+
+    private void Start()
     {
-        grabInteractable = GetComponent<XRGrabInteractable>();
+        _grabInteractable = GetComponent<XRGrabInteractable>();
 
-        if (grabInteractable == null)
+        if (_grabInteractable == null)
         {
             Debug.LogError("XRGrabInteractable component not found on the object!");
             return;
@@ -50,80 +47,75 @@ public class BrushTeeth : MonoBehaviour
         progressBar.gameObject.SetActive(false);
 
         // Subscribe to grab and release events
-        grabInteractable.selectEntered.AddListener(OnGrab);
-        grabInteractable.selectExited.AddListener(OnRelease);
+        _grabInteractable.selectEntered.AddListener(OnGrab);
+        _grabInteractable.selectExited.AddListener(OnRelease);
     }
 
-    void Update()
+    private void Update()
     {
-        if (isGrabbing && !taskCompleted)
-        {
-            timer += Time.deltaTime;
-            progressBar.value = timer / progressTime;
+        if (!_isGrabbing || _taskCompleted) return;
+        
+        _timer += Time.deltaTime;
+        progressBar.value = _timer / progressTime;
 
-            if (timer >= progressTime)
-            {
-                CompleteProgress();
-            }
-        }
+        if (_timer >= progressTime) CompleteProgress();
+    }
+
+    private void OnDestroy()
+    {
+        if (_grabInteractable == null) return;
+        
+        _grabInteractable.selectEntered.RemoveListener(OnGrab);
+        _grabInteractable.selectExited.RemoveListener(OnRelease);
     }
 
     private void OnGrab(SelectEnterEventArgs args)
     {
         // Ignore if grabbed by a socket interactor
-        if (args.interactorObject.transform.GetComponent<XRSocketInteractor>() != null)
-        {
-            return; // Do nothing if grabbed by a socket
-        }
+        if (args.interactorObject.transform.GetComponent<XRSocketInteractor>() !=
+            null) return; // Do nothing if grabbed by a socket
 
         // Only show progress bar if NOT grabbed by a socket
         progressBar.gameObject.SetActive(true);
         progressBar.value = 0f;
-        timer = 0f;
-        isGrabbing = true;
-        
+        _timer = 0f;
+        _isGrabbing = true;
+
         // Play brushing sound while toothbrush is grabbed, plays only if it isn't playing already
-        if (!audioSource.isPlaying)
-        {
-            audioSource.clip = brushingSound;
-            
-            // Loops the sound for as long as the toothbrush is held; allows editable progress time
-            audioSource.loop = true;  
-            
-            audioSource.Play();
-        }
+        if (audioSource.isPlaying) return;
+        
+        audioSource.clip = brushingSound;
+
+        // Loops the sound for as long as the toothbrush is held; allows editable progress time
+        audioSource.loop = true;
+
+        audioSource.Play();
     }
 
     private void OnRelease(SelectExitEventArgs args)
     {
         // Stop progress when released, regardless of interactor type
         progressBar.gameObject.SetActive(false);
-        isGrabbing = false;
-        timer = 0f;
-        
+        _isGrabbing = false;
+        _timer = 0f;
+
         // Stop the brushing sound when the toothbrush is released
-        if (audioSource.isPlaying)
-        {
-            audioSource.Stop();
-        }
+        if (audioSource.isPlaying) audioSource.Stop();
     }
 
     private void CompleteProgress()
     {
-        if (taskCompleted) return;
-        
-        taskCompleted = true;
+        if (_taskCompleted) return;
+
+        _taskCompleted = true;
         progressBar.gameObject.SetActive(false);
-        isGrabbing = false;
-        
+        _isGrabbing = false;
+
         // Stop the brushing sound when the task is completed
-        if (audioSource.isPlaying)
-        {
-            audioSource.Stop();
-        }
-        
+        if (audioSource.isPlaying) audioSource.Stop();
+
         GameManager.Instance.BrushTeethTaskComplete();
-        
+
         storyPanelUI.SetActive(true);
         storyText.text = "I should be fresh enough to go to school now...";
 
@@ -133,15 +125,6 @@ public class BrushTeeth : MonoBehaviour
         Debug.Log("Progress completed!");
     }
 
-    private void OnDestroy()
-    {
-        if (grabInteractable != null)
-        {
-            grabInteractable.selectEntered.RemoveListener(OnGrab);
-            grabInteractable.selectExited.RemoveListener(OnRelease);
-        }
-    }
-    
     private IEnumerator ClearMessageAfterSeconds(float delay)
     {
         // Waits for delay to end and hides the UI
