@@ -1,34 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
+/*
+ * Author: Reza
+ * Date: 7/2/25
+ * Description: Vignette breathing effect
+ */
+
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 public class VignetteBreathing : MonoBehaviour
 {
-    [SerializeField]
-    public Volume postProcessingVolume;
-    
-    private Vignette vignette;
+    [SerializeField] public Volume postProcessingVolume;
 
-    [SerializeField]
-    public AnimationCurve intensityCurve; // Assign in Inspector
+    [SerializeField] public AnimationCurve intensityCurve; // Assign in Inspector
+
     public float cycleDuration = 3f; // Time for one full cycle
 
-    void Start()
+    private Vignette _vignette;
+
+    private void Start()
     {
-        if (postProcessingVolume.profile.TryGet(out vignette))
-        {
-            Debug.Log("Vignette found!");
-        }
+        if (postProcessingVolume.profile.TryGet(out _vignette)) Debug.Log("Vignette found!");
     }
 
-    void Update()
+    private void Update()
     {
-        if (vignette != null)
-        {
-            float t = (Time.time % cycleDuration) / cycleDuration; // Loop 0-1 over time
-            vignette.intensity.Override(intensityCurve.Evaluate(t));
-        }
+        if (!_vignette) return;
+
+        var t = Time.time % cycleDuration / cycleDuration; // Loop 0-1 over time
+        _vignette.intensity.Override(intensityCurve.Evaluate(t));
     }
 }
