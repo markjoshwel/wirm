@@ -128,6 +128,9 @@ public class GameManager : MonoBehaviour
             QueueMessage("I think I did everything... I think I can leave for school now");
         }
     }
+    
+    // mark : u can track whether they want to do their tasks, some people may be unmoticvated to 
+    // do the tasks in game, then we can ask them irl why they didnt do the task
 
     // Tracks if bedroom is cleaned or not
     public void BedroomTaskComplete()
