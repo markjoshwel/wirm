@@ -142,11 +142,11 @@ public class InfoCollector : MonoBehaviour
         
         if (obj.name == "Bottles")
             // Returns predefined information
-            return "Saw daddy drink this... I like how it numbs the pain";
+            return "Saw dad drink this... I like how it numbs the pain";
         
         if (obj.name == "Cigarettes")
             // Returns predefined information
-            return "Stole this from mommy. I hope she doesn't find out.";
+            return "Stole this from mom. I hope she doesn't find out.";
         
         if (obj.name == "Penknife")
             // Returns predefined information

@@ -16,6 +16,7 @@ public class LeaveHouseTrigger : MonoBehaviour
     
     // Name of the next scene
     public string nextSceneName;
+    public string Day3;
     public GameObject confirmationPanel; 
     public TMP_Text warningText;
     public GameObject warningPanel;
@@ -38,8 +39,17 @@ public class LeaveHouseTrigger : MonoBehaviour
     void ShowConfirmationButtons()
     {
         confirmationPanel.SetActive(true);
-        warningText.text = "Am I sure I want to leave the house? I might not have completed everything...";
-        StartCoroutine(HideWarningPanelAfterDelay(7f)); // can change how long you want the text to show for 
+        if (gameManager.currentDay == 1)
+        {
+            warningText.text = "Should I leave the house? I might not have completed everything...";
+            StartCoroutine(HideWarningPanelAfterDelay(7f)); // can change how long you want the text to show for 
+        }
+
+        if (gameManager.currentDay == 2)
+        {
+            warningText.text = "Do I even want to go to school...";
+            StartCoroutine(HideWarningPanelAfterDelay(7f)); // can change how long you want the text to show for
+        }
     }
 
     IEnumerator HideWarningPanelAfterDelay(float delay)
@@ -61,5 +71,11 @@ public class LeaveHouseTrigger : MonoBehaviour
     {
         confirmationPanel.SetActive(false);
         warningPanel.SetActive(true);
+
+        if (gameManager.currentDay == 2)
+        {
+            gameManager.IncrementDay();
+            SceneManager.LoadScene(Day3);
+        }
     }
 }
