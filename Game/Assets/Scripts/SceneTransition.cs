@@ -1,9 +1,9 @@
-
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
+// NOTE: / FIXME: no asset usages, and school is not a tag; is this script dead?
 
 public class SceneTransition : MonoBehaviour
 {
@@ -12,20 +12,17 @@ public class SceneTransition : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("School"))
-        {
-            StartCoroutine(FadeOutAndLoadScene());
-        }
+        if (other.CompareTag("School")) StartCoroutine(FadeOutAndLoadScene());
     }
 
     private IEnumerator FadeOutAndLoadScene()
     {
-        float elapsed = 0f;
+        var elapsed = 0f;
 
         while (elapsed < fadeDuration)
         {
             elapsed += Time.deltaTime;
-            float alpha = Mathf.Clamp01(elapsed / fadeDuration);
+            var alpha = Mathf.Clamp01(elapsed / fadeDuration);
             fadeImage.color = new Color(0, 0, 0, alpha);
             yield return null;
         }
