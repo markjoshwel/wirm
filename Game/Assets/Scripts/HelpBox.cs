@@ -17,6 +17,7 @@ public enum HelpBoxMessageType
     Error
 }
 
+#if UNITY_EDITOR
 public class HelpBoxAttribute : PropertyAttribute
 {
     public readonly HelpBoxMessageType MessageType;
@@ -68,3 +69,4 @@ public class HelpBoxAttributeDrawer : DecoratorDrawer
         }
     }
 }
+#endif
