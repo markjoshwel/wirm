@@ -1,37 +1,32 @@
 /*
-Author: Reza
-Date: 13/2/25
-Description: Day 3 script that goes to the last scene after a certain amount of time
-*/
+ * Author: Reza
+ * Date: 13/2/25
+ * Description: Day 3 script that goes to the last scene after a certain amount of time
+ */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Day3 : MonoBehaviour
 {
     // Time in seconds to wait before transitioning to the next scene
     public float timeToWait = 60f; // Change this to the desired wait time
-    private float timer;
-    public string NextScene;
+    public string nextScene;
+    private float _timer;
 
-    void Start()
+    private void Start()
     {
         // Initialize timer
-        timer = 0f;
+        _timer = 0f;
     }
 
-    void Update()
+    private void Update()
     {
         // Increment timer
-        timer += Time.deltaTime;
+        _timer += Time.deltaTime;
 
         // Check if the time has passed
-        if (timer >= timeToWait)
-        {
+        if (_timer >= timeToWait)
             // Call method to change the scene
-           GameManager.Instance.IncrementDay();
-        }
+            GameManager.Instance.IncrementDay();
     }
 }
