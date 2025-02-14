@@ -5,20 +5,18 @@
  */
 
 using System.Collections;
-using System.Diagnostics.CodeAnalysis;
 using TMPro;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
-[SuppressMessage("ReSharper", "GrammarMistakeInComment")]
 public class BedroomTask : MonoBehaviour
 {
     [Header("Task Requirement Values")]
     // To track how much trash has been collected so far
     public int trashCollected;
 
-    // Defines how much trash is needed to collect in order to unlock the door
+    // Defines how much trash is needed to collect to unlock the door
     public int trashRequired = 10;
 
     // Defines the door 
@@ -154,11 +152,11 @@ public class BedroomTask : MonoBehaviour
             _doorCollider.enabled = false;
     }
 
-    // Functions when door is unlocked
+    // Functions when the door is unlocked
     private void UnlockDoor()
     {
         // Ensure rigidbody is not null
-        if (_doorRigidbody != null)
+        if (_doorRigidbody)
         {
             // Allows door movement
             _doorRigidbody.isKinematic = false;
@@ -218,7 +216,7 @@ public class BedroomTask : MonoBehaviour
         audioSource.PlayOneShot(footstepsSound);
         yield return new WaitForSeconds(footstepsSound.length);
 
-        // Play a door slam after the footsteps clip ends
+        // Play a door slam after the footstep clip ends
         audioSource.PlayOneShot(doorSlamSound);
         yield return new WaitForSeconds(doorSlamSound.length);
 
