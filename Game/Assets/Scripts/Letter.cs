@@ -1,22 +1,19 @@
 /*
-Author: Reza
-Date: 3/2/25
-Description: To show letter UI when letter is picked up or dropped
-*/
+ * Author: Reza
+ * Date: 3/2/25
+ * Description: To show letter UI when the letter is picked up or dropped
+ */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Letter : MonoBehaviour
 {
     public GameObject letterUI;
     public AudioClip scribble;
-    
+
     private void Start()
     {
-        letterUI.SetActive(false); 
+        letterUI.SetActive(false);
     }
 
     public void ShowLetterUI()
