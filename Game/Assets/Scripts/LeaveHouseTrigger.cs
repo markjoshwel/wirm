@@ -11,18 +11,25 @@ using UnityEngine.SceneManagement;
 
 public class LeaveHouseTrigger : MonoBehaviour
 {
-    // Name of the next scene
+    
     public string nextSceneName;
     public string day3;
     public GameObject confirmationPanel;
     public TMP_Text warningText;
     public GameObject warningPanel;
+    public GameObject nextdayPanel;
+    
+    public CanvasGroup fadeCanvasGroup; 
+    public float fadeDuration = 1f; 
+    public float displayDuration = 5f; 
+    
 
     // Start is called before the first frame update
     private void Start()
     {
         confirmationPanel.SetActive(false);
         warningText.text = "";
+        nextdayPanel.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -78,11 +85,41 @@ public class LeaveHouseTrigger : MonoBehaviour
     {
         if (GameManager.Instance.CurrentDay == 2)
         {
+            nextdayPanel.SetActive(true);
+            StartCoroutine(FadeInAndLoadScene());
             GameManager.Instance.IncrementDay();
-            SceneManager.LoadScene(day3);
+            
         }
 
         confirmationPanel.SetActive(false);
-        warningPanel.SetActive(true);
+        
+    }
+    
+    private IEnumerator FadeInAndLoadScene()
+    {
+        yield return StartCoroutine(Fade(0f, 1f, fadeDuration));
+        yield return new WaitForSeconds(displayDuration);
+
+        SceneManager.LoadScene(day3);
+
+        yield return new WaitForSeconds(1f); // Small delay to ensure scene transition
+    }
+    private IEnumerator Fade(float startAlpha, float endAlpha, float duration)
+    {
+        var elapsed = 0f;
+        fadeCanvasGroup.alpha = startAlpha;
+
+       
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            var t = elapsed / duration;
+
+            fadeCanvasGroup.alpha = Mathf.Lerp(startAlpha, endAlpha, t);
+            
+            yield return null;
+        }
+
+        fadeCanvasGroup.alpha = endAlpha;
     }
 }

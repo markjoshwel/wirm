@@ -22,6 +22,8 @@ public class GoToSchool : MonoBehaviour
     public AudioLoop audioLoop;
 
     public ParticleSystem[] particleEffects;
+    
+    public AudioSource rainAudioSource;
 
     // Defines UI references
     [Header("UI References")] public GameObject storyPanelUI;
@@ -79,7 +81,12 @@ public class GoToSchool : MonoBehaviour
                     effect.gameObject.SetActive(true); // Ensure the GameObject is active
                     effect.Play(); // Play each particle system
                 }
-
+                
+                if (rainAudioSource != null)
+                {
+                    rainAudioSource.volume = 0.8f;
+                    rainAudioSource.Play();
+                }
                 // PostProcessingManager.Instance.TriggerEffect("Panic");
                 break;
             }
