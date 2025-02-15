@@ -5,6 +5,7 @@
  */
 // https://discussions.unity.com/t/helpattribute-allows-you-to-use-helpbox-in-the-unity-inspector-window/659414/22
 
+#if UNITY_EDITOR
 using System;
 using UnityEditor;
 using UnityEngine;
@@ -17,7 +18,6 @@ public enum HelpBoxMessageType
     Error
 }
 
-#if UNITY_EDITOR
 public class HelpBoxAttribute : PropertyAttribute
 {
     public readonly HelpBoxMessageType MessageType;
