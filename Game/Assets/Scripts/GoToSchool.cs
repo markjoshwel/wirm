@@ -30,7 +30,8 @@ public class GoToSchool : MonoBehaviour
 
     public TMP_Text storyText;
 
-    [Header("Triggers")] public Collider parkPondTrigger; // Assign in Inspector
+    [Header("Triggers")]
+    public GameObject parkPondTrigger; // Assign in Inspector
 
     public Collider schoolTrigger; // Assign in Inspector
 
@@ -93,29 +94,40 @@ public class GoToSchool : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        // override the park pond trigger collider's OnTriggerEnter method
+        // very hacky, beware!
+        if (!parkPondTrigger)
+            throw new System.Exception("park pond trigger not assigned in inspector");
+        
+        // get the TriggerFunctionRemapper component
+        var triggerFunctionRemapper = parkPondTrigger.GetComponent<TriggerFunctionRemapper>();
+        if (triggerFunctionRemapper == null)
+            throw new System.Exception("TriggerFunctionRemapper not found on park pond trigger");
+        
+        // // get the Collider component of the park pond trigger
+        // var parkPondTriggerCollider = parkPondTrigger.GetComponent<Collider>();
+        
+        // then override the OnTriggerEnter method
+        triggerFunctionRemapper.Remap((other) =>
+        {
+            // if not day 2, don't do anything
+            if (_gameManager.CurrentDay != 2) return;
+
+            Debug.Log("Triggered by: " + other.gameObject.name);
+            _atPond = true;
+            StartCoroutine(StayAtPond());
+        });
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Triggered by: " + other.gameObject.name);
-        switch (_gameManager.CurrentDay)
-        {
-            // Player arrives at the pond first
-            // if (!atPond && other == parkPondTrigger)
-            case 2 when !_atPond && other == parkPondTrigger:
-                _atPond = true;
-                StartCoroutine(StayAtPond());
-                break;
-            // if (atPond && other == schoolTrigger)
-            // Normal case for Day 1
-            case 2 when _atPond && other == schoolTrigger:
-            case 1:
-            {
-                _hasTriggered = true;
-                StartCoroutine(FadeInAndLoadScene());
-                _gameManager.GoToSchoolTaskComplete();
-                _gameManager.IncrementDay();
-                break;
-            }
-        }
+        _hasTriggered = true;
+        StartCoroutine(FadeInAndLoadScene());
+        _gameManager.GoToSchoolTaskComplete();
+        _gameManager.IncrementDay(); 
     }
 
     private IEnumerator ClearMessageAfterSeconds(float delay)

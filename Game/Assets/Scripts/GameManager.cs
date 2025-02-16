@@ -195,7 +195,8 @@ public class GameManager : MonoBehaviour
     private void LoadCallingScene()
     {
         Debug.Log("Loading Calling Scene: callingChoice");
-        Debug.LogError("not ready yet");
+        // Debug.LogError("not ready yet");
         // FIXME: SceneManager.LoadScene("CallingChoice");
+        SceneManager.LoadScene("EndingChoice");
     }
 }
