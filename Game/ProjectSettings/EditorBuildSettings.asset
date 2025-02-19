@@ -36,14 +36,17 @@ EditorBuildSettings:
     path: Assets/Scenes/Testing Scenes/Day Increment Playground After.unity
     guid: 065e518bf23235d4298388363e3f16f8
   - enabled: 1
+    path: Assets/Scenes/Day3.unity
+    guid: dfe7c5f65cd63dc4282fbb06ee7e917a
+  - enabled: 1
+    path: Assets/Scenes/EndingChoice.unity
+    guid: 36f01b4c41bd0d64bac998a4c5af9385
+  - enabled: 1
     path: Assets/Scenes/GoodEnding.unity
     guid: de004170c210b114fa72b28853c704b7
   - enabled: 1
     path: Assets/Scenes/BadEnding.unity
     guid: 0b49410f1606e7c4494b9bdd0df77c9f
-  - enabled: 1
-    path: Assets/Scenes/EndingChoice.unity
-    guid: 36f01b4c41bd0d64bac998a4c5af9385
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}
