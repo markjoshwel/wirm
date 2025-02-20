@@ -1,6 +1,3 @@
-
-
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,14 +31,35 @@ public class AuthManager : MonoBehaviour
     public TMP_InputField passwordRegisterVerifyField;
     public TMP_Text warningRegisterText;
 
+
     void Awake()
     {
+        if (FindObjectOfType<AuthManager>() != this)
+        {
+            Destroy(gameObject); // Ensure only one instance exists
+            return;
+        }
+
+        DontDestroyOnLoad(gameObject); // Make this object persistent
+
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
         {
             dependencyStatus = task.Result;
             if (dependencyStatus == DependencyStatus.Available)
             {
                 InitializeFirebase();
+
+                // Remove the automatic login check
+                // Do not log in automatically even if the user is authenticated
+                // Just log the current user status for debugging or later use
+                if (auth.CurrentUser != null)
+                {
+                    Debug.Log("User is already authenticated: " + auth.CurrentUser.Email);
+                }
+                else
+                {
+                    Debug.Log("No user is currently logged in.");
+                }
             }
             else
             {
@@ -49,6 +67,7 @@ public class AuthManager : MonoBehaviour
             }
         });
     }
+
 
     private void InitializeFirebase()
     {
@@ -95,8 +114,12 @@ public class AuthManager : MonoBehaviour
             Debug.LogFormat("User signed in successfully: {0} ({1})", User.DisplayName, User.Email);
             warningLoginText.text = "";
             confirmLoginText.text = "Logged In";
+
+            // ✅ Load the main game scene
+            UnityEngine.SceneManagement.SceneManager.LoadScene("2"); // Change "GameScene" to your target scene
         }
     }
+
 
     private IEnumerator Register(string _email, string _password, string _username)
     {
@@ -112,6 +135,7 @@ public class AuthManager : MonoBehaviour
         {
             Task<AuthResult> RegisterTask = auth.CreateUserWithEmailAndPasswordAsync(_email, _password);
             yield return new WaitUntil(() => RegisterTask.IsCompleted);
+
             if (RegisterTask.Exception != null)
             {
                 Debug.LogWarning($"Failed to register task with {RegisterTask.Exception}");
@@ -145,25 +169,24 @@ public class AuthManager : MonoBehaviour
                     }
                     else
                     {
-                        UserStats newUserStats = new UserStats();
-                        StartCoroutine(SaveUserData(_username, User.UserId, _password, newUserStats));
+                        // ✅ Save user data to Firebase after username is successfully set
+                        StartCoroutine(SaveUserData(_username, User.UserId, _password));
+
                         warningRegisterText.text = "";
-                        //UIManager.instance.LoginScreen();
+                        //UIManager.instance.LoginScreen(); // Uncomment if you have a UI transition
                     }
                 }
             }
         }
     }
 
-    // Use userId (authManager.User.UserId) to store data
-    private IEnumerator SaveUserData(string username, string uid, string password, UserStats userStats)
-    {
-        // Convert UserStats object to a dictionary dynamically
-        var statsData = userStats.ToDictionary();
 
+    // Use userId (authManager.User.UserId) to store data
+    // Use userId (authManager.User.UserId) to store data
+    private IEnumerator SaveUserData(string username, string uid, string password)
+    {
         var playerData = new Dictionary<string, object>
     {
-        { "stat", statsData }, // Use the dynamic stats dictionary here
         { "player_info", new Dictionary<string, object>
             {
                 { "username", username },
@@ -175,17 +198,31 @@ public class AuthManager : MonoBehaviour
             {
                 { "Day1", new Dictionary<string, object>
                     {
-                        { "tasks", new List<string> { "clean room", "go to school" } }
+                        { "tasks", new List<Dictionary<string, object>>
+                            {
+                                new Dictionary<string, object> { { "task", "clean room" }, { "completed", false } },
+                                new Dictionary<string, object> { { "task", "Brush teeth" }, { "completed", false } },
+                                new Dictionary<string, object> { { "task", "Sweep floor" }, { "completed", false } }
+                            }
+                        }
                     }
                 },
                 { "Day2", new Dictionary<string, object>
                     {
-                        { "tasks", new List<string> { "go to school" } }
+                        { "tasks", new List<Dictionary<string, object>>
+                            {
+                                new Dictionary<string, object> { { "task", "go to school" }, { "completed", false } }
+                            }
+                        }
                     }
                 },
                 { "Day3", new Dictionary<string, object>
                     {
-                        { "tasks", new List<string> { "picks up call" } }
+                        { "tasks", new List<Dictionary<string, object>>
+                            {
+                                new Dictionary<string, object> { { "task", "picks up call" }, { "pickupcall", false } }
+                            }
+                        }
                     }
                 }
             }
@@ -204,12 +241,68 @@ public class AuthManager : MonoBehaviour
         {
             Debug.Log("Player data saved successfully.");
         }
-    }    }
-
-internal class UserStats
-{
-    internal object ToDictionary()
-    {
-        throw new System.NotImplementedException();
     }
+    public void UpdateTaskStatus(string day, string taskName, bool isCompleted)
+    {
+        if (auth.CurrentUser != null)
+        {
+            string uid = auth.CurrentUser.UserId;  // Get the current user's UID
+
+            // Reference the correct day and task in Firebase
+            var taskUpdate = new Dictionary<string, object>
+        {
+            { "completed", isCompleted }
+        };
+
+            dbReference.Child("Players").Child(uid).Child(day).Child("tasks")
+                .Child(taskName).UpdateChildrenAsync(taskUpdate).ContinueWith(task =>
+                {
+                    if (task.Exception != null)
+                    {
+                        Debug.LogWarning($"Failed to update task status: {task.Exception}");
+                    }
+                    else
+                    {
+                        Debug.Log($"Task {taskName} on {day} updated to completed.");
+                    }
+                });
+        }
+
+    }
+
+    // The UpdatePickupCallStatus method should be placed outside the other methods in your AuthManager class
+
+    public void UpdatePickupCallStatus(bool pickupCallStatus)
+    {
+        if (auth.CurrentUser != null)
+        {
+            string uid = auth.CurrentUser.UserId;  // Get the current user's UID
+
+            // Reference the correct day and task in Firebase
+            var pickupCallUpdate = new Dictionary<string, object>
+        {
+            { "pickupcall", pickupCallStatus }
+        };
+
+            // Update the pickupcall status for Day 3
+            dbReference.Child("Players").Child(uid).Child("Day3").Child("tasks")
+                .Child("picks up call").UpdateChildrenAsync(pickupCallUpdate).ContinueWith(task =>
+                {
+                    if (task.Exception != null)
+                    {
+                        Debug.LogWarning($"Failed to update pickupcall status: {task.Exception}");
+                    }
+                    else
+                    {
+                        Debug.Log($"pickupcall status updated to {pickupCallStatus}.");
+                    }
+                });
+        }
+        else
+        {
+            Debug.LogWarning("No user is currently authenticated.");
+        }
+    }
+
+
 }

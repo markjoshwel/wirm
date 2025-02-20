@@ -17,6 +17,8 @@ public class PhoneInteraction : MonoBehaviour
     private bool _choiceMade;
     private bool _phonePickedUp;
 
+    public AuthManager authManager;
+
     private void Start()
     {
         // Ensure AudioSource is available
@@ -63,6 +65,10 @@ public class PhoneInteraction : MonoBehaviour
         Debug.Log("Phone Answered! Loading GoodEnding...");
         choiceUI.SetActive(false);
         SceneManager.LoadScene("GoodEnding");
+
+        authManager.UpdatePickupCallStatus(true);  // Call the function to update Firebase
+
+
     }
 
     private void DeclineCall()
@@ -71,5 +77,8 @@ public class PhoneInteraction : MonoBehaviour
         Debug.Log("Call Declined! Loading BadEnding...");
         choiceUI.SetActive(false);
         SceneManager.LoadScene("BadEnding");
+
+        authManager.UpdatePickupCallStatus(false);  // Call the function to update Firebase
+
     }
 }

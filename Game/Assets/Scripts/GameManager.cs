@@ -35,6 +35,9 @@ public class GameManager : MonoBehaviour
     private string _lastSceneName;
     private bool _teethBrushed;
 
+    public AuthManager authManager;  // Add this line to the GameManager
+
+
     // current day, publicly readable, privately settable
 
     // for public access, setting is a no-op
@@ -150,10 +153,14 @@ public class GameManager : MonoBehaviour
     // do the tasks in game, then we can ask them irl why they didn't do the task
 
     // Tracks if the bedroom is cleaned or not
+    // Tracks if the bedroom is cleaned or not
     public void BedroomTaskComplete()
     {
         _bedroomCleaned = true;
         AreTasksDone();
+
+        // Call AuthManager to update the Firebase database
+        //authManager.UpdateTaskStatus("Day1", "clean room", true);  // Example: Update "clean room" task to completed
     }
 
     // Tracks if teeth are brushed or not
@@ -161,6 +168,9 @@ public class GameManager : MonoBehaviour
     {
         _teethBrushed = true;
         AreTasksDone();
+
+        // Call AuthManager to update the Firebase database
+        //authManager.UpdateTaskStatus("Day1", "Brush teeth", true);  // Update "Brush teeth" task to completed
     }
 
     // Tracks if the floor has been swept or not
@@ -168,11 +178,18 @@ public class GameManager : MonoBehaviour
     {
         _floorSwept = true;
         AreTasksDone();
+
+        // Call AuthManager to update the Firebase database
+        authManager.UpdateTaskStatus("Day1", "Sweep floor", true);  // Update "Sweep floor" task to completed
     }
+
 
     public void GoToSchoolTaskComplete()
     {
         _goToSchool = true;
+
+        // Call AuthManager to update the Firebase database
+        authManager.UpdateTaskStatus("Day2", "go to school", true);  // Update "go to school" task to completed
     }
 
     // Increments the current day by 1
