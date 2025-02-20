@@ -1,1 +1,2 @@
-*.asset -text
+# auto detect text files and perform lf normalization
+* text=auto
