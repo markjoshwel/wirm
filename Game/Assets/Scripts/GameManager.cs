@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour
         AreTasksDone();
 
         // Call AuthManager to update the Firebase database
-        //authManager.UpdateTaskStatus("Day1", "clean room", true);  // Example: Update "clean room" task to completed
+        authManager.UpdateTaskStatus("Day1", "clean room", true);  // Example: Update "clean room" task to completed
     }
 
     // Tracks if teeth are brushed or not
@@ -170,7 +170,7 @@ public class GameManager : MonoBehaviour
         AreTasksDone();
 
         // Call AuthManager to update the Firebase database
-        //authManager.UpdateTaskStatus("Day1", "Brush teeth", true);  // Update "Brush teeth" task to completed
+        authManager.UpdateTaskStatus("Day1", "Brush teeth", true);  // Update "Brush teeth" task to completed
     }
 
     // Tracks if the floor has been swept or not
